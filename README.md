@@ -1,8 +1,8 @@
 # Qauto
 
 ### Automated test project in Java with Selenium WebDriver
-Qauto is an automated test project in Java with Selenium WebDriver.
-My task was to test the web app [qauto2](https://qauto2.forstudy.space/).
+Qauto is an automated test project in Java with Selenium WebDriver.<br>
+My task was to test the web app [qauto2](https://qauto2.forstudy.space/).<br>
 List of technologies and libraries were applied:
 - Java SE;
 - [Selenium WebDriver](https://www.selenium.dev/documentation/webdriver/);
