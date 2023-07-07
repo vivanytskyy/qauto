@@ -10,11 +10,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
+import org.openqa.selenium.html5.WebStorage;
+import org.testng.annotations.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,8 +48,14 @@ public class BaseTest {
         webDriver.manage().window().maximize();
         WebDriverHolder.setWebDriver(webDriver);
     }
+    @AfterMethod(alwaysRun = true)
+    public void postCondition(){
+        WebStorage webStorage = (WebStorage) webDriver;
+        webStorage.getSessionStorage().clear();
+        webDriver.manage().deleteAllCookies();
+    }
     @AfterClass(alwaysRun = true)
-    public void teardown(){
+    public void tearDown(){
         if(webDriver != null){
             webDriver.quit();
         }
@@ -80,6 +84,8 @@ public class BaseTest {
         profile.setPreference("browser.download.folderList", 2);
         profile.setPreference("browser.download.dir", PATH_TO_DOWNLOADS_FOLDER);
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/csv,application/zip");
+        //profile.setPreference("network.automatic-ntlm-auth.trusted-uris", "https://qauto2.forstudy.space");
+        //profile.setPreference("dom.disable_beforeunload", false);
         return new FirefoxOptions().setProfile(profile);
     }
 }

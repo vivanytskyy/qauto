@@ -5,6 +5,8 @@
         <parameter name="browser" value="chrome"/>
         <classes >
             <class name="com.gmail.ivanytskyy.vitaliy.GuestPageTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.SignInTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.SignUpTest" />
         </classes>
     </test>
 </suite>

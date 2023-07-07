@@ -1,5 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.pages;
 
+import com.gmail.ivanytskyy.vitaliy.pages.components.AddCarModalBox;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,12 +11,20 @@ import org.openqa.selenium.support.PageFactory;
  * @date 30/06/2023
  */
 public class GuestPage extends BasePage{
-    @FindBy(xpath = "//div[@class='panel-page_heading d-flex justify-content-between']/h1")
+    @FindBy(xpath = "//app-garage/div/div/h1")
     private WebElement garageTitle;
+    @FindBy(css = "button.btn.btn-primary")
+    private WebElement addCarButton;
+    @FindBy(css = "div.modal-content")
+    private WebElement modalContent;
     public GuestPage(){
         PageFactory.initElements(webDriver, this);
     }
     public String getPageTitle(){
-        return garageTitle.getText();
+        return getText(garageTitle);
+    }
+    public AddCarModalBox openAddCarModalBox(){
+        clickButton(addCarButton);
+        return new AddCarModalBox(modalContent);
     }
 }
