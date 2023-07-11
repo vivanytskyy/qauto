@@ -25,12 +25,12 @@ public class BaseTest {
     protected WebDriver webDriver;
     private static final String LOGIN;
     private static final String PASSWORD;
-    private static final String BASE_URL;
+    protected static final String BASE_URL;
     private static final String PATH_TO_DOWNLOADS_FOLDER;
     static {
         LOGIN = TestProperties.getInstance().getProperty("login");
         PASSWORD = TestProperties.getInstance().getProperty("password");
-        BASE_URL = "https://" + LOGIN + ":" + PASSWORD + "@qauto2.forstudy.space";
+        BASE_URL = "https://" + LOGIN + ":" + PASSWORD + "@qauto.forstudy.space";
         PATH_TO_DOWNLOADS_FOLDER = new File("target" + File.separator + "downloads") .getAbsolutePath();
     }
     @BeforeClass

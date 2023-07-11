@@ -1,9 +1,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Suite1" verbose="1" >
-    <test name="qauto2" enabled="true">
+    <test name="qauto" enabled="true">
         <parameter name="browser" value="chrome"/>
         <classes >
+            <class name="com.gmail.ivanytskyy.vitaliy.SettingsTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.GuestPageTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.SignInTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.SignUpTest" />

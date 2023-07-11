@@ -19,11 +19,14 @@ public class BasePage {
     protected Actions actions;
     public BasePage(){
         this.webDriver = WebDriverHolder.getWebDriver();
-        this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(6));
+        this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         this.actions = new Actions(webDriver);
     }
     protected void clickButton(WebElement button){
         wait.until(ExpectedConditions.elementToBeClickable(button)).click();
+    }
+    protected void clickLink(WebElement link){
+        wait.until(ExpectedConditions.elementToBeClickable(link)).click();
     }
     protected String getText(WebElement element){
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();

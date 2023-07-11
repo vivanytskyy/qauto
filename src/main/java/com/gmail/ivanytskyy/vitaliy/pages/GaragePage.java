@@ -1,6 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.pages;
 
 import com.gmail.ivanytskyy.vitaliy.pages.components.UserProfileDropdown;
+import com.gmail.ivanytskyy.vitaliy.pages.components.UserSidebar;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -17,6 +18,8 @@ public class GaragePage extends BasePage{
     private WebElement userProfileDropdown;
     @FindBy(id = "userNavDropdown")
     private WebElement userProfileDropdownButton;
+    @FindBy(xpath = "//nav[contains(@class, 'sidebar')]")
+    private WebElement userSidebar;
 
     public GaragePage() {
         PageFactory.initElements(webDriver, this);
@@ -27,5 +30,8 @@ public class GaragePage extends BasePage{
     public UserProfileDropdown openUserProfileDropdown(){
         clickButton(userProfileDropdownButton);
         return new UserProfileDropdown(userProfileDropdown);
+    }
+    public UserSidebar moveToUserSidebar(){
+        return new UserSidebar(userSidebar);
     }
 }
