@@ -1,8 +1,7 @@
-package com.gmail.ivanytskyy.vitaliy.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
 
-import com.gmail.ivanytskyy.vitaliy.pages.BasePage;
-import com.gmail.ivanytskyy.vitaliy.pages.GaragePage;
-import com.gmail.ivanytskyy.vitaliy.pages.ProfilePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;

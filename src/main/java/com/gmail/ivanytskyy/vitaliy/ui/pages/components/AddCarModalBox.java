@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

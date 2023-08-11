@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy;
+package com.gmail.ivanytskyy.vitaliy.ui;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

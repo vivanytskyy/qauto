@@ -1,7 +1,7 @@
-package com.gmail.ivanytskyy.vitaliy.pages;
+package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
-import com.gmail.ivanytskyy.vitaliy.pages.components.SignInModalBox;
-import com.gmail.ivanytskyy.vitaliy.pages.components.SignUpModalBox;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.SignInModalBox;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.SignUpModalBox;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;

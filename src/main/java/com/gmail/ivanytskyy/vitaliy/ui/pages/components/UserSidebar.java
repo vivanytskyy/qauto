@@ -1,8 +1,6 @@
-package com.gmail.ivanytskyy.vitaliy.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
 
-import com.gmail.ivanytskyy.vitaliy.pages.BasePage;
-import com.gmail.ivanytskyy.vitaliy.pages.ProfilePage;
-import com.gmail.ivanytskyy.vitaliy.pages.SettingsPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,9 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * @author Vitaliy Ivanytskyy
  * @version 1.00
- * @date 07/07/2023
+ * @date 11/07/2023
  */
-public class UserProfileDropdown extends BasePage {
+public class UserSidebar extends BasePage {
     private final WebElement element;
     @FindBy(xpath = ".//a[contains(@href, '/garage')]")
     private WebElement garageLink;
@@ -20,24 +18,31 @@ public class UserProfileDropdown extends BasePage {
     private WebElement fuelExpensesLink;
     @FindBy(xpath = ".//a[contains(@href, '/instructions')]")
     private WebElement instructionsLink;
-    @FindBy(xpath = ".//div/a[contains(@href, '/profile')]")
+    @FindBy(xpath = ".//a[contains(@href, '/profile')]")
     private WebElement profileLink;
-    @FindBy(xpath = ".//div/a[contains(@href, '/settings')]")
-    private WebElement profileSettingsLink;
-    @FindBy(xpath = ".button[text()='logout')]")
-    private WebElement logoutButton;
-    public UserProfileDropdown(WebElement element) {
+    @FindBy(xpath = ".//a[contains(@href, '/settings')]")
+    private WebElement settingsLink;
+    @FindBy(css = ".btn.btn-link.text-danger.btn-sidebar.sidebar_btn")
+    private WebElement logoutLink;
+
+    public UserSidebar(WebElement element) {
         this.element = element;
         PageFactory.initElements(element, this);
     }
+    public GaragePage openGarage(){
+        clickLink(garageLink);
+        return new GaragePage();
+    }
     public ProfilePage openProfile(){
-        moveToElement(profileLink);
-        profileLink.click();
+        clickLink(profileLink);
         return new ProfilePage();
     }
     public SettingsPage openSettings(){
-        moveToElement(profileSettingsLink);
-        profileSettingsLink.click();
+        clickLink(settingsLink);
         return new SettingsPage();
+    }
+    public MainPage logout(){
+        clickLink(logoutLink);
+        return new MainPage();
     }
 }

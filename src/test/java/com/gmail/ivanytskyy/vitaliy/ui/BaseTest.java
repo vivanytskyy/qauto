@@ -1,8 +1,8 @@
-package com.gmail.ivanytskyy.vitaliy;
+package com.gmail.ivanytskyy.vitaliy.ui;
 
-import com.gmail.ivanytskyy.vitaliy.pages.MainPage;
-import com.gmail.ivanytskyy.vitaliy.utils.TestProperties;
-import com.gmail.ivanytskyy.vitaliy.utils.WebDriverHolder;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
+import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
+import com.gmail.ivanytskyy.vitaliy.ui.utils.WebDriverHolder;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,8 +28,8 @@ public class BaseTest {
     protected static final String BASE_URL;
     private static final String PATH_TO_DOWNLOADS_FOLDER;
     static {
-        LOGIN = TestProperties.getInstance().getProperty("login");
-        PASSWORD = TestProperties.getInstance().getProperty("password");
+        LOGIN = TestPropertiesSupplier.getInstance().getProperty("site_login");
+        PASSWORD = TestPropertiesSupplier.getInstance().getProperty("site_password");
         BASE_URL = "https://" + LOGIN + ":" + PASSWORD + "@qauto.forstudy.space";
         PATH_TO_DOWNLOADS_FOLDER = new File("target" + File.separator + "downloads") .getAbsolutePath();
     }

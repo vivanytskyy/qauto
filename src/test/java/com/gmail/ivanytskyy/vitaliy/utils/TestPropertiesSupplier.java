@@ -9,9 +9,9 @@ import java.util.Properties;
  * @version 1.00
  * @date 30/06/2023
  */
-public final class TestProperties {
-    private Properties properties;
-    private static TestProperties instance = null;
+public final class TestPropertiesSupplier {
+    private final Properties properties;
+    private static TestPropertiesSupplier instance = null;
     private static final String PATH_TO_PROPERTIES;
     static {
         PATH_TO_PROPERTIES = new File(
@@ -24,7 +24,7 @@ public final class TestProperties {
                         + "test.properties")
                 .getAbsolutePath();
     }
-    private TestProperties(){
+    private TestPropertiesSupplier(){
         this.properties = new Properties();
         try {
             this.properties.load(new FileReader(PATH_TO_PROPERTIES));
@@ -32,9 +32,9 @@ public final class TestProperties {
             throw new RuntimeException(e);
         }
     }
-    public static TestProperties getInstance(){
+    public static TestPropertiesSupplier getInstance(){
         if(instance == null){
-            instance = new TestProperties();
+            instance = new TestPropertiesSupplier();
         }
         return instance;
     }

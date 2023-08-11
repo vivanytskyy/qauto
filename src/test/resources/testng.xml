@@ -1,13 +1,18 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Suite1" verbose="1" >
-    <test name="qauto" enabled="true">
+    <test name="api" enabled="false">
+        <classes >
+            <class name="com.gmail.ivanytskyy.vitaliy.api.AuthTest" />
+        </classes>
+    </test>
+    <test name="ui" enabled="true">
         <parameter name="browser" value="chrome"/>
         <classes >
-            <class name="com.gmail.ivanytskyy.vitaliy.SettingsTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.GuestPageTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.SignInTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.SignUpTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.SettingsTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.GuestPageTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.SignInTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.SignUpTest" />
         </classes>
     </test>
 </suite>
