@@ -1,6 +1,6 @@
-package com.gmail.ivanytskyy.vitaliy.pages;
+package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
-import com.gmail.ivanytskyy.vitaliy.utils.WebDriverHolder;
+import com.gmail.ivanytskyy.vitaliy.ui.utils.WebDriverHolder;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;

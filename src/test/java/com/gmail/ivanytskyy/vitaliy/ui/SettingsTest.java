@@ -1,6 +1,6 @@
-package com.gmail.ivanytskyy.vitaliy;
+package com.gmail.ivanytskyy.vitaliy.ui;
 
-import com.gmail.ivanytskyy.vitaliy.utils.TestProperties;
+import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,10 +16,10 @@ public class SettingsTest extends BaseTest{
     private static final String USER_EMAIL;
     private static final String USER_PASSWORD;
     static {
-        USER_FIRST_NAME = TestProperties.getInstance().getProperty("new_user_first_name");
-        USER_LAST_NAME = TestProperties.getInstance().getProperty("new_user_last_name");
-        USER_EMAIL = TestProperties.getInstance().getProperty("new_user_email");
-        USER_PASSWORD = TestProperties.getInstance().getProperty("new_user_password");
+        USER_FIRST_NAME = TestPropertiesSupplier.getInstance().getProperty("new_user_first_name");
+        USER_LAST_NAME = TestPropertiesSupplier.getInstance().getProperty("new_user_last_name");
+        USER_EMAIL = TestPropertiesSupplier.getInstance().getProperty("new_user_email");
+        USER_PASSWORD = TestPropertiesSupplier.getInstance().getProperty("new_user_password");
     }
 
     @Test(description = "Delete user account (positive case) trough user profile dropdown ", priority = 10)

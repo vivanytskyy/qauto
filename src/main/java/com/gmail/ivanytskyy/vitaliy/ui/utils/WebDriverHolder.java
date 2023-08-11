@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.utils;
+package com.gmail.ivanytskyy.vitaliy.ui.utils;
 
 import org.openqa.selenium.WebDriver;
 

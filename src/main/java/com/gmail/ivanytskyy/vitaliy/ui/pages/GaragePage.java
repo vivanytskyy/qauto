@@ -1,7 +1,7 @@
-package com.gmail.ivanytskyy.vitaliy.pages;
+package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
-import com.gmail.ivanytskyy.vitaliy.pages.components.UserProfileDropdown;
-import com.gmail.ivanytskyy.vitaliy.pages.components.UserSidebar;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.UserProfileDropdown;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.UserSidebar;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;

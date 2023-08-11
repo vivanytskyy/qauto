@@ -1,8 +1,8 @@
-package com.gmail.ivanytskyy.vitaliy;
+package com.gmail.ivanytskyy.vitaliy.ui;
 
-import com.gmail.ivanytskyy.vitaliy.pages.GaragePage;
-import com.gmail.ivanytskyy.vitaliy.pages.ProfilePage;
-import com.gmail.ivanytskyy.vitaliy.utils.TestProperties;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.ProfilePage;
+import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -27,10 +27,10 @@ public class SignUpTest extends BaseTest{
     private static final String USER_EMAIL;
     private static final String USER_PASSWORD;
     static {
-        USER_FIRST_NAME = TestProperties.getInstance().getProperty("new_user_first_name");
-        USER_LAST_NAME = TestProperties.getInstance().getProperty("new_user_last_name");
-        USER_EMAIL = TestProperties.getInstance().getProperty("new_user_email");
-        USER_PASSWORD = TestProperties.getInstance().getProperty("new_user_password");
+        USER_FIRST_NAME = TestPropertiesSupplier.getInstance().getProperty("new_user_first_name");
+        USER_LAST_NAME = TestPropertiesSupplier.getInstance().getProperty("new_user_last_name");
+        USER_EMAIL = TestPropertiesSupplier.getInstance().getProperty("new_user_email");
+        USER_PASSWORD = TestPropertiesSupplier.getInstance().getProperty("new_user_password");
     }
 
     @Test(description = "Opening SignUp modal box", priority = 10)
