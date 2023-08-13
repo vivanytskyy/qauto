@@ -1,12 +1,9 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
+import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.api.antities.User;
-import com.gmail.ivanytskyy.vitaliy.api.antities.auth.AuthorizationUserCredentialsWrapper;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
-import com.gmail.ivanytskyy.vitaliy.utils.CookieHolder;
-import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
-import com.gmail.ivanytskyy.vitaliy.utils.UserAuthorizationService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,26 +12,45 @@ import org.testng.annotations.Test;
  * @version 1.00
  * @date 09/08/2023
  */
-public class AuthTest {
-    @Test
+public class AuthTest extends BaseTest{
+
+    @Test(description = "Authorization test. Positive case.", priority = 10)
     public void authorizationTest(){
-        UserAuthorizationService.authorize();
-        String cookie = CookieHolder.getInstance().getCookie();
-        //System.out.println(cookie);
-        AuthController controller = new AuthController();
-        String firstName = TestPropertiesSupplier.getInstance().getProperty("user_first_name");
-        String lastName = TestPropertiesSupplier.getInstance().getProperty("user_last_name");
-        String email = TestPropertiesSupplier.getInstance().getProperty("user_email");
-        String password = TestPropertiesSupplier.getInstance().getProperty("user_password");
-        AuthorizationUserCredentialsWrapper authorizationPermit = AuthorizationUserCredentialsWrapper.builder()
-                .email(email)
-                .password(password)
-                .remember(false)
-                .build();
-        User user = controller.signIn(authorizationPermit);
-        System.out.println(user);
-        UsersController usersController = new UsersController(cookie);
-        int statusCode = usersController.deleteUser();
-        Assert.assertEquals(statusCode, 200);
+        AuthController authController = new AuthController();
+        System.out.println("pass: " + credentials.getPassword());
+        authController.signUp(credentials.getRegistrationPermit());
+        User user = authController.signIn(credentials.getAuthorizationPermit());
+        Assert.assertEquals(user.getStatus(), "ok", "Authorization failed");
+        Assert.assertNotNull(user.getData(), "Authorization failed");
+
+        UsersController usersController =
+                new UsersController(authController.getCookie(credentials.getAuthorizationPermit()));
+        Assert.assertEquals(usersController.deleteUser(), 200, "User wasn't deleted");
+    }
+    @Test(description = "Logout test. Positive case", priority = 20)
+    public void logoutTest(){
+        AuthController authController = new AuthController();
+        System.out.println("pass: " + credentials.getPassword());
+        authController.signUp(credentials.getRegistrationPermit());
+        String cookie = authController.getCookie(credentials.getAuthorizationPermit());
+        Assert.assertEquals(authController.logout(cookie), 200, "Logout failed");
+
+        UsersController usersController =
+                new UsersController(authController.getCookie(credentials.getAuthorizationPermit()));
+        Assert.assertEquals(usersController.deleteUser(), 200, "User wasn't deleted");
+    }
+    @Test(description = "Password reset test. Positive case", priority = 30)
+    public void resetPasswordTest(){
+        AuthController authController = new AuthController();
+        System.out.println("pass: " + credentials.getPassword());
+        authController.signUp(credentials.getRegistrationPermit());
+        String cookie = authController.getCookie(credentials.getAuthorizationPermit());
+        String newEmail = Faker.instance().internet().emailAddress();
+        Assert.assertEquals(
+                authController.resetPassword(newEmail, cookie), 200, "Password reset failed");
+
+        UsersController usersController =
+                new UsersController(authController.getCookie(credentials.getAuthorizationPermit()));
+        Assert.assertEquals(usersController.deleteUser(), 200, "User wasn't deleted");
     }
 }
