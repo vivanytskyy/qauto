@@ -1,5 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
+import com.gmail.ivanytskyy.vitaliy.api.exceptions.ApiResponseException;
 import lombok.SneakyThrows;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -25,6 +26,10 @@ public class UsersController extends BaseController{
                 .delete()
                 .build();
         try (Response response = httpClient.newCall(request).execute()) {
+            if(response.code() != 200){
+                assert response.body() != null;
+                throw new ApiResponseException(response.code(), "Logout failed", response.body().string());
+            }
             return response.code();
         }
     }
