@@ -1,8 +1,8 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.api.antities.auth.AuthorizationUserCredentialsWrapper;
-import com.gmail.ivanytskyy.vitaliy.api.antities.auth.RegistrationUserCredentialsWrapper;
+import com.gmail.ivanytskyy.vitaliy.api.antities.auth.AuthorizationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.auth.RegistrationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.utils.CookieHolder;
 import com.gmail.ivanytskyy.vitaliy.utils.UserAuthorizationService;
 import lombok.Data;
@@ -38,8 +38,8 @@ public class BaseTest {
         private final String email;
         private final String password;
         private final boolean remember;
-        private final RegistrationUserCredentialsWrapper registrationPermit;
-        private final AuthorizationUserCredentialsWrapper authorizationPermit;
+        private final RegistrationUserCredentials registrationPermit;
+        private final AuthorizationUserCredentials authorizationPermit;
         private FakeUserCredentials(){
             Faker faker = new Faker();
             firstName = faker.name().firstName();
@@ -48,14 +48,14 @@ public class BaseTest {
             password = faker.internet()
                     .password(8, 15, true, false, true);
             remember = false;
-            registrationPermit = RegistrationUserCredentialsWrapper.builder()
+            registrationPermit = RegistrationUserCredentials.builder()
                     .name(firstName)
                     .lastName(lastName)
                     .email(email)
                     .password(password)
                     .repeatPassword(password)
                     .build();
-            authorizationPermit = AuthorizationUserCredentialsWrapper.builder()
+            authorizationPermit = AuthorizationUserCredentials.builder()
                     .email(email)
                     .password(password)
                     .remember(remember)

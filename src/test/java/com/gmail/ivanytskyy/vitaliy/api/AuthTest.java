@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.api.antities.User;
+import com.gmail.ivanytskyy.vitaliy.api.antities.UserData;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
 import org.testng.Assert;
@@ -19,9 +19,10 @@ public class AuthTest extends BaseTest{
         AuthController authController = new AuthController();
         System.out.println("pass: " + credentials.getPassword());
         authController.signUp(credentials.getRegistrationPermit());
-        User user = authController.signIn(credentials.getAuthorizationPermit());
+        UserData user = authController.signIn(credentials.getAuthorizationPermit());
         Assert.assertEquals(user.getStatus(), "ok", "Authorization failed");
         Assert.assertNotNull(user.getData(), "Authorization failed");
+        Assert.assertTrue(user.getData().getPhotoFilename().contains("png"), "Authorization failed");
 
         UsersController usersController =
                 new UsersController(authController.getCookie(credentials.getAuthorizationPermit()));

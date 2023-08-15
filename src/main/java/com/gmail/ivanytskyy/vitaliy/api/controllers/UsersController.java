@@ -1,10 +1,9 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
-import com.gmail.ivanytskyy.vitaliy.api.exceptions.ApiResponseException;
-import lombok.SneakyThrows;
-import okhttp3.Request;
-import okhttp3.Response;
+import io.restassured.http.ContentType;
+import io.restassured.http.Header;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
+import static io.restassured.RestAssured.given;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -18,19 +17,14 @@ public class UsersController extends BaseController{
         this.cookie = cookie;
     }
 
-    @SneakyThrows
     public int deleteUser(){
-        Request request = new Request.Builder()
-                .url(getApiBaseUrl() + USERS.getPath())
-                .addHeader("Cookie", cookie)
-                .delete()
-                .build();
-        try (Response response = httpClient.newCall(request).execute()) {
-            if(response.code() != 200){
-                assert response.body() != null;
-                throw new ApiResponseException(response.code(), "Logout failed", response.body().string());
-            }
-            return response.code();
-        }
+        return given()
+                .when()
+                    .contentType(ContentType.JSON)
+                    .header(new Header("Cookie", cookie))
+                    .delete(getApiBaseUrl() + USERS.getPath())
+                .then()
+                    .extract()
+                    .statusCode();
     }
 }

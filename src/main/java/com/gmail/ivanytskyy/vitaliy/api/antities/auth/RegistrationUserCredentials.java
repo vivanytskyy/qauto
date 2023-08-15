@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class RegistrationUserCredentialsWrapper {
+public class RegistrationUserCredentials {
     private String name;
     private String lastName;
     private String email;
