@@ -1,6 +1,8 @@
 package com.gmail.ivanytskyy.vitaliy.api.antities;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -8,9 +10,12 @@ import lombok.Builder;
  * @date 08/08/2023
  */
 @lombok.Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Data {
-    private Long userId;
+    private Integer userId;
     private String distanceUnits;
     private String currency;
+    private String photoFilename;
 }

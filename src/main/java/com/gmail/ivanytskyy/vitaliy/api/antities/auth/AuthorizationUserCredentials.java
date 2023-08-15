@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class AuthorizationUserCredentialsWrapper {
+public class AuthorizationUserCredentials {
     private String email;
     private String password;
     private boolean remember;
