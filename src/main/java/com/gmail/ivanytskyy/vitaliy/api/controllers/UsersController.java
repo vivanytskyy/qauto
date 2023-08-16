@@ -21,9 +21,10 @@ public class UsersController extends BaseController{
     public ResponseStatusSuccess deleteUser(){
         setSpecifications(getRequestSpecification(getApiBaseUrl()), getResponseSpecification(200));
         return given()
-                .when()
+                    .basePath(USERS.getPath())
                     .header(new Header("Cookie", cookie))
-                    .delete(USERS.getPath())
+                .when()
+                    .delete()
                 .then()
                     .extract()
                     .as(ResponseStatusSuccess.class);
