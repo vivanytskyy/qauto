@@ -1,9 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
-import io.restassured.http.ContentType;
+import com.gmail.ivanytskyy.vitaliy.api.antities.response.ResponseStatusSuccess;
 import io.restassured.http.Header;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 import static io.restassured.RestAssured.given;
+import static com.gmail.ivanytskyy.vitaliy.api.utils.RestAssuredSpecifications.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -17,14 +18,14 @@ public class UsersController extends BaseController{
         this.cookie = cookie;
     }
 
-    public int deleteUser(){
+    public ResponseStatusSuccess deleteUser(){
+        setSpecifications(getRequestSpecification(getApiBaseUrl()), getResponseSpecification(200));
         return given()
                 .when()
-                    .contentType(ContentType.JSON)
                     .header(new Header("Cookie", cookie))
-                    .delete(getApiBaseUrl() + USERS.getPath())
+                    .delete(USERS.getPath())
                 .then()
                     .extract()
-                    .statusCode();
+                    .as(ResponseStatusSuccess.class);
     }
 }

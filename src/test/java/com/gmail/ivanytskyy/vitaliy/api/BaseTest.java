@@ -1,8 +1,8 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.api.antities.auth.AuthorizationUserCredentials;
-import com.gmail.ivanytskyy.vitaliy.api.antities.auth.RegistrationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.AuthorizationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.RegistrationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.utils.CookieHolder;
 import com.gmail.ivanytskyy.vitaliy.utils.UserAuthorizationService;
 import lombok.Data;
