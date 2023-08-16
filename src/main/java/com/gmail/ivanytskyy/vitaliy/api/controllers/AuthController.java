@@ -20,9 +20,10 @@ public class AuthController extends BaseController{
     public UserData signUp(RegistrationUserCredentials credentials){
         setSpecifications(getRequestSpecification(getApiBaseUrl()));
         return given()
-                .when()
+                    .basePath(AUTH.getPath() + "/signup")
                     .body(credentials)
-                    .post(AUTH.getPath() + "/signup")
+                .when()
+                    .post()
                 .then()
                     .extract()
                     .as(UserData.class);
@@ -30,9 +31,10 @@ public class AuthController extends BaseController{
     public UserData signIn(AuthorizationUserCredentials credentials){
         setSpecifications(getRequestSpecification(getApiBaseUrl()));
         return given()
-                .when()
+                    .basePath(AUTH.getPath() + "/signin")
                     .body(credentials)
-                    .post(AUTH.getPath() + "/signin")
+                .when()
+                    .post()
                 .then()
                     .extract()
                     .as(UserData.class);
@@ -40,9 +42,10 @@ public class AuthController extends BaseController{
     public ResponseStatusSuccess logout(String cookie){
         setSpecifications(getRequestSpecification(getApiBaseUrl()), getResponseSpecification(200));
         return given()
-                .when()
+                    .basePath(AUTH.getPath() + "/logout")
                     .header(new Header("Cookie", cookie))
-                    .get(AUTH.getPath() + "/logout")
+                .when()
+                    .get()
                 .then()
                     .extract()
                     .as(ResponseStatusSuccess.class);
@@ -50,10 +53,11 @@ public class AuthController extends BaseController{
     public ResponseStatusSuccess resetPassword(ResetPassword resetPassword, String cookie){
         setSpecifications(getRequestSpecification(getApiBaseUrl()), getResponseSpecification(200));
         return given()
-                .when()
+                    .basePath(AUTH.getPath() + "/resetPassword")
                     .header(new Header("Cookie", cookie))
                     .body(resetPassword)
-                    .post(AUTH.getPath() + "/resetPassword")
+                .when()
+                    .post()
                 .then()
                     .extract()
                     .as(ResponseStatusSuccess.class);
@@ -61,9 +65,10 @@ public class AuthController extends BaseController{
     public String getCookie(AuthorizationUserCredentials credentials){
         setSpecifications(getRequestSpecification(getApiBaseUrl()));
         return given()
-                .when()
+                    .basePath(AUTH.getPath() + "/signin")
                     .body(credentials)
-                    .post(AUTH.getPath() + "/signin")
+                .when()
+                    .post()
                 .then()
                     .extract()
                     .headers()
