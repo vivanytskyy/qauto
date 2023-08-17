@@ -13,9 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserData {
-    private Integer userId;
-    private String distanceUnits;
-    private String currency;
-    private String photoFilename;
+public class UserDataResponse {
+    private String status;
+    private UserData data;
 }

@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserData {
+public class ProfileData {
     private Integer userId;
-    private String distanceUnits;
-    private String currency;
+    private String name;
+    private String lastName;
     private String photoFilename;
+    private String dateBirth;
+    private String country;
 }

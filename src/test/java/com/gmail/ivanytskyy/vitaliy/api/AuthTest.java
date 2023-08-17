@@ -1,9 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.ResetPassword;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.ResponseStatusSuccess;
+import com.gmail.ivanytskyy.vitaliy.api.antities.request.ResetPasswordRequest;
 import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.response.StatusResponseSuccess;
+import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserDataResponse;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
 import org.testng.Assert;
@@ -19,20 +20,23 @@ public class AuthTest extends BaseTest{
     @Test(description = "Authorization test. Positive case.", priority = 10)
     public void authorizationTest(){
         AuthController authController = new AuthController();
-        System.out.println("pass: " + credentials.getPassword());
         authController.signUp(credentials.getRegistrationPermit());
-        UserData user = authController.signIn(credentials.getAuthorizationPermit());
+        UserDataResponse user = authController.signIn(credentials.getAuthorizationPermit());
         Assert.assertNotNull(user, "User is null");
         Assert.assertNotNull(user.getStatus(), "Status is null");
-        Assert.assertNotNull(user.getData(), "Data is null");
-        Assert.assertNotNull(user.getData().getUserId(), "User is is null");
-        Assert.assertNotNull(user.getData().getCurrency(), "Currency is null");
-        Assert.assertNotNull(user.getData().getDistanceUnits(), "Distance units is null");
         Assert.assertEquals(user.getStatus(), "ok", "Status isn't ok");
+
+        UserData data = user.getData();
+        Assert.assertNotNull(data, "Data is null");
+        Assert.assertNotNull(data.getUserId(), "User is is null");
+        Assert.assertNotNull(data.getCurrency(), "Currency is null");
+        Assert.assertNotNull(data.getDistanceUnits(), "Distance units is null");
+        Assert.assertNotNull(data.getPhotoFilename(), "PhotoFilename units is null");
+
 
         UsersController usersController =
                 new UsersController(authController.getCookie(credentials.getAuthorizationPermit()));
-        ResponseStatusSuccess response = usersController.deleteUser();
+        StatusResponseSuccess response = usersController.deleteUser();
         Assert.assertNotNull(response.getStatus(), "Status is null");
         Assert.assertEquals(response.getStatus(), "ok", "User wasn't deleted");
     }
@@ -41,7 +45,7 @@ public class AuthTest extends BaseTest{
         AuthController authController = new AuthController();
         authController.signUp(credentials.getRegistrationPermit());
         String cookie = authController.getCookie(credentials.getAuthorizationPermit());
-        ResponseStatusSuccess response = authController.logout(cookie);
+        StatusResponseSuccess response = authController.logout(cookie);
         Assert.assertNotNull(response.getStatus(), "Status is null");
         Assert.assertEquals(response.getStatus(), "ok", "Logout failed");
 
@@ -57,8 +61,8 @@ public class AuthTest extends BaseTest{
         authController.signUp(credentials.getRegistrationPermit());
         String cookie = authController.getCookie(credentials.getAuthorizationPermit());
         String newEmail = Faker.instance().internet().emailAddress();
-        ResetPassword resetPassword = new ResetPassword(newEmail);
-        ResponseStatusSuccess response = authController.resetPassword(resetPassword, cookie);
+        ResetPasswordRequest resetPassword = new ResetPasswordRequest(newEmail);
+        StatusResponseSuccess response = authController.resetPassword(resetPassword, cookie);
         Assert.assertNotNull(response.getStatus(), "Status is null");
         Assert.assertEquals(response.getStatus(), "ok", "Password reset failed");
 

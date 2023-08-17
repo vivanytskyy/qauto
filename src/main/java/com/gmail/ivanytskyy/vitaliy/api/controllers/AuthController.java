@@ -1,8 +1,8 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.ResetPassword;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.ResponseStatusSuccess;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.request.ResetPasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.response.StatusResponseSuccess;
+import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserDataResponse;
 import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.AuthorizationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.RegistrationUserCredentials;
 import io.restassured.http.Header;
@@ -17,55 +17,57 @@ import static com.gmail.ivanytskyy.vitaliy.api.utils.RestAssuredSpecifications.*
  */
 public class AuthController extends BaseController{
 
-    public UserData signUp(RegistrationUserCredentials credentials){
-        setSpecifications(getRequestSpecification(getApiBaseUrl()));
+    public UserDataResponse signUp(RegistrationUserCredentials credentials){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + AUTH.getPath()));
         return given()
-                    .basePath(AUTH.getPath() + "/signup")
+                    .basePath("/signup")
                     .body(credentials)
                 .when()
                     .post()
                 .then()
                     .extract()
-                    .as(UserData.class);
+                    .as(UserDataResponse.class);
     }
-    public UserData signIn(AuthorizationUserCredentials credentials){
-        setSpecifications(getRequestSpecification(getApiBaseUrl()));
+    public UserDataResponse signIn(AuthorizationUserCredentials credentials){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + AUTH.getPath()));
         return given()
-                    .basePath(AUTH.getPath() + "/signin")
+                    .basePath("/signin")
                     .body(credentials)
                 .when()
                     .post()
                 .then()
                     .extract()
-                    .as(UserData.class);
+                    .as(UserDataResponse.class);
     }
-    public ResponseStatusSuccess logout(String cookie){
-        setSpecifications(getRequestSpecification(getApiBaseUrl()), getResponseSpecification(200));
+    public StatusResponseSuccess logout(String cookie){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + AUTH.getPath()),
+                getResponseSpecification(200));
         return given()
-                    .basePath(AUTH.getPath() + "/logout")
+                    .basePath("/logout")
                     .header(new Header("Cookie", cookie))
                 .when()
                     .get()
                 .then()
                     .extract()
-                    .as(ResponseStatusSuccess.class);
+                    .as(StatusResponseSuccess.class);
     }
-    public ResponseStatusSuccess resetPassword(ResetPassword resetPassword, String cookie){
-        setSpecifications(getRequestSpecification(getApiBaseUrl()), getResponseSpecification(200));
+    public StatusResponseSuccess resetPassword(ResetPasswordRequest resetPassword, String cookie){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + AUTH.getPath()),
+                getResponseSpecification(200));
         return given()
-                    .basePath(AUTH.getPath() + "/resetPassword")
+                    .basePath("/resetPassword")
                     .header(new Header("Cookie", cookie))
                     .body(resetPassword)
                 .when()
                     .post()
                 .then()
                     .extract()
-                    .as(ResponseStatusSuccess.class);
+                    .as(StatusResponseSuccess.class);
     }
     public String getCookie(AuthorizationUserCredentials credentials){
-        setSpecifications(getRequestSpecification(getApiBaseUrl()));
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + AUTH.getPath()));
         return given()
-                    .basePath(AUTH.getPath() + "/signin")
+                    .basePath("/signin")
                     .body(credentials)
                 .when()
                     .post()

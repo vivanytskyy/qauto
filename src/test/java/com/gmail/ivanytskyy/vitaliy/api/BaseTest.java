@@ -3,12 +3,13 @@ package com.gmail.ivanytskyy.vitaliy.api;
 import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.AuthorizationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.RegistrationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.response.ProfileData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserProfileResponse;
 import com.gmail.ivanytskyy.vitaliy.utils.CookieHolder;
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
+import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
 import com.gmail.ivanytskyy.vitaliy.utils.UserAuthorizationService;
-import lombok.Data;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -18,6 +19,25 @@ import org.testng.annotations.BeforeMethod;
 public class BaseTest {
     protected String cookie;
     protected FakeUserCredentials credentials;
+    protected UserProfileResponse defaultProfile;
+
+    @BeforeClass
+    public void beforeClass(){
+        ProfileData data = ProfileData
+                .builder()
+                .name(TestPropertiesSupplier.getInstance().getProperty("user_first_name"))
+                .lastName(TestPropertiesSupplier.getInstance().getProperty("user_last_name"))
+                .build();
+        defaultProfile = UserProfileResponse
+                .builder()
+                .status("ok")
+                .data(data)
+                .build();
+    }
+    @AfterClass(alwaysRun = true)
+    public void afterClass(){
+        defaultProfile = null;
+    }
 
     @BeforeMethod
     public void authorizeUser(){
@@ -32,7 +52,7 @@ public class BaseTest {
         this.credentials = null;
     }
 
-    @Data
+    @lombok.Data
     protected static class FakeUserCredentials{
         private final String firstName;
         private final String lastName;
