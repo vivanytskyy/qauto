@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.AuthorizationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.RegistrationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.utils.CookieHolder;
+import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
 import com.gmail.ivanytskyy.vitaliy.utils.UserAuthorizationService;
 import lombok.Data;
 import org.testng.annotations.AfterMethod;
@@ -45,8 +46,12 @@ public class BaseTest {
             firstName = faker.name().firstName();
             lastName = faker.name().lastName();
             email = faker.internet().emailAddress();
-            password = faker.internet()
-                    .password(8, 15, true, false, true);
+            password = new PasswordGenerateService.Builder()
+                    .useDigits(true)
+                    .useUpperCaseLetters(true)
+                    .useLowerCaseLetters(true)
+                    .build()
+                    .generatePassword(8, 15);
             remember = false;
             registrationPermit = RegistrationUserCredentials.builder()
                     .name(firstName)

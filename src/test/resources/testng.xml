@@ -15,4 +15,9 @@
             <class name="com.gmail.ivanytskyy.vitaliy.ui.SignUpTest" />
         </classes>
     </test>
+    <test name="unit" enabled="false">
+        <packages >
+            <package name="com.gmail.ivanytskyy.vitaliy.unit"/>
+        </packages>
+    </test>
 </suite>
