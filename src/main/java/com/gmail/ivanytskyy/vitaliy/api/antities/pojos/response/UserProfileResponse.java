@@ -1,8 +1,7 @@
-package com.gmail.ivanytskyy.vitaliy.api.pojos.response;
+package com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
@@ -10,11 +9,11 @@ import lombok.NoArgsConstructor;
  * @version 1.00
  * @date 17/08/2023
  */
-@Data
+@lombok.Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserSettingsResponse {
+public class UserProfileResponse {
     private String status;
-    private SettingsData data;
+    private ProfileData data;
 }

@@ -1,10 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ChangeEmailRequest;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.UserSettingsRequest;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.UserProfileRequest;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ChangePasswordRequest;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.response.*;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ChangeEmailRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.UserSettingsRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.UserProfileRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ChangePasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
 import io.restassured.http.Header;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 import static io.restassured.RestAssured.given;

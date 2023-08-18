@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api.pojos.response;
+package com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SettingsData {
-    private String currency;
-    private String distanceUnits;
+public class UserProfileRequest {
+    private String photo;
+    private String name;
+    private String lastName;
+    private String dateBirth;
+    private String country;
 }

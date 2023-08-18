@@ -1,14 +1,14 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
-import com.gmail.ivanytskyy.vitaliy.api.pojos.antities.Currency;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.antities.DistanceUnits;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ChangeEmailRequest;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.UserSettingsRequest;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.UserProfileRequest;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ChangePasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.Currency;
+import com.gmail.ivanytskyy.vitaliy.api.antities.DistanceUnits;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ChangeEmailRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.UserSettingsRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.UserProfileRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ChangePasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.response.*;
 import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
 import org.testng.Assert;
 import org.testng.annotations.Test;

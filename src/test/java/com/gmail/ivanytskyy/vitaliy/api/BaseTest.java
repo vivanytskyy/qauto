@@ -1,10 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.AuthorizationUserCredentials;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.request.RegistrationUserCredentials;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.response.ProfileData;
-import com.gmail.ivanytskyy.vitaliy.api.pojos.response.UserProfileResponse;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.AuthorizationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.RegistrationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.ProfileData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.UserProfileResponse;
 import com.gmail.ivanytskyy.vitaliy.utils.CookieHolder;
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
 import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
