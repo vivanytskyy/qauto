@@ -1,11 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.UserSettingsRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.UserProfileRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.StatusResponseSuccess;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserDataResponse;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserProfileResponse;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserSettingsResponse;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ChangeEmailRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.UserSettingsRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.UserProfileRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ChangePasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.response.*;
 import io.restassured.http.Header;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 import static io.restassured.RestAssured.given;
@@ -31,7 +30,7 @@ public class UsersController extends BaseController{
                     .header(new Header("Cookie", cookie))
                 .when()
                     .get()
-                .then()
+                .then().log().all()
                     .extract()
                     .as(UserDataResponse.class);
     }
@@ -85,6 +84,45 @@ public class UsersController extends BaseController{
                     .extract()
                     .as(UserSettingsResponse.class);
     }
+    public ChangeEmailResponse changeUserEmail(ChangeEmailRequest newEmail){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
+                getResponseSpecification(200));
+        return given()
+                    .basePath("/email")
+                    .header(new Header("Cookie", cookie))
+                    .body(newEmail)
+                .when()
+                    .put()
+                .then().log().all()
+                    .extract()
+                    .as(ChangeEmailResponse.class);
+    }
+    public ChangePasswordResponse changeUserPassword(ChangePasswordRequest newPassword){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
+                getResponseSpecification(200));
+        return given()
+                    .basePath("/password")
+                    .header(new Header("Cookie", cookie))
+                    .body(newPassword)
+                .when()
+                    .put()
+                .then().log().all()
+                    .extract()
+                    .as(ChangePasswordResponse.class);
+    }
+    public StatusResponseSuccess resetUserPassword(int userId, String token){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
+                getResponseSpecification(200));
+        String basePath = String.format("/resetPassword/%s/%s", userId, token);
+        return given()
+                    .basePath(basePath)
+                    .header(new Header("Cookie", cookie))
+                .when()
+                    .get()
+                .then().log().all()
+                    .extract()
+                    .as(StatusResponseSuccess.class);
+    }
     public StatusResponseSuccess deleteUser(){
         setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
                 getResponseSpecification(200));
@@ -92,7 +130,7 @@ public class UsersController extends BaseController{
                     .header(new Header("Cookie", cookie))
                 .when()
                     .delete()
-                .then()
+                .then().log().all()
                     .extract()
                     .as(StatusResponseSuccess.class);
     }

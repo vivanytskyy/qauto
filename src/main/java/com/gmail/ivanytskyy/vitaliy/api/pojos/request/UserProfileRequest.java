@@ -1,23 +1,23 @@
-package com.gmail.ivanytskyy.vitaliy.api.antities.response;
+package com.gmail.ivanytskyy.vitaliy.api.pojos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
  * @author Vitaliy Ivanytskyy
  * @version 1.00
- * @date 08/08/2023
+ * @date 17/08/2023
  */
-@lombok.Data
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProfileData {
-    private Integer userId;
+public class UserProfileRequest {
+    private String photo;
     private String name;
     private String lastName;
-    private String photoFilename;
     private String dateBirth;
     private String country;
 }

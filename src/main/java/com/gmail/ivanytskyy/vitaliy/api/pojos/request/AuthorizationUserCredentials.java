@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api.antities.request.auth;
+package com.gmail.ivanytskyy.vitaliy.api.pojos.request;
 
 import lombok.Builder;
 import lombok.Data;

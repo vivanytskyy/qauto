@@ -1,7 +1,6 @@
-package com.gmail.ivanytskyy.vitaliy.api.antities.request;
+package com.gmail.ivanytskyy.vitaliy.api.pojos.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,8 +12,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class UserSettingsRequest {
-    private String currency;
-    private String distanceUnits;
+public class ChangePasswordData {
+    private Integer userId;
 }

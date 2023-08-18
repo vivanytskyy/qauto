@@ -1,11 +1,15 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.Currency;
-import com.gmail.ivanytskyy.vitaliy.api.antities.DistanceUnits;
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.UserSettingsRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.UserProfileRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.*;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.antities.Currency;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.antities.DistanceUnits;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ChangeEmailRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.UserSettingsRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.UserProfileRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ChangePasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.response.*;
+import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.text.SimpleDateFormat;
@@ -131,5 +135,57 @@ public class UsersTest extends BaseTest{
 
         Assert.assertEquals(data.getCurrency(), newCurrency, "Currency is incorrect");
         Assert.assertEquals(data.getDistanceUnits(), newDistanceUnit, "Distance units is incorrect");
+    }
+    @Test(description = "Change email of current user. Positive case.", priority = 60)
+    public void changeUserEmailTest(){
+        UsersController controller = new UsersController(cookie);
+        String newEmail = credentials.getEmail();
+        String password = TestPropertiesSupplier.getInstance().getProperty("user_password");
+        ChangeEmailRequest emailChanges = ChangeEmailRequest
+                .builder()
+                .email(newEmail)
+                .password(password)
+                .build();
+
+        ChangeEmailResponse response = controller.changeUserEmail(emailChanges);
+        Assert.assertNotNull(response, "Response is null");
+        Assert.assertNotNull(response.getStatus(), "Status is null");
+        Assert.assertEquals(response.getStatus(), "ok", "Status isn't ok");
+
+        ChangeEmailData data = response.getData();
+        Assert.assertNotNull(data, "Data is null");
+        Assert.assertNotNull(data.getUserId(), "userId is null");
+    }
+    @Test(description = "Change password of current user. Positive case.", priority = 70)
+    public void changeUserPasswordTest(){
+        AuthController authController = new AuthController();
+        authController.signUp(credentials.getRegistrationPermit());
+        UserDataResponse user = authController.signIn(credentials.getAuthorizationPermit());
+        String cookie = authController.getCookie(credentials.getAuthorizationPermit());
+        String oldPassword = credentials.getPassword();
+        String newPassword = TestPropertiesSupplier.getInstance().getProperty("user_password");
+
+        UsersController controller = new UsersController(cookie);
+        ChangePasswordRequest passwordChanges = ChangePasswordRequest
+                .builder()
+                .oldPassword(oldPassword)
+                .password(newPassword)
+                .repeatPassword(newPassword)
+                .build();
+
+        ChangePasswordResponse response = controller.changeUserPassword(passwordChanges);
+        Assert.assertNotNull(response, "Response is null");
+        Assert.assertNotNull(response.getStatus(), "Status is null");
+        Assert.assertEquals(response.getStatus(), "ok", "Status isn't ok");
+
+        ChangePasswordData data = response.getData();
+        Assert.assertNotNull(data, "Data is null");
+        Assert.assertNotNull(data.getUserId(), "userId is null");
+        Assert.assertEquals(data.getUserId(), user.getData().getUserId(), "userIds are different");
+
+        UsersController usersController = new UsersController(cookie);
+        StatusResponseSuccess responseSuccess = usersController.deleteUser();
+        Assert.assertNotNull(responseSuccess.getStatus(), "Status is null");
+        Assert.assertEquals(responseSuccess.getStatus(), "ok", "User wasn't deleted");
     }
 }
