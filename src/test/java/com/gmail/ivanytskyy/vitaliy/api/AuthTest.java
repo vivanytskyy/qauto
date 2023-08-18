@@ -1,10 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.ResetPasswordRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserData;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.StatusResponseSuccess;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserDataResponse;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ResetPasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.response.UserData;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.response.StatusResponseSuccess;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.response.UserDataResponse;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
 import org.testng.Assert;

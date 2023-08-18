@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api.antities;
+package com.gmail.ivanytskyy.vitaliy.api.pojos.antities;
 
 /**
  * @author Vitaliy Ivanytskyy

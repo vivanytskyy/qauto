@@ -1,10 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.ResetPasswordRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.StatusResponseSuccess;
-import com.gmail.ivanytskyy.vitaliy.api.antities.response.UserDataResponse;
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.AuthorizationUserCredentials;
-import com.gmail.ivanytskyy.vitaliy.api.antities.request.auth.RegistrationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.ResetPasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.response.StatusResponseSuccess;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.response.UserDataResponse;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.AuthorizationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.pojos.request.RegistrationUserCredentials;
 import io.restassured.http.Header;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 import static io.restassured.RestAssured.given;
@@ -24,7 +24,7 @@ public class AuthController extends BaseController{
                     .body(credentials)
                 .when()
                     .post()
-                .then()
+                .then().log().all()
                     .extract()
                     .as(UserDataResponse.class);
     }
@@ -35,7 +35,7 @@ public class AuthController extends BaseController{
                     .body(credentials)
                 .when()
                     .post()
-                .then()
+                .then().log().all()
                     .extract()
                     .as(UserDataResponse.class);
     }
@@ -47,7 +47,7 @@ public class AuthController extends BaseController{
                     .header(new Header("Cookie", cookie))
                 .when()
                     .get()
-                .then()
+                .then().log().all()
                     .extract()
                     .as(StatusResponseSuccess.class);
     }
@@ -60,7 +60,7 @@ public class AuthController extends BaseController{
                     .body(resetPassword)
                 .when()
                     .post()
-                .then()
+                .then().log().all()
                     .extract()
                     .as(StatusResponseSuccess.class);
     }
@@ -71,7 +71,7 @@ public class AuthController extends BaseController{
                     .body(credentials)
                 .when()
                     .post()
-                .then()
+                .then().log().all()
                     .extract()
                     .headers()
                     .getValue("Set-Cookie");

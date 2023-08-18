@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api.antities.request;
+package com.gmail.ivanytskyy.vitaliy.api.pojos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,10 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserProfileRequest {
-    private String photo;
-    private String name;
-    private String lastName;
-    private String dateBirth;
-    private String country;
+public class ChangeEmailResponse {
+    private String status;
+    private ChangeEmailData data;
 }
