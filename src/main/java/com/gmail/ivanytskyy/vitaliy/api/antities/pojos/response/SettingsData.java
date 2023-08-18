@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api.pojos.request;
+package com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,8 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ChangePasswordRequest {
-    private String oldPassword;
-    private String password;
-    private String repeatPassword;
+public class SettingsData {
+    private String currency;
+    private String distanceUnits;
 }

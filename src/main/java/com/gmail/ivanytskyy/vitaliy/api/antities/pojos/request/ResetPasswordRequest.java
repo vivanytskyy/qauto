@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api.pojos.request;
+package com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

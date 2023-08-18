@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api.pojos.response;
+package com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ChangeEmailResponse {
-    private String status;
-    private ChangeEmailData data;
+public class ChangePasswordRequest {
+    private String oldPassword;
+    private String password;
+    private String repeatPassword;
 }
