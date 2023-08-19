@@ -3,8 +3,9 @@
 <suite name="Suite1" verbose="1" >
     <test name="api" enabled="true">
         <classes >
-            <class name="com.gmail.ivanytskyy.vitaliy.api.AuthTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.api.UsersTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.api.CarsTest" />
+            <!--<class name="com.gmail.ivanytskyy.vitaliy.api.AuthTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.api.UsersTest" />-->
         </classes>
     </test>
     <test name="ui" enabled="false">
