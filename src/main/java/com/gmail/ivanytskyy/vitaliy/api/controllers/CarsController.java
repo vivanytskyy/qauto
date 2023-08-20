@@ -1,5 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.CarRequest;
 import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
 import io.restassured.http.Header;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
@@ -12,7 +13,7 @@ import static io.restassured.RestAssured.given;
  * @date 19/08/2023
  */
 public class CarsController extends BaseController{
-    private String cookie;
+    private final String cookie;
     public CarsController(String cookie){
         this.cookie = cookie;
     }
@@ -76,5 +77,58 @@ public class CarsController extends BaseController{
                 .then().log().all()
                     .extract()
                     .as(CarsResponse.class);
+    }
+    public CarResponse createNewCar(CarRequest newCar){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
+                getResponseSpecification(201));
+        return given()
+                    .header(new Header("Cookie", cookie))
+                    .body(newCar)
+                .when()
+                    .post()
+                .then().log().all()
+                    .extract()
+                    .as(CarResponse.class);
+    }
+    public CarResponse getCarById(int carId){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
+                getResponseSpecification(200));
+        String basePath = String.format("/%s", carId);
+        return given()
+                    .basePath(basePath)
+                    .header(new Header("Cookie", cookie))
+                .when()
+                    .get()
+                .then().log().all()
+                    .extract()
+                .as(CarResponse.class);
+    }
+    public CarResponse editCarById(CarRequest newCarData, int carId){
+        System.out.println("newCarData " + newCarData);
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
+                getResponseSpecification(200));
+        String basePath = String.format("/%s", carId);
+        return given()
+                    .basePath(basePath)
+                    .header(new Header("Cookie", cookie))
+                    .body(newCarData)
+                .when()
+                    .put()
+                .then().log().all()
+                    .extract()
+                    .as(CarResponse.class);
+    }
+    public DeleteCarResponse deleteCarById(int carId){
+        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
+                getResponseSpecification(200));
+        String basePath = String.format("/%s", carId);
+        return given()
+                    .basePath(basePath)
+                    .header(new Header("Cookie", cookie))
+                .when()
+                    .delete()
+                .then().log().all()
+                    .extract()
+                    .as(DeleteCarResponse.class);
     }
 }
