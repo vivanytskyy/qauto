@@ -1,10 +1,11 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.CarRequest;
 import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.CarsController;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -63,14 +64,69 @@ public class CarsTest extends BaseTest{
             Assert.assertEquals(modelResponse.getData(), model, "Models aren't equal");
         }
     }
+    @Test(description = "Create a new car. Positive case", priority = 50)
+    public void createNewCarTest(){
+        CarsController controller = new CarsController(cookie);
+        //Create new car for current user
+        Random random = new Random();
+        int mileage = random.nextInt(1, 1000);
+        int carBrandId = 1;
+        int carModelId = 1;
+        CarRequest newCarRequest = CarRequest
+                .builder()
+                .carBrandId(carBrandId)
+                .carModelId(carModelId)
+                .mileage(mileage)
+                .build();
 
-    @Test(description = "Get list of current user's cars. Positive case", priority = 50)
+        CarResponse carResponse = controller.createNewCar(newCarRequest);
+        Assert.assertEquals(carResponse.getStatus(), "ok", "Status isn't ok");
+        CarData car = carResponse.getData();
+        Assert.assertNotNull(car.getId(), "Car id is null");
+        Assert.assertEquals(car.getCarBrandId(), carBrandId, "Car brand id is incorrect");
+        Assert.assertEquals(car.getCarModelId(), carModelId, "Car model id is incorrect");
+        Assert.assertNotNull(car.getBrand(), "Brand is null");
+        Assert.assertNotNull(car.getModel(), "Model is null");
+        Assert.assertNotNull(car.getLogo(), "Logo is null");
+        Assert.assertEquals(car.getMileage(), mileage, "Mileage is incorrect");
+        Assert.assertNotNull(car.getInitialMileage(), "Initial mileage is null");
+        Assert.assertNotNull(car.getUpdatedMileageAt(), "Updated mileage is null");
+    }
+    @Test(description = "Get list of current user's cars. Positive case", priority = 60)
     public void getCurrentUserCarsTest(){
         CarsController controller = new CarsController(cookie);
+        //Create cars for current user
+        List<Integer> brandIds = controller.getCarBrands().getData().stream().map(CarBrandData::getId).toList();
+        List<CarModelData> models = controller.getCarModels().getData();
+        Map<Integer, List<Integer>> idMap = new LinkedHashMap<>();
+        for (int brandId : brandIds){
+            List<Integer> modelIdsOfBrand = models.stream()
+                    .filter(model -> model.getCarBrandId().equals(brandId))
+                    .map(CarModelData::getId)
+                    .toList();
+            idMap.put(brandId, modelIdsOfBrand);
+        }
+        List<CarData> newCars = new ArrayList<>();
+        Iterator<Map.Entry<Integer, List<Integer>>> iterator = idMap.entrySet().iterator();
+        Random random = new Random();
+        while (iterator.hasNext()){
+            Map.Entry<Integer, List<Integer>> entry = iterator.next();
+            for (Integer modelId : entry.getValue()){
+                int mileage = random.nextInt(1, 1000);
+                CarRequest newCarRequest = CarRequest
+                        .builder()
+                        .carBrandId(entry.getKey())
+                        .carModelId(modelId)
+                        .mileage(mileage)
+                        .build();
+                CarData carData = controller.createNewCar(newCarRequest).getData();
+                newCars.add(carData);
+            }
+        }
+
         CarsResponse carsResponse = controller.getCurrentUserCars();
         Assert.assertEquals(carsResponse.getStatus(), "ok", "Status isn't ok");
-        //todo create cars for current user
-        /*List<CarData> cars = carsResponse.getData();
+        List<CarData> cars = carsResponse.getData();
         Assert.assertTrue(cars.size() > 0, "List of models is empty");
         for (CarData car : cars){
             Assert.assertNotNull(car.getId(), "Car id is null");
@@ -82,6 +138,80 @@ public class CarsTest extends BaseTest{
             Assert.assertNotNull(car.getMileage(), "Mileage is null");
             Assert.assertNotNull(car.getInitialMileage(), "Initial mileage is null");
             Assert.assertNotNull(car.getUpdatedMileageAt(), "Updated mileage is null");
-        }*/
+            Assert.assertTrue(newCars.contains(car), "Car wasn't found at list");
+        }
+    }
+    @Test(description = "Get car by id. Positive case", priority = 70)
+    public void getCarByIdTest(){
+        CarsController controller = new CarsController(cookie);
+        //Create new car for current user
+        Random random = new Random();
+        int mileage = random.nextInt(1, 1000);
+        int carBrandId = 1;
+        int carModelId = 1;
+        CarRequest newCarRequest = CarRequest
+                .builder()
+                .carBrandId(carBrandId)
+                .carModelId(carModelId)
+                .mileage(mileage)
+                .build();
+        CarResponse expectedCarResponse = controller.createNewCar(newCarRequest);
+        CarResponse resultCarResponse = controller.getCarById(expectedCarResponse.getData().getId());
+        Assert.assertEquals(resultCarResponse, expectedCarResponse, "Car wasn't found");
+    }
+    @Test(description = "Edit car by id. Positive case", priority = 80)
+    public void editCarByIdTest(){
+        CarsController controller = new CarsController(cookie);
+
+        //Create new car for current user
+        Random random = new Random();
+        int initialMileage = random.nextInt(1, 1000);
+        int initialCarBrandId = 1;
+        int initialCarModelId = 1;
+        CarRequest newCarRequest = CarRequest
+                .builder()
+                .carBrandId(initialCarBrandId)
+                .carModelId(initialCarModelId)
+                .mileage(initialMileage)
+                .build();
+        CarResponse expectedCarResponse = controller.createNewCar(newCarRequest);
+        int editedMileage = random.nextInt(initialMileage, 1000);
+        int editedCarBrandId = 2;
+        int editedCarModelId = 6;
+        CarRequest editedCarRequest = CarRequest
+                .builder()
+                .carBrandId(editedCarBrandId)
+                .carModelId(editedCarModelId)
+                .mileage(editedMileage)
+                .build();
+        CarResponse editedCarResponse = controller.editCarById(editedCarRequest, expectedCarResponse.getData().getId());
+        Assert.assertNotEquals(editedCarResponse, expectedCarResponse, "Updating failed");
+        Assert.assertEquals(editedCarResponse.getData().getCarBrandId(), editedCarBrandId,
+                "Car brand id wasn't updated");
+        Assert.assertEquals(editedCarResponse.getData().getCarModelId(), editedCarModelId,
+                "Car model id wasn't updated");
+        Assert.assertEquals(editedCarResponse.getData().getMileage(), editedMileage,
+                "Mileage wasn't updated");
+    }
+    @Test(description = "Delete a car by id. Positive case", priority = 90)
+    public void deleteCarByIdTest(){
+        CarsController controller = new CarsController(cookie);
+        // Create a new car for current user
+        Random random = new Random();
+        int mileage = random.nextInt(1, 1000);
+        int carBrandId = 1;
+        int carModelId = 1;
+        CarRequest newCarRequest = CarRequest
+                .builder()
+                .carBrandId(carBrandId)
+                .carModelId(carModelId)
+                .mileage(mileage)
+                .build();
+        CarResponse newCarResponse = controller.createNewCar(newCarRequest);
+        // Delete a car
+        DeleteCarResponse deleteCarResponse = controller.deleteCarById(newCarResponse.getData().getId());
+        Assert.assertEquals(deleteCarResponse.getStatus(), "ok", "Status isn't ok");
+        DeletedCarData deletedCarData = deleteCarResponse.getData();
+        Assert.assertEquals(deletedCarData.getCarId(), newCarResponse.getData().getId(), "Car wasn't deleted");
     }
 }

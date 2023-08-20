@@ -1,9 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -19,7 +16,10 @@ public class CarData {
     private Integer carBrandId;
     private Integer carModelId;
     private Integer initialMileage;
+    @EqualsAndHashCode.Exclude
     private String updatedMileageAt;
+    @EqualsAndHashCode.Exclude
+    private String carCreatedAt;
     private Integer mileage;
     private String brand;
     private String model;
