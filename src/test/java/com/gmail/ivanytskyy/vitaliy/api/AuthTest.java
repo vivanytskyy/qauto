@@ -1,10 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ResetPasswordRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.UserData;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.StatusResponseSuccess;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.UserDataResponse;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.ResetPasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.users.UserData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.common.StatusResponseSuccess;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.users.UserDataResponse;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
 import org.testng.Assert;
@@ -61,7 +61,10 @@ public class AuthTest extends BaseTest{
         authController.signUp(credentials.getRegistrationPermit());
         String cookie = authController.getCookie(credentials.getAuthorizationPermit());
         String newEmail = Faker.instance().internet().emailAddress();
-        ResetPasswordRequest resetPassword = new ResetPasswordRequest(newEmail);
+        ResetPasswordRequest resetPassword = ResetPasswordRequest
+                .builder()
+                .email(newEmail)
+                .build();
         StatusResponseSuccess response = authController.resetPassword(resetPassword, cookie);
         Assert.assertNotNull(response.getStatus(), "Status is null");
         Assert.assertEquals(response.getStatus(), "ok", "Password reset failed");

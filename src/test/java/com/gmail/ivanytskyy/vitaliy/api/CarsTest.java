@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.CarRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.cars.CarRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.cars.*;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.CarsController;
 import org.testng.Assert;
 import org.testng.annotations.Test;

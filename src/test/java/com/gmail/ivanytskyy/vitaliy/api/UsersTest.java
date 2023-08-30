@@ -1,12 +1,13 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.Currency;
-import com.gmail.ivanytskyy.vitaliy.api.antities.DistanceUnits;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ChangeEmailRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.UserSettingsRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.UserProfileRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ChangePasswordRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
+import com.gmail.ivanytskyy.vitaliy.api.antities.constants.Currency;
+import com.gmail.ivanytskyy.vitaliy.api.antities.constants.DistanceUnits;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.ChangeEmailRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.UserSettingsRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.UserProfileRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.ChangePasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.common.StatusResponseSuccess;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.users.*;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
 import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
@@ -29,7 +30,7 @@ public class UsersTest extends BaseTest{
         UserDataResponse user = controller.getCurrentUserData();
         Assert.assertNotNull(user, "User is null");
         Assert.assertNotNull(user.getStatus(), "Status is null");
-        Assert.assertEquals(user.getStatus(), defaultProfile.getStatus(), "Status isn't ok");
+        Assert.assertEquals(user.getStatus(), "ok", "Status isn't ok");
 
         UserData data = user.getData();
         Assert.assertNotNull(data, "Data is null");
@@ -53,8 +54,8 @@ public class UsersTest extends BaseTest{
         Assert.assertNotNull(data.getPhotoFilename(), "PhotoFilename units is null");
         Assert.assertNotNull(data.getName(), "User name is null");
         Assert.assertNotNull(data.getLastName(), "User lastname is null");
-        Assert.assertEquals(data.getName(), defaultProfile.getData().getName(), "User name is incorrect");
-        Assert.assertEquals(data.getLastName(), defaultProfile.getData().getLastName(), "User lastname is incorrect");
+        Assert.assertEquals(data.getName(), getDefaultFirstName(), "User name is incorrect");
+        Assert.assertEquals(data.getLastName(), getDefaultLastName(), "User lastname is incorrect");
     }
     @Test(description = "Update profile of current user. Positive case.", priority = 30)
     public void editUserProfileTest(){
