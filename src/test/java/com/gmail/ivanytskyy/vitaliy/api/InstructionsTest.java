@@ -1,6 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.cars.CarBrandData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.cars.CarModelData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.instructions.InstructionData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.instructions.InstructionResponse;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.instructions.InstructionsResponse;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.CarsController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.InstructionsController;
 import org.testng.Assert;

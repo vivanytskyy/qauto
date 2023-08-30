@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.utils;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.AuthorizationUserCredentials;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.RegistrationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.auth.AuthorizationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.auth.RegistrationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
 

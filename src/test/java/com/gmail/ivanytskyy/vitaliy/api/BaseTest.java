@@ -1,10 +1,8 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.AuthorizationUserCredentials;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.RegistrationUserCredentials;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.ProfileData;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.UserProfileResponse;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.auth.AuthorizationUserCredentials;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.auth.RegistrationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.utils.CookieHolder;
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
 import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
@@ -19,24 +17,11 @@ import org.testng.annotations.*;
 public class BaseTest {
     protected String cookie;
     protected FakeUserCredentials credentials;
-    protected UserProfileResponse defaultProfile;
-
-    @BeforeClass
-    public void beforeClass(){
-        ProfileData data = ProfileData
-                .builder()
-                .name(TestPropertiesSupplier.getInstance().getProperty("user_first_name"))
-                .lastName(TestPropertiesSupplier.getInstance().getProperty("user_last_name"))
-                .build();
-        defaultProfile = UserProfileResponse
-                .builder()
-                .status("ok")
-                .data(data)
-                .build();
-    }
-    @AfterClass(alwaysRun = true)
-    public void afterClass(){
-        defaultProfile = null;
+    private static final String DEFAULT_FIRST_NAME;
+    private static final String DEFAULT_LAST_NAME;
+    static {
+        DEFAULT_FIRST_NAME = TestPropertiesSupplier.getInstance().getProperty("user_first_name");
+        DEFAULT_LAST_NAME = TestPropertiesSupplier.getInstance().getProperty("user_last_name");
     }
 
     @BeforeMethod
@@ -51,7 +36,12 @@ public class BaseTest {
         this.cookie = null;
         this.credentials = null;
     }
-
+    protected String getDefaultFirstName(){
+        return DEFAULT_FIRST_NAME;
+    }
+    protected String getDefaultLastName(){
+        return DEFAULT_LAST_NAME;
+    }
     @lombok.Data
     protected static class FakeUserCredentials{
         private final String firstName;

@@ -13,9 +13,11 @@ import io.restassured.specification.ResponseSpecification;
  * @date 16/08/2023
  */
 public class RestAssuredSpecifications {
-    public static RequestSpecification getRequestSpecification(String baseUrl){
+    private static final String API_BASE_URL = ApiPropertiesSupplier.getInstance().getProperty("api_base_url");
+
+    public static RequestSpecification getRequestSpecification(String basePath){
         return new RequestSpecBuilder()
-                .setBaseUri(baseUrl)
+                .setBaseUri(API_BASE_URL + basePath)
                 .setContentType(ContentType.JSON)
                 .build();
     }

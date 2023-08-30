@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.CarRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.cars.CarRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.cars.*;
 import io.restassured.http.Header;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.RestAssuredSpecifications.*;
@@ -13,16 +13,15 @@ import static io.restassured.RestAssured.given;
  * @date 19/08/2023
  */
 public class CarsController extends BaseController{
-    private final String cookie;
-    public CarsController(String cookie){
-        this.cookie = cookie;
+
+    public CarsController(String cookie) {
+        super(cookie);
     }
     public CarBrandsResponse getCarBrands(){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(200));
+        String basePath = CARS.getPath() + "/brands";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/brands")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -30,12 +29,10 @@ public class CarsController extends BaseController{
                     .as(CarBrandsResponse.class);
     }
     public CarBrandResponse getCarBrandById(int brandId){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(200));
-        String basePath = String.format("/brands/%s", brandId);
+        String basePath = CARS.getPath() + String.format("/brands/%s", brandId);
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath(basePath)
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -43,11 +40,10 @@ public class CarsController extends BaseController{
                     .as(CarBrandResponse.class);
     }
     public CarModelsResponse getCarModels(){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(200));
+        String basePath = CARS.getPath() + "/models";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/models")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -55,12 +51,10 @@ public class CarsController extends BaseController{
                     .as(CarModelsResponse.class);
     }
     public CarModelResponse getCarModelById(int modelId){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(200));
-        String basePath = String.format("/models/%s", modelId);
+        String basePath = CARS.getPath() + String.format("/models/%s", modelId);
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath(basePath)
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -68,10 +62,9 @@ public class CarsController extends BaseController{
                     .as(CarModelResponse.class);
     }
     public CarsResponse getCurrentUserCars(){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(200));
+        setSpecifications(getRequestSpecification(CARS.getPath()), getResponseSpecification(200));
         return given()
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -79,10 +72,9 @@ public class CarsController extends BaseController{
                     .as(CarsResponse.class);
     }
     public CarResponse createNewCar(CarRequest newCar){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(201));
+        setSpecifications(getRequestSpecification(CARS.getPath()), getResponseSpecification(201));
         return given()
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                     .body(newCar)
                 .when()
                     .post()
@@ -91,12 +83,10 @@ public class CarsController extends BaseController{
                     .as(CarResponse.class);
     }
     public CarResponse getCarById(int carId){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(200));
-        String basePath = String.format("/%s", carId);
+        String basePath = CARS.getPath() + String.format("/%s", carId);
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath(basePath)
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -104,13 +94,10 @@ public class CarsController extends BaseController{
                 .as(CarResponse.class);
     }
     public CarResponse editCarById(CarRequest newCarData, int carId){
-        System.out.println("newCarData " + newCarData);
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(200));
-        String basePath = String.format("/%s", carId);
+        String basePath = CARS.getPath() + String.format("/%s", carId);
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath(basePath)
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                     .body(newCarData)
                 .when()
                     .put()
@@ -119,12 +106,10 @@ public class CarsController extends BaseController{
                     .as(CarResponse.class);
     }
     public DeleteCarResponse deleteCarById(int carId){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + CARS.getPath()),
-                getResponseSpecification(200));
-        String basePath = String.format("/%s", carId);
+        String basePath = CARS.getPath() + String.format("/%s", carId);
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath(basePath)
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .delete()
                 .then().log().all()

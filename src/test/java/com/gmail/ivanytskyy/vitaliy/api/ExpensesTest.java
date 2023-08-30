@@ -1,8 +1,10 @@
 package com.gmail.ivanytskyy.vitaliy.api;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.CarRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ExpenseRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.cars.CarRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.expenses.ExpenseRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.cars.CarData;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.cars.CarResponse;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.expenses.*;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.CarsController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.ExpensesController;
 import org.testng.Assert;
@@ -11,7 +13,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
 import java.util.function.Function;
-import static com.gmail.ivanytskyy.vitaliy.api.antities.ExpensesValues.*;
+import static com.gmail.ivanytskyy.vitaliy.api.antities.constants.ExpensesValues.*;
 
 /**
  * @author Vitaliy Ivanytskyy

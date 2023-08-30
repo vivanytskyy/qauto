@@ -1,10 +1,11 @@
 package com.gmail.ivanytskyy.vitaliy.api.controllers;
 
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ChangeEmailRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.UserSettingsRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.UserProfileRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.ChangePasswordRequest;
-import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.*;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.ChangeEmailRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.UserSettingsRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.UserProfileRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.ChangePasswordRequest;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.common.StatusResponseSuccess;
+import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.response.users.*;
 import io.restassured.http.Header;
 import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 import static io.restassured.RestAssured.given;
@@ -16,18 +17,16 @@ import static com.gmail.ivanytskyy.vitaliy.api.utils.RestAssuredSpecifications.*
  * @date 11/08/2023
  */
 public class UsersController extends BaseController{
-    private final String cookie;
 
     public UsersController(String cookie){
-        this.cookie = cookie;
+        super(cookie);
     }
 
     public UserDataResponse getCurrentUserData(){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
+        String basePath = USERS.getPath() + "/current";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/current")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -35,11 +34,10 @@ public class UsersController extends BaseController{
                     .as(UserDataResponse.class);
     }
     public UserProfileResponse getUserProfileData(){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
+        String basePath = USERS.getPath() + "/profile";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/profile")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -47,11 +45,10 @@ public class UsersController extends BaseController{
                     .as(UserProfileResponse.class);
     }
     public UserProfileResponse editUserProfile(UserProfileRequest newProfileData){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
+        String basePath = USERS.getPath() + "/profile";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/profile")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                     .body(newProfileData)
                 .when()
                     .put()
@@ -60,11 +57,10 @@ public class UsersController extends BaseController{
                     .as(UserProfileResponse.class);
     }
     public UserSettingsResponse getUserSettings(){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
+        String basePath = USERS.getPath() + "/settings";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/settings")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -72,11 +68,10 @@ public class UsersController extends BaseController{
                     .as(UserSettingsResponse.class);
     }
     public UserSettingsResponse editUserSettings(UserSettingsRequest newSettings){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
+        String basePath = USERS.getPath() + "/settings";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/settings")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                     .body(newSettings)
                 .when()
                     .put()
@@ -85,11 +80,10 @@ public class UsersController extends BaseController{
                     .as(UserSettingsResponse.class);
     }
     public ChangeEmailResponse changeUserEmail(ChangeEmailRequest newEmail){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
+        String basePath = USERS.getPath() + "/email";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/email")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                     .body(newEmail)
                 .when()
                     .put()
@@ -98,11 +92,10 @@ public class UsersController extends BaseController{
                     .as(ChangeEmailResponse.class);
     }
     public ChangePasswordResponse changeUserPassword(ChangePasswordRequest newPassword){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
+        String basePath = USERS.getPath() + "/password";
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath("/password")
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                     .body(newPassword)
                 .when()
                     .put()
@@ -111,12 +104,10 @@ public class UsersController extends BaseController{
                     .as(ChangePasswordResponse.class);
     }
     public StatusResponseSuccess resetUserPassword(int userId, String token){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
-        String basePath = String.format("/resetPassword/%s/%s", userId, token);
+        String basePath = USERS.getPath() + String.format("/resetPassword/%s/%s", userId, token);
+        setSpecifications(getRequestSpecification(basePath), getResponseSpecification(200));
         return given()
-                    .basePath(basePath)
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .get()
                 .then().log().all()
@@ -124,10 +115,9 @@ public class UsersController extends BaseController{
                     .as(StatusResponseSuccess.class);
     }
     public StatusResponseSuccess deleteUser(){
-        setSpecifications(getRequestSpecification(getApiBaseUrl() + USERS.getPath()),
-                getResponseSpecification(200));
+        setSpecifications(getRequestSpecification(USERS.getPath()), getResponseSpecification(200));
         return given()
-                    .header(new Header("Cookie", cookie))
+                    .header(new Header("Cookie", getCookie()))
                 .when()
                     .delete()
                 .then().log().all()
