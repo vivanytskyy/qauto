@@ -50,14 +50,14 @@ public class SignUpTest extends BaseTest{
     //"Bug added to Jira (Edit Issue : U1QM241022-34)
     @Test(description = "Check title of name input field", priority = 30)
     public void nameTitleTest(){
-        Assert.assertTrue(false, "Bug added to Jira (Edit Issue : U1QM241022-34)");
+        Assert.fail("Bug added to Jira (Edit Issue : U1QM241022-34)");
         String actualTitle = openApp().openSingUpBox().getNameInputFieldTitle();
         Assert.assertEquals(actualTitle, EXPECTED_NAME_TITLE);
     }
     //"Bug added to Jira (Edit Issue : U1QM241022-34)
     @Test(description = "Check title of last name input field", priority = 40)
     public void lastNameTitleTest(){
-        Assert.assertTrue(false, "Bug added to Jira (Edit Issue : U1QM241022-34)");
+        Assert.fail("Bug added to Jira (Edit Issue : U1QM241022-34)");
         String actualTitle = openApp().openSingUpBox().getLastNameInputFieldTitle();
         Assert.assertEquals(actualTitle, EXPECTED_LAST_NAME_TITLE);
     }
