@@ -37,6 +37,8 @@ public class SignUpModalBox extends BasePage {
     private WebElement repeatPasswordInput;
     @FindBy(css = "div.modal-footer button")
     private WebElement registerButton;
+    @FindBy(css = "form>p")
+    private WebElement formErrorAlert;
 
     public SignUpModalBox(WebElement element) {
         this.element = element;
@@ -63,8 +65,11 @@ public class SignUpModalBox extends BasePage {
     public String getRegisterButtonName(){
         return registerButton.getText();
     }
-    public SignUpModalBox setName(String name){
-        setTextFieldValue(nameInput, name);
+    public String getFormErrorMessage(){
+        return getText(formErrorAlert);
+    }
+    public SignUpModalBox setFirstName(String firstName){
+        setTextFieldValue(nameInput, firstName);
         return this;
     }
     public SignUpModalBox setLastName(String lastName){
@@ -86,5 +91,25 @@ public class SignUpModalBox extends BasePage {
     public GaragePage clickRegisterButtonPositiveCase(){
         clickButton(registerButton);
         return new GaragePage();
+    }
+    public SignUpModalBox clickRegisterButtonNegativeCase(){
+        clickButton(registerButton);
+        return this;
+    }
+    public GaragePage registerPositiveCase(String firstName, String lastName, String email, String password){
+        return setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setPassword(password)
+                .setReEnterPassword(password)
+                .clickRegisterButtonPositiveCase();
+    }
+    public SignUpModalBox registerNegativeCase(String firstName, String lastName, String email, String password){
+        return setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setPassword(password)
+                .setReEnterPassword(password)
+                .clickRegisterButtonNegativeCase();
     }
 }

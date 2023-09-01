@@ -127,7 +127,7 @@ public class BaseTest {
     protected void createUser(String firstName, String lastName, String email, String password){
         openApp()
                 .openSingUpBox()
-                .setName(firstName)
+                .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)
                 .setPassword(password)

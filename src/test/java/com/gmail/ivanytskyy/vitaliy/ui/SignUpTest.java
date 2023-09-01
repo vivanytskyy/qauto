@@ -20,7 +20,7 @@ public class SignUpTest extends BaseTest{
     private static final String EXPECTED_REGISTER_BUTTON_NAME = "Register";
     private static final String EXPECTED_GARAGE_PAGE_TITLE = "Garage";
     private static final String EXPECTED_PROFILE_PAGE_TITLE = "Profile";
-    private static final String EXPECTED_ALERT_MESSAGE = "Wrong email or password";
+    private static final String USER_ALREADY_EXISTS_ERROR_MESSAGE = "User already exists";
 
     @Test(description = "Opening SignUp modal box", priority = 10)
     public void openSignUpTest(){
@@ -28,15 +28,14 @@ public class SignUpTest extends BaseTest{
         Assert.assertEquals(actualTitle, EXPECTED_MODAL_BOX_TITLE);
     }
     @Test(description = "Sign up is success ", priority = 20)
-    public void signUpSuccessTest(){
+    public void signUpPositiveTest(){
         GaragePage garagePage = openApp()
                 .openSingUpBox()
-                .setName(tempUser.getFirstName())
-                .setLastName(tempUser.getLastName())
-                .setEmail(tempUser.getEmail())
-                .setPassword(tempUser.getPassword())
-                .setReEnterPassword(tempUser.getPassword())
-                .clickRegisterButtonPositiveCase();
+                .registerPositiveCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        tempUser.getPassword());
         String actualTitle = garagePage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_GARAGE_PAGE_TITLE);
         ProfilePage profilePage = garagePage.openUserProfileDropdown().openProfile();
@@ -81,5 +80,13 @@ public class SignUpTest extends BaseTest{
     public void registerButtonNameTest(){
         String actualName = openApp().openSingUpBox().getRegisterButtonName();
         Assert.assertEquals(actualName, EXPECTED_REGISTER_BUTTON_NAME);
+    }
+    @Test(description = "Sign up is unsuccessful. Negative case ", priority = 90)
+    public void signUpNegativeTest(){
+        String errorMessage = openApp()
+                .openSingUpBox()
+                .registerNegativeCase(getUserFirstName(), getUserLastName(), getUserEmail(), getUserPassword())
+                .getFormErrorMessage();
+        Assert.assertEquals(errorMessage, USER_ALREADY_EXISTS_ERROR_MESSAGE);
     }
 }
