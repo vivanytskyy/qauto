@@ -20,7 +20,7 @@ public class SettingsTest extends BaseTest{
                 .setEmail(tempUser.getEmail())
                 .setPassword(tempUser.getPassword())
                 .clickLoginButtonNegativeCase()
-                .getAlertMessage();
+                .getFormErrorMessage();
         Assert.assertEquals(actualAlertMessage, EXPECTED_ALERT_MESSAGE);
     }
     @Test(description = "Delete user account (positive case) trough user sidebar", priority = 20)
@@ -32,7 +32,7 @@ public class SettingsTest extends BaseTest{
                 .setEmail(tempUser.getEmail())
                 .setPassword(tempUser.getPassword())
                 .clickLoginButtonNegativeCase()
-                .getAlertMessage();
+                .getFormErrorMessage();
         Assert.assertEquals(actualAlertMessage, EXPECTED_ALERT_MESSAGE);
     }
 }

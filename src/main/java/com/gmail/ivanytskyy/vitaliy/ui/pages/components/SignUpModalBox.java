@@ -8,11 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 06/07/2023
+ * @version 1.01
+ * @date 01/09/2023
  */
 public class SignUpModalBox extends BasePage {
-    private final WebElement element;
     @FindBy(css = "h4.modal-title")
     private WebElement modalTitle;
     @FindBy(css = "[for='signupName']")
@@ -40,9 +39,8 @@ public class SignUpModalBox extends BasePage {
     @FindBy(css = "form>p")
     private WebElement formErrorAlert;
 
-    public SignUpModalBox(WebElement element) {
-        this.element = element;
-        PageFactory.initElements(element, this);
+    public SignUpModalBox(WebElement container) {
+        PageFactory.initElements(container, this);
     }
     public String getTitle(){
         return modalTitle.getText();

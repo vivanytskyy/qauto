@@ -10,8 +10,8 @@ import java.time.Duration;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 30/06/2023
+ * @version 1.01
+ * @date 01/09/2023
  */
 public class BasePage {
     protected WebDriver webDriver;
@@ -37,5 +37,11 @@ public class BasePage {
     }
     protected void moveToElement(WebElement element){
         actions.moveToElement(element).perform();
+    }
+    protected void selectCheckbox(WebElement checkbox, boolean selectCheckbox){
+        boolean initialCondition = wait.until(ExpectedConditions.visibilityOf(checkbox)).isSelected();
+        if(initialCondition != selectCheckbox) {
+            wait.until(ExpectedConditions.elementToBeClickable(checkbox)).click();
+        }
     }
 }
