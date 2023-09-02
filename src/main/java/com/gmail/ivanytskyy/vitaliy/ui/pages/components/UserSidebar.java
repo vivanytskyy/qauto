@@ -7,8 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 11/07/2023
+ * @version 1.01
+ * @date 02/09/2023
  */
 public class UserSidebar extends BasePage {
     private final WebElement element;
@@ -40,6 +40,14 @@ public class UserSidebar extends BasePage {
     public SettingsPage openSettings(){
         clickLink(settingsLink);
         return new SettingsPage();
+    }
+    public InstructionsPage openInstructions(){
+        clickLink(instructionsLink);
+        return new InstructionsPage();
+    }
+    public ExpensesPage openExpenses(){
+        clickLink(fuelExpensesLink);
+        return new ExpensesPage();
     }
     public MainPage logout(){
         clickLink(logoutLink);

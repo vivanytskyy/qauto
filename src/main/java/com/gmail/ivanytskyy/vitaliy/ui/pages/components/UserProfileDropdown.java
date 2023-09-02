@@ -1,8 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.ProfilePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.SettingsPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -39,5 +37,25 @@ public class UserProfileDropdown extends BasePage {
         moveToElement(profileSettingsLink);
         profileSettingsLink.click();
         return new SettingsPage();
+    }
+    public GaragePage openGarage(){
+        try {
+            garageLink.click();
+        }catch (RuntimeException e){
+            e.printStackTrace();
+        }
+        return new GaragePage();
+    }
+    public InstructionsPage openInstructions(){
+        clickLink(instructionsLink);
+        return new InstructionsPage();
+    }
+    public ExpensesPage openExpenses(){
+        clickLink(fuelExpensesLink);
+        return new ExpensesPage();
+    }
+    public MainPage logout(){
+        clickLink(logoutButton);
+        return new MainPage();
     }
 }
