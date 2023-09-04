@@ -7,11 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 02/09/2023
+ * @version 1.02
+ * @date 04/09/2023
  */
 public class UserSidebar extends BasePage {
-    private final WebElement element;
     @FindBy(xpath = ".//a[contains(@href, '/garage')]")
     private WebElement garageLink;
     @FindBy(xpath = ".//a[contains(@href, '/expenses')]")
@@ -26,7 +25,6 @@ public class UserSidebar extends BasePage {
     private WebElement logoutLink;
 
     public UserSidebar(WebElement element) {
-        this.element = element;
         PageFactory.initElements(element, this);
     }
     public GaragePage openGarage(){
