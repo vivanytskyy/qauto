@@ -1,6 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui;
 
 import com.github.javafaker.Faker;
+import com.gmail.ivanytskyy.vitaliy.listeners.UIExtentReportsListener;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
 import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
@@ -25,6 +26,7 @@ import java.util.Map;
  * @version 1.00
  * @date 30/06/2023
  */
+@Listeners({UIExtentReportsListener.class})
 public class BaseTest {
     protected WebDriver webDriver;
     protected TempUser tempUser;

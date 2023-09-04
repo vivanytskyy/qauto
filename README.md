@@ -11,4 +11,5 @@ List of technologies and libraries were applied:
 - [REST Assured](https://rest-assured.io);
 - [Lombok](https://projectlombok.org/);
 - [Apache Maven](https://maven.apache.org/);
+- [ExtentReports](https://www.extentreports.com/docs/versions/4/java/);
 - [Java Faker](https://github.com/DiUS/java-faker).

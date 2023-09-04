@@ -23,6 +23,7 @@
         <lombok.version>1.18.28</lombok.version>
         <javafaker.version>1.0.2</javafaker.version>
         <rest-assured.version>5.3.1</rest-assured.version>
+        <extentreports.version>1.0.7</extentreports.version>
     </properties>
 
     <dependencies>
@@ -81,6 +82,13 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>${rest-assured.version}</version>
+        </dependency>
+
+        <!-- Reports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports-testng-adapter</artifactId>
+            <version>${extentreports.version}</version>
         </dependency>
     </dependencies>
     <build>
