@@ -19,7 +19,7 @@ public class BasePage {
     protected Actions actions;
     public BasePage(){
         this.webDriver = WebDriverHolder.getWebDriver();
-        this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(7));
         this.actions = new Actions(webDriver);
     }
     protected void clickButton(WebElement button){

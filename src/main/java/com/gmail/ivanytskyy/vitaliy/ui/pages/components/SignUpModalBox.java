@@ -1,19 +1,15 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 01/09/2023
+ * @version 1.02
+ * @date 04/09/2023
  */
-public class SignUpModalBox extends BasePage {
-    @FindBy(css = "h4.modal-title")
-    private WebElement modalTitle;
+public class SignUpModalBox extends ModalBox {
     @FindBy(css = "[for='signupName']")
     private WebElement nameTitle;
     @FindBy(css = "[for='signupLastName']")
@@ -40,28 +36,25 @@ public class SignUpModalBox extends BasePage {
     private WebElement formErrorAlert;
 
     public SignUpModalBox(WebElement container) {
-        PageFactory.initElements(container, this);
-    }
-    public String getTitle(){
-        return modalTitle.getText();
+        super(container);
     }
     public String getNameInputFieldTitle(){
-        return nameTitle.getText();
+        return getText(nameTitle);
     }
     public String getLastNameInputFieldTitle(){
-        return lastNameTitle.getText();
+        return getText(lastNameTitle);
     }
     public String getEmailInputFieldTitle(){
-        return emailTitle.getText();
+        return getText(emailTitle);
     }
     public String getPasswordInputFieldTitle(){
-        return passwordTitle.getText();
+        return getText(passwordTitle);
     }
     public String getReEnterPasswordInputFieldTitle(){
-        return repeatPasswordTitle.getText();
+        return getText(repeatPasswordTitle);
     }
     public String getRegisterButtonName(){
-        return registerButton.getText();
+        return getText(registerButton);
     }
     public String getFormErrorMessage(){
         return getText(formErrorAlert);

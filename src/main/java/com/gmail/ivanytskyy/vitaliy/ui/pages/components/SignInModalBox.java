@@ -1,21 +1,17 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 01/09/2023
+ * @version 1.02
+ * @date 04/09/2023
  */
-public class SignInModalBox extends BasePage {
-    @FindBy(css = "h4.modal-title")
-    private WebElement modalTitle;
+public class SignInModalBox extends ModalBox {
     @FindBy(css = "[for='signinEmail']")
     private WebElement emailTitle;
     @FindBy(css = "[for='signinPassword']")
@@ -41,7 +37,7 @@ public class SignInModalBox extends BasePage {
     private final By registrationModalContentLocator = By.cssSelector("div.modal-content");
 
     public SignInModalBox(WebElement container) {
-        PageFactory.initElements(container, this);
+        super(container);
     }
     public SignInModalBox setEmail(String email){
         setTextFieldValue(emailInput, email);
@@ -87,9 +83,6 @@ public class SignInModalBox extends BasePage {
         clickButton(forgotPasswordButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
         return new RestoreAccessModalBox(webDriver.findElement(registrationModalContentLocator));
-    }
-    public String getTitle(){
-        return getText(modalTitle);
     }
     public String getEmailInputFieldTitle(){
         return getText(emailTitle);

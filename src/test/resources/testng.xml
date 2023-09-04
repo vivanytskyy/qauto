@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite1" verbose="1" >
+<suite name="Suite1" verbose="1">
     <test name="api" enabled="false">
         <classes >
             <class name="com.gmail.ivanytskyy.vitaliy.api.AuthTest" />
@@ -10,17 +10,17 @@
             <class name="com.gmail.ivanytskyy.vitaliy.api.InstructionsTest" />
         </classes>
     </test>
-    <test name="ui" enabled="true">
+    <test name="ui" enabled="true" parallel="classes" thread-count="2">
         <parameter name="browser" value="chrome"/>
-        <classes >
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.SettingsTest" />
+        <classes>
+            <!----><class name="com.gmail.ivanytskyy.vitaliy.ui.SettingsTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.GuestPageTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.SignInTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.SignUpTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.GarageTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.ExpensesTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.InstructionsTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.ProfileTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.ProfileTest" /><!---->
         </classes>
     </test>
     <test name="unit" enabled="false">
