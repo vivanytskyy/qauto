@@ -23,8 +23,8 @@ import java.util.Map;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 30/06/2023
+ * @version 1.01
+ * @date 07/09/2023
  */
 @Listeners({UIExtentReportsListener.class})
 public class BaseTest {
@@ -156,6 +156,7 @@ public class BaseTest {
                 .setEmail(email)
                 .setPassword(password)
                 .clickLoginButtonPositiveCase()
+                .moveToUserNavigationBar()
                 .openUserProfileDropdown()
                 .openSettings()
                 .removeAccount()
