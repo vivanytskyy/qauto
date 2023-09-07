@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 02/09/2023
+ * @version 1.01
+ * @date 07/09/2023
  */
 public class InstructionsTest extends BaseTest{
     private static final String EXPECTED_PAGE_TITLE = "Instructions";
@@ -22,12 +22,24 @@ public class InstructionsTest extends BaseTest{
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
     }
-    @Test(description = "Open instructions page through dropdown. Positive case.", priority = 20)
+    @Test(description = "Open instructions page through navigation bar. Positive case.", priority = 20)
+    public void openPageThroughNavigationBarTest(){
+        boolean rememberMe = false;
+        String title = openApp()
+                .openSingInBox()
+                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .moveToUserNavigationBar()
+                .openInstructions()
+                .getPageTitle();
+        Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
+    }
+    @Test(description = "Open instructions page through dropdown. Positive case.", priority = 30)
     public void openPageThroughDropdownTest(){
         boolean rememberMe = false;
         String title = openApp()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .moveToUserNavigationBar()
                 .openUserProfileDropdown()
                 .openInstructions()
                 .getPageTitle();

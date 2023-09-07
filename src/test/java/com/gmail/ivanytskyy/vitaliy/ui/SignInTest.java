@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 01/09/2023
+ * @version 1.02
+ * @date 07/09/2023
  */
 public class SignInTest extends BaseTest {
     private static final String EXPECTED_MODAL_BOX_TITLE = "Log in";
@@ -38,7 +38,10 @@ public class SignInTest extends BaseTest {
                         rememberMe);
         String actualTitle = garagePage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_GARAGE_PAGE_TITLE);
-        ProfilePage profilePage = garagePage.openUserProfileDropdown().openProfile();
+        ProfilePage profilePage = garagePage
+                .moveToUserNavigationBar()
+                .openUserProfileDropdown()
+                .openProfile();
         actualTitle = profilePage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE);
         String displayedUserName = profilePage.getProfileName();

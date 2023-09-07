@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 02/09/2023
+ * @version 1.01
+ * @date 07/09/2023
  */
 public class GarageTest extends BaseTest{
     private static final String EXPECTED_PAGE_TITLE = "Garage";
@@ -22,12 +22,24 @@ public class GarageTest extends BaseTest{
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
     }
-    @Test(description = "Open garage page through dropdown. Positive case.", priority = 20)
+    @Test(description = "Open garage page through navigation bar. Positive case.", priority = 20)
+    public void openPageThroughNavigationBarTest(){
+        boolean rememberMe = false;
+        String title = openApp()
+                .openSingInBox()
+                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .moveToUserNavigationBar()
+                .openGarage()
+                .getPageTitle();
+        Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
+    }
+    @Test(description = "Open garage page through dropdown. Positive case.", priority = 30)
     public void openPageThroughDropdownTest(){
         boolean rememberMe = false;
         String title = openApp()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .moveToUserNavigationBar()
                 .openUserProfileDropdown()
                 .openGarage()
                 .getPageTitle();

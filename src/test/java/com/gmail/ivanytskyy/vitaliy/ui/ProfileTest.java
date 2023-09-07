@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 02/09/2023
+ * @version 1.01
+ * @date 07/09/2023
  */
 public class ProfileTest extends BaseTest{
     private static final String EXPECTED_PAGE_TITLE = "Profile";
@@ -28,6 +28,7 @@ public class ProfileTest extends BaseTest{
         String title = openApp()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .moveToUserNavigationBar()
                 .openUserProfileDropdown()
                 .openProfile()
                 .getPageTitle();
