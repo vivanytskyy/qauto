@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
@@ -43,5 +44,16 @@ public class BasePage {
         if(initialCondition != selectCheckbox) {
             wait.until(ExpectedConditions.elementToBeClickable(checkbox)).click();
         }
+    }
+    protected void selectByIndex(WebElement element, int index){
+        Select select = new Select(element);
+        select.selectByIndex(index);
+    }
+    protected void selectByText(WebElement element, String text){
+        Select select = new Select(element);
+        select.selectByVisibleText(text);
+    }
+    protected String getAttribute(WebElement element, String attributeName){
+        return wait.until(ExpectedConditions.visibilityOf(element)).getAttribute(attributeName);
     }
 }

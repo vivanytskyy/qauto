@@ -34,7 +34,7 @@ public class SignInModalBox extends ModalBox {
     private WebElement formErrorAlert;
     @FindBy(css = "div.modal-content>app-signin-modal")
     private WebElement modalBox;
-    private final By registrationModalContentLocator = By.cssSelector("div.modal-content");
+    private final By modalContentLocator = By.cssSelector("div.modal-content");
 
     public SignInModalBox(WebElement container) {
         super(container);
@@ -77,12 +77,12 @@ public class SignInModalBox extends ModalBox {
     public SignUpModalBox toRegistration(){
         clickButton(registrationButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
-        return new SignUpModalBox(webDriver.findElement(registrationModalContentLocator));
+        return new SignUpModalBox(webDriver.findElement(modalContentLocator));
     }
     public RestoreAccessModalBox toRestoreAccess(){
         clickButton(forgotPasswordButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
-        return new RestoreAccessModalBox(webDriver.findElement(registrationModalContentLocator));
+        return new RestoreAccessModalBox(webDriver.findElement(modalContentLocator));
     }
     public String getEmailInputFieldTitle(){
         return getText(emailTitle);
