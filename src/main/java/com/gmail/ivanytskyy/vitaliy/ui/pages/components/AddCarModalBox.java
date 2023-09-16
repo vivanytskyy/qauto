@@ -6,30 +6,13 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 12/09/2023
+ * @version 1.03
+ * @date 16/09/2023
  */
-public class AddCarModalBox extends ModalBox{
-    @FindBy(css = "[for='addCarBrand']")
-    private WebElement brandTitle;
-    @FindBy(css = "[for='addCarModel']")
-    private WebElement modelTitle;
-    @FindBy(css = "[for='addCarMileage']")
-    private WebElement mileageTitle;
-    @FindBy(css = "select[id='addCarBrand']")
-    private WebElement brandSelect;
-    @FindBy(css = "select[id='addCarModel']")
-    private WebElement modelSelect;
-    @FindBy(css = "input[id='addCarMileage']")
-    private WebElement mileageInput;
-    @FindBy(css = "div.input-group-text")
-    private WebElement mileageUnit;
-    @FindBy(css = ".btn.btn-secondary")
-    private WebElement cancelButton;
+public class AddCarModalBox extends CarModalBox{
     @FindBy(css = ".modal-footer .btn.btn-primary")
     private WebElement addButton;
-    @FindBy(css = "button.close")
-    private WebElement closeButton;
+
     public AddCarModalBox(WebElement container){
         super(container);
     }
@@ -68,27 +51,5 @@ public class AddCarModalBox extends ModalBox{
                 .selectModelByName(modelName)
                 .setMileage(mileage)
                 .clickAddCarButtonPositiveCase();
-    }
-    public GaragePage clickCancelButton(){
-        clickButton(cancelButton);
-        return new GaragePage();
-    }
-    public String getMileageUnit(){
-        return getText(mileageUnit);
-    }
-    public String getBrandSelectTitle(){
-        return getText(brandTitle);
-    }
-    public String getModelSelectTitle(){
-        return getText(modelTitle);
-    }
-    public String getMileageInputFieldTitle(){
-        return getText(mileageTitle);
-    }
-    public String getAddCarButtonName(){
-        return getText(addButton);
-    }
-    public String getCancelButtonName(){
-        return getText(cancelButton);
     }
 }

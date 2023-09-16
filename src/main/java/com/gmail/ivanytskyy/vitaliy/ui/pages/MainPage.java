@@ -20,6 +20,8 @@ public class MainPage extends BasePage{
     private WebElement signUpButton;
     @FindBy(css = "div.modal-content")
     private WebElement modalContent;
+    @FindBy(css = "div>h1")
+    private WebElement title;
     public MainPage(){
         PageFactory.initElements(webDriver, this);
     }
@@ -34,5 +36,8 @@ public class MainPage extends BasePage{
     public SignUpModalBox openSingUpBox(){
         clickButton(signUpButton);
         return new SignUpModalBox(modalContent);
+    }
+    public String getPageTitle(){
+        return getText(title);
     }
 }

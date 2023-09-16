@@ -1,6 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,8 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 04/09/2023
+ * @version 1.03
+ * @date 16/09/2023
  */
 public class SignInModalBox extends ModalBox {
     @FindBy(css = "[for='signinEmail']")
@@ -83,6 +84,10 @@ public class SignInModalBox extends ModalBox {
         clickButton(forgotPasswordButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
         return new RestoreAccessModalBox(webDriver.findElement(modalContentLocator));
+    }
+    public MainPage closeModalBox(){
+        clickButton(closeButton);
+        return new MainPage();
     }
     public String getEmailInputFieldTitle(){
         return getText(emailTitle);
