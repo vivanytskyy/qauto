@@ -21,11 +21,17 @@ public class SignInTest extends BaseTest {
     private static final String WRONG_EMAIL_OR_PASSWORD_MESSAGE = "Wrong email or password";
     private static final String EXPECTED_REGISTRATION_TITLE = "Registration";
     private static final String EXPECTED_RESTORE_ACCESS_TITLE = "Restore access";
+    private static final String EXPECTED_MAIN_PAGE_TITLE = "Do more!";
 
     @Test(description = "Opening SignIn modal box", priority = 10)
     public void openSignInTest(){
         String actualTitle = openApp().openSingInBox().getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_MODAL_BOX_TITLE);
+    }
+    @Test(description = "Close SignIn modal box", priority = 11)
+    public void closeSignInTest(){
+        String actualTitle = openApp().openSingInBox().closeModalBox().getPageTitle();
+        Assert.assertEquals(actualTitle, EXPECTED_MAIN_PAGE_TITLE);
     }
     @Test(description = "Login is success ", priority = 20)
     public void signInPositiveTest(){

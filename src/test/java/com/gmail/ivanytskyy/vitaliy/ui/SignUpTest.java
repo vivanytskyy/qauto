@@ -21,11 +21,17 @@ public class SignUpTest extends BaseTest{
     private static final String EXPECTED_GARAGE_PAGE_TITLE = "Garage";
     private static final String EXPECTED_PROFILE_PAGE_TITLE = "Profile";
     private static final String USER_ALREADY_EXISTS_ERROR_MESSAGE = "User already exists";
+    private static final String EXPECTED_MAIN_PAGE_TITLE = "Do more!";
 
     @Test(description = "Opening SignUp modal box", priority = 10)
     public void openSignUpTest(){
         String actualTitle = openApp().openSingUpBox().getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_MODAL_BOX_TITLE);
+    }
+    @Test(description = "Close SignUp modal box", priority = 11)
+    public void closeSignUpTest(){
+        String actualTitle = openApp().openSingUpBox().closeModalBox().getPageTitle();
+        Assert.assertEquals(actualTitle, EXPECTED_MAIN_PAGE_TITLE);
     }
     @Test(description = "Sign up is success ", priority = 20)
     public void signUpPositiveTest(){
