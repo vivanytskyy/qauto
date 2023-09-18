@@ -78,6 +78,17 @@ public class GarageTest extends BaseTest{
                 .getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_PAGE_TITLE);
     }
+    @Test(description = "Cancel add car modal box", priority = 42)
+    public void cancelAddCarTest(){
+        boolean rememberMe = false;
+        String actualTitle = openApp()
+                .openSingInBox()
+                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .addCar()
+                .clickCancelButton()
+                .getPageTitle();
+        Assert.assertEquals(actualTitle, EXPECTED_PAGE_TITLE);
+    }
     @Test(description = "Check title of brand select", priority = 50)
     public void brandTitleTest(){
         boolean rememberMe = false;
@@ -201,6 +212,28 @@ public class GarageTest extends BaseTest{
                 .getCarItem(1)
                 .editCar()
                 .closeModalBox();
+        String actualTitle = garagePage.getPageTitle();
+        Assert.assertEquals(actualTitle, EXPECTED_PAGE_TITLE);
+        garagePage
+                .getCarItem(1)
+                .editCar()
+                .removeCar()
+                .confirmRemoving();
+    }
+    @Test(description = "Cancel edit car modal box", priority = 112)
+    public void cancelEditCarTest(){
+        int brandId = 0;
+        int modelId = 0;
+        int mileage = new Random().nextInt(1, 100);
+        boolean rememberMe = false;
+        GaragePage garagePage = openApp()
+                .openSingInBox()
+                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .addCar()
+                .addCarPositiveCase(brandId, modelId, mileage)
+                .getCarItem(1)
+                .editCar()
+                .clickCancelButton();
         String actualTitle = garagePage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_PAGE_TITLE);
         garagePage
