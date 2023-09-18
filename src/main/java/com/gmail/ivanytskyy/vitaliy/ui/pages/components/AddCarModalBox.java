@@ -6,8 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 16/09/2023
+ * @version 1.04
+ * @date 18/09/2023
  */
 public class AddCarModalBox extends CarModalBox{
     @FindBy(css = ".modal-footer .btn.btn-primary")
@@ -17,11 +17,11 @@ public class AddCarModalBox extends CarModalBox{
         super(container);
     }
     public AddCarModalBox selectBrandById(int brandId){
-        selectByIndex(brandSelect, brandId + 1);
+        selectByIndex(brandSelect, brandId);
         return this;
     }
     public AddCarModalBox selectModelById(int modelId){
-        selectByIndex(brandSelect, modelId + 1);
+        selectByIndex(modelSelect, modelId);
         return this;
     }
     public AddCarModalBox selectBrandByName(String brandName){
@@ -29,7 +29,7 @@ public class AddCarModalBox extends CarModalBox{
         return this;
     }
     public AddCarModalBox selectModelByName(String modelName){
-        selectByText(brandSelect, modelName);
+        selectByText(modelSelect, modelName);
         return this;
     }
     public AddCarModalBox setMileage(int mileage){
