@@ -11,8 +11,8 @@ import java.time.Duration;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 01/09/2023
+ * @version 1.02
+ * @date 18/09/2023
  */
 public class BasePage {
     protected WebDriver webDriver;
@@ -47,13 +47,18 @@ public class BasePage {
     }
     protected void selectByIndex(WebElement element, int index){
         Select select = new Select(element);
+        clickWebElement(element);
         select.selectByIndex(index);
     }
     protected void selectByText(WebElement element, String text){
         Select select = new Select(element);
+        clickWebElement(element);
         select.selectByVisibleText(text);
     }
     protected String getAttribute(WebElement element, String attributeName){
         return wait.until(ExpectedConditions.visibilityOf(element)).getAttribute(attributeName);
+    }
+    protected void clickWebElement(WebElement element){
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 }

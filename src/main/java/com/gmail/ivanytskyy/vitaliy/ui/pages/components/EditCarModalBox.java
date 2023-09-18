@@ -10,8 +10,8 @@ import java.util.Date;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 16/09/2023
+ * @version 1.01
+ * @date 18/09/2023
  */
 public class EditCarModalBox extends CarModalBox{
     @FindBy(css = "[for='carCreationDate']")
@@ -36,11 +36,11 @@ public class EditCarModalBox extends CarModalBox{
         return this;
     }
     public EditCarModalBox selectBrandById(int brandId){
-        selectByIndex(brandSelect, brandId + 1);
+        selectByIndex(brandSelect, brandId);
         return this;
     }
     public EditCarModalBox selectModelById(int modelId){
-        selectByIndex(modelSelect, modelId + 1);
+        selectByIndex(modelSelect, modelId);
         return this;
     }
     public EditCarModalBox selectBrandByName(String brandName){

@@ -10,8 +10,8 @@ import java.util.Random;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 16/09/2023
+ * @version 1.04
+ * @date 18/09/2023
  */
 public class GarageTest extends BaseTest{
     private static final String EXPECTED_PAGE_TITLE = "Garage";
@@ -144,8 +144,29 @@ public class GarageTest extends BaseTest{
         String carItemTitle = carItem.getItemTitle();
         String actualBrandName = carItemTitle.split(" ")[0];
         String actualModelName = carItemTitle.split(" ")[1];
-        Assert.assertEquals(actualBrandName, "BMW");
-        Assert.assertEquals(actualModelName, "3");
+        Assert.assertEquals(actualBrandName, "Audi");
+        Assert.assertEquals(actualModelName, "TT");
+        Assert.assertEquals(actualMileage, mileage);
+        carItem.editCar().removeCar().confirmRemoving();
+    }
+    @Test(description = "Add a car by brand and model names. Positive case.", priority = 101)
+    public void addCarByBrandAndModelNamesTest(){
+        String brandName = "Ford";
+        String modelName = "Focus";
+        int mileage = new Random().nextInt(1, 100);
+        boolean rememberMe = false;
+        CarItem carItem =openApp()
+                .openSingInBox()
+                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .addCar()
+                .addCarPositiveCase(brandName, modelName, mileage)
+                .getCarItem(1);
+        int actualMileage = carItem.getCurrentMileage();
+        String carItemTitle = carItem.getItemTitle();
+        String actualBrandName = carItemTitle.split(" ")[0];
+        String actualModelName = carItemTitle.split(" ")[1];
+        Assert.assertEquals(actualBrandName, brandName);
+        Assert.assertEquals(actualModelName, modelName);
         Assert.assertEquals(actualMileage, mileage);
         carItem.editCar().removeCar().confirmRemoving();
     }
@@ -210,8 +231,38 @@ public class GarageTest extends BaseTest{
         String carItemTitle = carItem.getItemTitle();
         String actualBrandName = carItemTitle.split(" ")[0];
         String actualModelName = carItemTitle.split(" ")[1];
-        Assert.assertEquals(actualBrandName, "Ford");
-        Assert.assertEquals(actualModelName, "Fusion");
+        Assert.assertEquals(actualBrandName, "BMW");
+        Assert.assertEquals(actualModelName, "5");
+        int actualMileage = carItem.getCurrentMileage();
+        Assert.assertEquals(actualMileage, newMileage);
+        carItem.editCar().removeCar().confirmRemoving();
+    }
+    @Test(description = "Add a car by brand and model names. Positive case.", priority = 121)
+    public void editCarByBrandAndModelNamesTest(){
+        String initialBrandName = "Audi";
+        String initialModelName = "TT";
+        int initialMileage = new Random().nextInt(1, 100);
+        String newBrandName = "BMW";
+        String newModelName = "5";
+        int newMileage = new Random().nextInt(initialMileage, 100 + initialMileage);
+        Date newCreationDate = new Date();
+        boolean rememberMe = false;
+        CarItem carItem = openApp()
+                .openSingInBox()
+                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+                .addCar()
+                .addCarPositiveCase(initialBrandName, initialModelName, initialMileage)
+                .getCarItem(1)
+                .editCar()
+                .saveCarPositiveCase(newBrandName, newModelName, newMileage, newCreationDate)
+                .getCarItem(1);
+        String carItemTitle = carItem.getItemTitle();
+        String actualBrandName = carItemTitle.split(" ")[0];
+        String actualModelName = carItemTitle.split(" ")[1];
+        Assert.assertEquals(actualBrandName, newBrandName);
+        Assert.assertEquals(actualModelName, newModelName);
+        int actualMileage = carItem.getCurrentMileage();
+        Assert.assertEquals(actualMileage, newMileage);
         carItem.editCar().removeCar().confirmRemoving();
     }
 }
