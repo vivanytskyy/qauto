@@ -10,8 +10,8 @@ import java.util.Random;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 18/09/2023
+ * @version 1.05
+ * @date 27/09/2023
  */
 public class GarageTest extends BaseTest{
     private static final String EXPECTED_PAGE_TITLE = "Garage";
@@ -27,6 +27,7 @@ public class GarageTest extends BaseTest{
     public void openPageThroughSidebarTest(){
         boolean rememberMe = false;
         String title = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .moveToUserSidebar()
@@ -38,6 +39,7 @@ public class GarageTest extends BaseTest{
     public void openPageThroughNavigationBarTest(){
         boolean rememberMe = false;
         String title = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .moveToUserNavigationBar()
@@ -49,6 +51,7 @@ public class GarageTest extends BaseTest{
     public void openPageThroughDropdownTest(){
         boolean rememberMe = false;
         String title = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .moveToUserNavigationBar()
@@ -61,6 +64,7 @@ public class GarageTest extends BaseTest{
     public void openAddCarTest(){
         boolean rememberMe = false;
         String actualTitle = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -71,6 +75,7 @@ public class GarageTest extends BaseTest{
     public void closeAddCarTest(){
         boolean rememberMe = false;
         String actualTitle = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -82,6 +87,7 @@ public class GarageTest extends BaseTest{
     public void cancelAddCarTest(){
         boolean rememberMe = false;
         String actualTitle = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -93,6 +99,7 @@ public class GarageTest extends BaseTest{
     public void brandTitleTest(){
         boolean rememberMe = false;
         String actualTitle = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -103,6 +110,7 @@ public class GarageTest extends BaseTest{
     public void modelTitleTest(){
         boolean rememberMe = false;
         String actualTitle = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -113,6 +121,7 @@ public class GarageTest extends BaseTest{
     public void mileageTitleTest(){
         boolean rememberMe = false;
         String actualTitle = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -123,6 +132,7 @@ public class GarageTest extends BaseTest{
     public void cancelButtonNameTest(){
         boolean rememberMe = false;
         String actualTitle = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -133,6 +143,7 @@ public class GarageTest extends BaseTest{
     public void addCarButtonNameTest(){
         boolean rememberMe = false;
         String actualTitle = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -146,6 +157,7 @@ public class GarageTest extends BaseTest{
         int mileage = new Random().nextInt(1, 100);
         boolean rememberMe = false;
         CarItem carItem =openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -167,6 +179,7 @@ public class GarageTest extends BaseTest{
         int mileage = new Random().nextInt(1, 100);
         boolean rememberMe = false;
         CarItem carItem =openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -188,6 +201,7 @@ public class GarageTest extends BaseTest{
         int mileage = new Random().nextInt(1, 100);
         boolean rememberMe = false;
         EditCarModalBox editCarModalBox = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -205,6 +219,7 @@ public class GarageTest extends BaseTest{
         int mileage = new Random().nextInt(1, 100);
         boolean rememberMe = false;
         GaragePage garagePage = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -227,6 +242,7 @@ public class GarageTest extends BaseTest{
         int mileage = new Random().nextInt(1, 100);
         boolean rememberMe = false;
         GaragePage garagePage = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -253,6 +269,7 @@ public class GarageTest extends BaseTest{
         Date newCreationDate = new Date();
         boolean rememberMe = false;
         CarItem carItem = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
@@ -281,6 +298,7 @@ public class GarageTest extends BaseTest{
         Date newCreationDate = new Date();
         boolean rememberMe = false;
         CarItem carItem = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
                 .addCar()
