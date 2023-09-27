@@ -1,15 +1,15 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.SignInModalBox;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.SignUpModalBox;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.VisitorHeader;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 30/06/2023
+ * @version 1.01
+ * @date 27/09/2023
  */
 public class MainPage extends BasePage{
     @FindBy(css = "button.header-link.-guest")
@@ -22,6 +22,9 @@ public class MainPage extends BasePage{
     private WebElement modalContent;
     @FindBy(css = "div>h1")
     private WebElement title;
+    @FindBy(css = "app-header")
+    private WebElement visitorHeader;
+
     public MainPage(){
         PageFactory.initElements(webDriver, this);
     }
@@ -29,15 +32,14 @@ public class MainPage extends BasePage{
         clickButton(guestLoginButton);
         return new GuestPage();
     }
-    public SignInModalBox openSingInBox(){
-        clickButton(signInButton);
-        return new SignInModalBox(modalContent);
-    }
     public SignUpModalBox openSingUpBox(){
         clickButton(signUpButton);
         return new SignUpModalBox(modalContent);
     }
     public String getPageTitle(){
         return getText(title);
+    }
+    public VisitorHeader moveToVisitorHeader(){
+        return new VisitorHeader();
     }
 }

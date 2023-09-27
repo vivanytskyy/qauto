@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 07/09/2023
+ * @version 1.03
+ * @date 27/09/2023
  */
 public class SignInTest extends BaseTest {
     private static final String EXPECTED_MODAL_BOX_TITLE = "Log in";
@@ -25,18 +25,26 @@ public class SignInTest extends BaseTest {
 
     @Test(description = "Opening SignIn modal box", priority = 10)
     public void openSignInTest(){
-        String actualTitle = openApp().openSingInBox().getTitle();
+        String actualTitle = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_MODAL_BOX_TITLE);
     }
     @Test(description = "Close SignIn modal box", priority = 11)
     public void closeSignInTest(){
-        String actualTitle = openApp().openSingInBox().closeModalBox().getPageTitle();
+        String actualTitle = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .closeModalBox()
+                .getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_MAIN_PAGE_TITLE);
     }
     @Test(description = "Login is success ", priority = 20)
     public void signInPositiveTest(){
         boolean rememberMe = false;
         GaragePage garagePage = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(
                         getUserEmail(),
@@ -55,28 +63,41 @@ public class SignInTest extends BaseTest {
     }
     @Test(description = "Check title of email input field", priority = 30)
     public void nameTitleTest(){
-        String actualTitle = openApp().openSingInBox().getEmailInputFieldTitle();
+        String actualTitle = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .getEmailInputFieldTitle();
         Assert.assertEquals(actualTitle, EXPECTED_EMAIL_TITLE);
     }
     @Test(description = "Check title of password input field", priority = 40)
     public void passwordTitleTest(){
-        String actualTitle = openApp().openSingInBox().getPasswordInputFieldTitle();
+        String actualTitle = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .getPasswordInputFieldTitle();
         Assert.assertEquals(actualTitle, EXPECTED_PASSWORD_TITLE);
     }
     @Test(description = "Check title of checkbox", priority = 50)
     public void checkboxTitleTest(){
-        String actualTitle = openApp().openSingInBox().getCheckboxTitle();
+        String actualTitle = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .getCheckboxTitle();
         Assert.assertEquals(actualTitle, EXPECTED_CHECKBOX_TITLE);
     }
     @Test(description = "Check name of login button", priority = 60)
     public void loginButtonNameTest(){
-        String actualName = openApp().openSingInBox().getLoginButtonName();
+        String actualName = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .getLoginButtonName();
         Assert.assertEquals(actualName, EXPECTED_LOGIN_BUTTON_NAME);
     }
     @Test(description = "Login is unsuccessful. Negative case ", priority = 70)
     public void signUpNegativeTest(){
         boolean rememberMe = false;
         String errorMessage = openApp()
+                .moveToVisitorHeader()
                 .openSingInBox()
                 .loginNegativeCase(tempUser.getEmail(), tempUser.getPassword(), rememberMe)
                 .getFormErrorMessage();
@@ -84,12 +105,20 @@ public class SignInTest extends BaseTest {
     }
     @Test(description = "Opening SignUp modal box", priority = 80)
     public void openRegistrationTest(){
-        String actualTitle = openApp().openSingInBox().toRegistration().getTitle();
+        String actualTitle = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .toRegistration()
+                .getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_REGISTRATION_TITLE);
     }
     @Test(description = "Opening RestoreAccess modal box", priority = 90)
     public void openRestoreAccessTest(){
-        String actualTitle = openApp().openSingInBox().toRestoreAccess().getTitle();
+        String actualTitle = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .toRestoreAccess()
+                .getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_RESTORE_ACCESS_TITLE);
     }
 }
