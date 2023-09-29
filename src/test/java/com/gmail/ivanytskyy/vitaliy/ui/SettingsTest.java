@@ -31,7 +31,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserNavigationBar()
+                .moveToUserHeader()
                 .openUserProfileDropdown()
                 .openSettings()
                 .getPageTitle();

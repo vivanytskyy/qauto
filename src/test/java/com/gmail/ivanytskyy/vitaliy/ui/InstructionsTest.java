@@ -30,7 +30,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserNavigationBar()
+                .moveToUserHeader()
                 .openInstructions()
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
@@ -42,7 +42,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserNavigationBar()
+                .moveToUserHeader()
                 .openUserProfileDropdown()
                 .openInstructions()
                 .getPageTitle();

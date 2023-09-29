@@ -30,7 +30,7 @@ public class ProfileTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserNavigationBar()
+                .moveToUserHeader()
                 .openUserProfileDropdown()
                 .openProfile()
                 .getPageTitle();

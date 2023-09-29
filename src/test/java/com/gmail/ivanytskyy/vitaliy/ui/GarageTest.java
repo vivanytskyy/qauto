@@ -1,8 +1,8 @@
 package com.gmail.ivanytskyy.vitaliy.ui;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.CarItem;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.EditCarModalBox;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.items.CarItem;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.EditCarModalBox;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.Date;
@@ -42,7 +42,7 @@ public class GarageTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserNavigationBar()
+                .moveToUserHeader()
                 .openGarage()
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
@@ -54,7 +54,7 @@ public class GarageTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserNavigationBar()
+                .moveToUserHeader()
                 .openUserProfileDropdown()
                 .openGarage()
                 .getPageTitle();

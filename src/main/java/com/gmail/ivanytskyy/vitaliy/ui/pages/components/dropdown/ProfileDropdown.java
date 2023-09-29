@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -8,34 +8,21 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 04/09/2023
+ * @version 1.00
+ * @date 29/09/2023
  */
-public class UserProfileDropdown extends BasePage {
+public abstract class ProfileDropdown extends BasePage {
     @FindBy(xpath = ".//a[contains(@href, '/garage')]")
     private WebElement garageLink;
     @FindBy(xpath = ".//a[contains(@href, '/expenses')]")
     private WebElement fuelExpensesLink;
     @FindBy(xpath = ".//a[contains(@href, '/instructions')]")
     private WebElement instructionsLink;
-    @FindBy(xpath = ".//div/a[contains(@href, '/profile')]")
-    private WebElement profileLink;
-    @FindBy(xpath = ".//div/a[contains(@href, '/settings')]")
-    private WebElement profileSettingsLink;
-    @FindBy(xpath = ".button[text()='logout')]")
+    @FindBy(xpath = ".//nav/button")
     private WebElement logoutButton;
-    public UserProfileDropdown(WebElement element) {
+
+    public ProfileDropdown(WebElement element) {
         PageFactory.initElements(element, this);
-    }
-    public ProfilePage openProfile(){
-        moveToElement(profileLink);
-        profileLink.click();
-        return new ProfilePage();
-    }
-    public SettingsPage openSettings(){
-        moveToElement(profileSettingsLink);
-        profileSettingsLink.click();
-        return new SettingsPage();
     }
     public GaragePage openGarage(){
         try {

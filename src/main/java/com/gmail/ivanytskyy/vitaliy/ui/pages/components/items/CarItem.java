@@ -1,6 +1,7 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components.items;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.EditCarModalBox;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

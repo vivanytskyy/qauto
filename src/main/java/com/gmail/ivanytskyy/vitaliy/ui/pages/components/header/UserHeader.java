@@ -1,19 +1,17 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components.header;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown.UserProfileDropdown;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 07/09/2023
+ * @version 1.01
+ * @date 29/09/2023
  */
-public class UserNavigationBar extends BasePage {
-    private final WebElement container;
-    @FindBy(css = "div.header_left>a[routerLink='/']")
-    private WebElement toMainPageLink;
+public class UserHeader extends Header {
     @FindBy(css = "div.header_left a[routerLink='/panel/garage']")
     private WebElement garageLink;
     @FindBy(css = "div.header_left a[routerLink='/panel/expenses']")
@@ -25,9 +23,8 @@ public class UserNavigationBar extends BasePage {
     @FindBy(css = "button[id='userNavDropdown']")
     private WebElement userProfileDropdownButton;
 
-    public UserNavigationBar(WebElement container) {
-        this.container = container;
-        PageFactory.initElements(container, this);
+    public UserHeader() {
+        PageFactory.initElements(webDriver, this);
     }
     public GaragePage openGarage(){
         clickLink(garageLink);

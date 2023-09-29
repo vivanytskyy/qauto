@@ -158,7 +158,7 @@ public class BaseTest {
                 .setEmail(email)
                 .setPassword(password)
                 .clickLoginButtonPositiveCase()
-                .moveToUserNavigationBar()
+                .moveToUserHeader()
                 .openUserProfileDropdown()
                 .openSettings()
                 .removeAccount()
