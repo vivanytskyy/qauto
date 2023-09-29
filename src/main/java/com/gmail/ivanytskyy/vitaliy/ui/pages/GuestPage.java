@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.AddCarModalBox;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.Footer;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.AddCarModalBox;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.footer.Footer;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;

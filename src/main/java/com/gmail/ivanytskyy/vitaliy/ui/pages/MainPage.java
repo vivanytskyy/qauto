@@ -1,8 +1,8 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.Footer;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.SignUpModalBox;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.VisitorHeader;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.footer.Footer;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.SignUpModalBox;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.header.VisitorHeader;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;

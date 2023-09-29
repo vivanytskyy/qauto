@@ -1,6 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.RemoveAccountModalBox;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.RemoveAccountModalBox;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 

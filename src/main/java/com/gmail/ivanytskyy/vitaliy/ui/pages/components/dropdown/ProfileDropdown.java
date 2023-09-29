@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
 import org.openqa.selenium.ElementClickInterceptedException;

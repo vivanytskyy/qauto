@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.SettingsPage;

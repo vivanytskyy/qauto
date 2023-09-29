@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.components.header;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
 import org.openqa.selenium.WebElement;
