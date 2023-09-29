@@ -1,6 +1,5 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,9 +9,7 @@ import org.openqa.selenium.support.PageFactory;
  * @version 1.00
  * @date 27/09/2023
  */
-public class VisitorHeader extends BasePage {
-    @FindBy(css = "div.header_left>a[routerLink='/']")
-    private WebElement homeLinkByHeaderLogo;
+public class VisitorHeader extends Header {
     @FindBy(css = "div.header_left>nav>a[routerLink='/']")
     private WebElement homeLink;
     @FindBy(css = "div.header_left>nav>button:nth-of-type(1)")
@@ -28,9 +25,6 @@ public class VisitorHeader extends BasePage {
 
     public VisitorHeader() {
         PageFactory.initElements(webDriver, this);
-    }
-    public void openHomePageByHeaderLogo(){
-        clickLink(homeLinkByHeaderLogo);
     }
     public void openHomePage(){
         clickLink(homeLink);

@@ -53,7 +53,7 @@ public class SignInTest extends BaseTest {
         String actualTitle = garagePage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_GARAGE_PAGE_TITLE);
         ProfilePage profilePage = garagePage
-                .moveToUserNavigationBar()
+                .moveToUserHeader()
                 .openUserProfileDropdown()
                 .openProfile();
         actualTitle = profilePage.getPageTitle();
