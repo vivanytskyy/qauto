@@ -1,9 +1,11 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
 import com.gmail.ivanytskyy.vitaliy.ui.utils.WebDriverHolder;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,17 +13,19 @@ import java.time.Duration;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 18/09/2023
+ * @version 1.03
+ * @date 03/10/2023
  */
 public class BasePage {
     protected WebDriver webDriver;
     protected WebDriverWait wait;
-    protected Actions actions;
+    private final Actions actions;
+    private final JavascriptExecutor javascriptExecutor;
     public BasePage(){
         this.webDriver = WebDriverHolder.getWebDriver();
         this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(7));
         this.actions = new Actions(webDriver);
+        this.javascriptExecutor = (JavascriptExecutor) webDriver;
     }
     protected void clickButton(WebElement button){
         wait.until(ExpectedConditions.elementToBeClickable(button)).click();
@@ -60,5 +64,22 @@ public class BasePage {
     }
     protected void clickWebElement(WebElement element){
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+    protected boolean isElementDisplayed(WebElement element){
+        return wait.until(elementDisplayInViewport(element));
+    }
+    public ExpectedCondition<Boolean> elementDisplayInViewport(WebElement element) {
+        final String jsScript = """
+                         var elem = arguments[0], 
+                         box = elem.getBoundingClientRect(), 
+                         cx = box.left + box.width / 2, 
+                         cy = box.top + box.height / 2, 
+                         e = document.elementFromPoint(cx, cy);
+                         for (; e; e = e.parentElement) {
+                            if (e === elem) return true;
+                         }
+                         return false;
+                      """;
+        return webElement -> (Boolean) javascriptExecutor.executeScript(jsScript, element);
     }
 }

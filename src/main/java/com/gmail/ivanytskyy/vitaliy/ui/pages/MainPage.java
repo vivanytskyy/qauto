@@ -13,8 +13,6 @@ import org.openqa.selenium.support.PageFactory;
  * @date 28/09/2023
  */
 public class MainPage extends BasePage{
-    @FindBy(css = "button.header-link.-guest")
-    private WebElement guestLoginButton;
     @FindBy(css = "button.btn.btn-outline-white.header_signin")
     private WebElement signInButton;
     @FindBy(css = "button.hero-descriptor_btn.btn.btn-primary")
@@ -27,13 +25,13 @@ public class MainPage extends BasePage{
     private WebElement visitorHeader;
     @FindBy(css = "footer.footer")
     private WebElement footer;
+    @FindBy(css = "#aboutSection")
+    private WebElement aboutSection;
+    @FindBy(css = "#contactsSection")
+    private WebElement contactsSection;
 
     public MainPage(){
         PageFactory.initElements(webDriver, this);
-    }
-    public GuestPage openGuestPage(){
-        clickButton(guestLoginButton);
-        return new GuestPage();
     }
     public SignUpModalBox openSingUpBox(){
         clickButton(signUpButton);
@@ -47,5 +45,11 @@ public class MainPage extends BasePage{
     }
     public Footer moveToFooter(){
         return new Footer();
+    }
+    public Boolean isAboutSectionDisplayed(){
+        return isElementDisplayed(aboutSection);
+    }
+    public Boolean isContactsSectionDisplayed(){
+        return isElementDisplayed(contactsSection);
     }
 }
