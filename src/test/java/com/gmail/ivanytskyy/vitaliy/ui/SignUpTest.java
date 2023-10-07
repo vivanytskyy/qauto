@@ -22,6 +22,12 @@ public class SignUpTest extends BaseTest{
     private static final String EXPECTED_PROFILE_PAGE_TITLE = "Profile";
     private static final String USER_ALREADY_EXISTS_ERROR_MESSAGE = "User already exists";
     private static final String EXPECTED_MAIN_PAGE_TITLE = "Do more!";
+    private static final String EMPTY_NAME_ERROR_MESSAGE = "Name required";
+    private static final String EMPTY_LAST_NAME_ERROR_MESSAGE = "Last name required";
+    private static final String EMPTY_EMAIL_ERROR_MESSAGE = "Email required";
+    private static final String EMPTY_PASSWORD_ERROR_MESSAGE = "Password required";
+    private static final String EMPTY_REENTER_PASSWORD_ERROR_MESSAGE = "Re-enter password required";
+
 
     @Test(description = "Opening SignUp modal box", priority = 10)
     public void openSignUpTest(){
@@ -94,8 +100,73 @@ public class SignUpTest extends BaseTest{
     public void signUpNegativeTest(){
         String errorMessage = openApp()
                 .openSingUpBox()
-                .registerNegativeCase(getUserFirstName(), getUserLastName(), getUserEmail(), getUserPassword())
+                .registerNegativeCase(getUserFirstName(), getUserLastName(), getUserEmail(), getUserPassword(), getUserPassword())
                 .getFormErrorMessage();
         Assert.assertEquals(errorMessage, USER_ALREADY_EXISTS_ERROR_MESSAGE);
+    }
+    @Test(description = "Empty name. Negative case.", priority = 100)
+    public void nameIsEmptyTest(){
+        String emptyNameMessage = openApp()
+                .openSingUpBox()
+                .registerNegativeCase(
+                        "",
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        tempUser.getPassword(),
+                        tempUser.getPassword())
+                .getInvalidNameMessage();
+        Assert.assertEquals(emptyNameMessage, EMPTY_NAME_ERROR_MESSAGE);
+    }
+    @Test(description = "Empty last name. Negative case.", priority = 101)
+    public void lastNameIsEmptyTest(){
+        String emptyLastNameMessage = openApp()
+                .openSingUpBox()
+                .registerNegativeCase(
+                        tempUser.getFirstName(),
+                        "",
+                        tempUser.getEmail(),
+                        tempUser.getPassword(),
+                        tempUser.getPassword())
+                .getInvalidLastNameMessage();
+        Assert.assertEquals(emptyLastNameMessage, EMPTY_LAST_NAME_ERROR_MESSAGE);
+    }
+    @Test(description = "Empty email. Negative case.", priority = 102)
+    public void emailIsEmptyTest(){
+        String emptyEmailMessage = openApp()
+                .openSingUpBox()
+                .registerNegativeCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        "",
+                        tempUser.getPassword(),
+                        tempUser.getPassword())
+                .getInvalidEmailMessage();
+        Assert.assertEquals(emptyEmailMessage, EMPTY_EMAIL_ERROR_MESSAGE);
+    }
+    @Test(description = "Empty password. Negative case.", priority = 103)
+    public void passwordIsEmptyTest(){
+        String emptyPasswordMessage = openApp()
+                .openSingUpBox()
+                .registerNegativeCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        "",
+                        tempUser.getPassword())
+                .getInvalidPasswordMessage();
+        Assert.assertEquals(emptyPasswordMessage, EMPTY_PASSWORD_ERROR_MESSAGE);
+    }
+    @Test(description = "Empty re-enter password. Negative case.", priority = 104)
+    public void reEnterPasswordIsEmptyTest(){
+        String emptyReEnterPasswordMessage = openApp()
+                .openSingUpBox()
+                .registerNegativeCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        tempUser.getPassword(),
+                        "")
+                .getInvalidRepeatPasswordMessage();
+        Assert.assertEquals(emptyReEnterPasswordMessage, EMPTY_REENTER_PASSWORD_ERROR_MESSAGE);
     }
 }

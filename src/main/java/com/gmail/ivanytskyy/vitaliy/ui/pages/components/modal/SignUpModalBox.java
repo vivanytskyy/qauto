@@ -33,6 +33,16 @@ public class SignUpModalBox extends ModalBox {
     private WebElement repeatPasswordInput;
     @FindBy(css = "div.modal-footer button")
     private WebElement registerButton;
+    @FindBy(xpath = ".//input[@id='signupName']/../div")
+    private WebElement invalidNameMessage;
+    @FindBy(xpath = ".//input[@id='signupLastName']/../div")
+    private WebElement invalidLastNameMessage;
+    @FindBy(xpath = ".//input[@id='signupEmail']/../div")
+    private WebElement invalidEmailMessage;
+    @FindBy(xpath = ".//input[@id='signupPassword']/../div")
+    private WebElement invalidPasswordMessage;
+    @FindBy(xpath = ".//input[@id='signupRepeatPassword']/../div")
+    private WebElement invalidRepeatPasswordMessage;
     @FindBy(css = "form>p")
     private WebElement formErrorAlert;
 
@@ -85,7 +95,7 @@ public class SignUpModalBox extends ModalBox {
         return new GaragePage();
     }
     public SignUpModalBox clickRegisterButtonNegativeCase(){
-        clickButton(registerButton);
+        registerButton.click();
         return this;
     }
     public GaragePage registerPositiveCase(String firstName, String lastName, String email, String password){
@@ -96,16 +106,32 @@ public class SignUpModalBox extends ModalBox {
                 .setReEnterPassword(password)
                 .clickRegisterButtonPositiveCase();
     }
-    public SignUpModalBox registerNegativeCase(String firstName, String lastName, String email, String password){
+    public SignUpModalBox registerNegativeCase(String firstName, String lastName, String email,
+                                               String password, String repeatedPassword){
         return setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)
                 .setPassword(password)
-                .setReEnterPassword(password)
+                .setReEnterPassword(repeatedPassword)
                 .clickRegisterButtonNegativeCase();
     }
     public MainPage closeModalBox(){
         clickButton(closeButton);
         return new MainPage();
+    }
+    public String getInvalidNameMessage(){
+        return getText(invalidNameMessage);
+    }
+    public String getInvalidLastNameMessage(){
+        return getText(invalidLastNameMessage);
+    }
+    public String getInvalidEmailMessage(){
+        return getText(invalidEmailMessage);
+    }
+    public String getInvalidPasswordMessage(){
+        return getText(invalidPasswordMessage);
+    }
+    public String getInvalidRepeatPasswordMessage(){
+        return getText(invalidRepeatPasswordMessage);
     }
 }
