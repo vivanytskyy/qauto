@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 16/09/2023
+ * @version 1.04
+ * @date 08/10/2023
  */
 public class SignInModalBox extends ModalBox {
     @FindBy(css = "[for='signinEmail']")
@@ -31,6 +31,10 @@ public class SignInModalBox extends ModalBox {
     private WebElement registrationButton;
     @FindBy(xpath = ".//button[contains(text(), 'Login')]")
     private WebElement loginButton;
+    @FindBy(xpath = ".//input[@id='signinEmail']/../div")
+    private WebElement invalidEmailMessage;
+    @FindBy(xpath = ".//input[@id='signinPassword']/../div")
+    private WebElement invalidPasswordMessage;
     @FindBy(xpath = ".//p[@class='alert alert-danger']")
     private WebElement formErrorAlert;
     @FindBy(css = "div.modal-content>app-signin-modal")
@@ -57,7 +61,7 @@ public class SignInModalBox extends ModalBox {
         return new GaragePage();
     }
     public SignInModalBox clickLoginButtonNegativeCase(){
-        clickButton(loginButton);
+        loginButton.click();
         return this;
     }
     public String getFormErrorMessage(){
@@ -100,5 +104,11 @@ public class SignInModalBox extends ModalBox {
     }
     public String getLoginButtonName(){
         return getText(loginButton);
+    }
+    public String getInvalidEmailMessage(){
+        return getText(invalidEmailMessage);
+    }
+    public String getInvalidPasswordMessage(){
+        return getText(invalidPasswordMessage);
     }
 }
