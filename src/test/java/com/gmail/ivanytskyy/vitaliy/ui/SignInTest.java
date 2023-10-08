@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 27/09/2023
+ * @version 1.04
+ * @date 08/10/2023
  */
 public class SignInTest extends BaseTest {
     private static final String EXPECTED_MODAL_BOX_TITLE = "Log in";
@@ -22,6 +22,8 @@ public class SignInTest extends BaseTest {
     private static final String EXPECTED_REGISTRATION_TITLE = "Registration";
     private static final String EXPECTED_RESTORE_ACCESS_TITLE = "Restore access";
     private static final String EXPECTED_MAIN_PAGE_TITLE = "Do more!";
+    private static final String EMPTY_EMAIL_ERROR_MESSAGE = "Email required";
+    private static final String EMPTY_PASSWORD_ERROR_MESSAGE = "Password required";
 
     @Test(description = "Opening SignIn modal box", priority = 10)
     public void openSignInTest(){
@@ -120,5 +122,27 @@ public class SignInTest extends BaseTest {
                 .toRestoreAccess()
                 .getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_RESTORE_ACCESS_TITLE);
+    }
+    @Test(description = "Empty email. Negative case.", priority = 100)
+    public void emailIsEmptyTest(){
+        String email = "";
+        boolean rememberMe = false;
+        String emptyEmailMessage = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .loginNegativeCase(email, tempUser.getPassword(), rememberMe)
+                .getInvalidEmailMessage();
+        Assert.assertEquals(emptyEmailMessage, EMPTY_EMAIL_ERROR_MESSAGE);
+    }
+    @Test(description = "Empty password. Negative case.", priority = 101)
+    public void passwordIsEmptyTest(){
+        String password = "";
+        boolean rememberMe = false;
+        String emptyPasswordMessage = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .loginNegativeCase(tempUser.getEmail(), password, rememberMe)
+                .getInvalidPasswordMessage();
+        Assert.assertEquals(emptyPasswordMessage, EMPTY_PASSWORD_ERROR_MESSAGE);
     }
 }
