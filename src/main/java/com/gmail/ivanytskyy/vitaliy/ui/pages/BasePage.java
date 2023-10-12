@@ -68,7 +68,7 @@ public class BasePage {
     protected boolean isElementDisplayed(WebElement element){
         return wait.until(elementDisplayInViewport(element));
     }
-    public ExpectedCondition<Boolean> elementDisplayInViewport(WebElement element) {
+    private ExpectedCondition<Boolean> elementDisplayInViewport(WebElement element) {
         final String jsScript = """
                          var elem = arguments[0], 
                          box = elem.getBoundingClientRect(), 

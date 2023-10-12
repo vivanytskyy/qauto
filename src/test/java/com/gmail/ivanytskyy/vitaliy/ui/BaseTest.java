@@ -18,13 +18,14 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.html5.WebStorage;
 import org.testng.annotations.*;
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 27/09/2023
+ * @version 1.03
+ * @date 12/10/2023
  */
 @Listeners({UIExtentReportsListener.class})
 public class BaseTest {
@@ -171,6 +172,9 @@ public class BaseTest {
         private final String lastName;
         private final String email;
         private final String password;
+        private final String country;
+        private final Date birthday;
+
         private TempUser(){
             Faker faker = new Faker();
             firstName = faker.name().firstName();
@@ -182,6 +186,8 @@ public class BaseTest {
                     .useLowerCaseLetters(true)
                     .build()
                     .generatePassword(8, 15);
+            country = faker.country().name();
+            birthday = faker.date().birthday();
         }
     }
 }
