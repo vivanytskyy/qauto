@@ -79,7 +79,7 @@ public class SettingsPage extends UserPage{
     public Currencies getCurrentCurrency(){
         return Currencies.valueOf(currencyItems
                 .stream()
-                .filter(button -> button.getAttribute("class").contains("-active"))
+                .filter(button -> button.getAttribute("class").contains("active"))
                 .toList()
                 .get(0)
                 .getText());
@@ -87,7 +87,7 @@ public class SettingsPage extends UserPage{
     public DistanceUnits getCurrentDistanceUnit(){
         return DistanceUnits.valueOf(distanceUnitItems
                 .stream()
-                .filter(button -> button.getAttribute("class").contains("-active"))
+                .filter(button -> button.getAttribute("class").contains("active"))
                 .toList()
                 .get(0)
                 .getText()
@@ -100,7 +100,12 @@ public class SettingsPage extends UserPage{
                 .filter(button -> button.getText().equals(currency.toString()))
                 .toList()
                 .get(0));
-        wait.until(driver -> getCurrentCurrency().equals(currency));
+        isAttributeValueChanged(currencyItems
+                .stream()
+                .filter(button -> button.getText().equals(currency.toString()))
+                .toList().get(0),
+                "class",
+                "active");
         return new SettingsPage();
     }
     public SettingsPage setDistanceUnit(DistanceUnits unit){
@@ -109,7 +114,12 @@ public class SettingsPage extends UserPage{
                 .filter(button -> button.getText().equals(unit.getValue()))
                 .toList()
                 .get(0));
-        wait.until(driver -> getCurrentDistanceUnit().equals(unit));
+        isAttributeValueChanged(distanceUnitItems
+                        .stream()
+                        .filter(button -> button.getText().equals(unit.getValue()))
+                        .toList().get(0),
+                "class",
+                "active");
         return new SettingsPage();
     }
     public SettingsPage setEmailInChangeEmailForm(String newEmail){
