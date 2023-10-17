@@ -13,8 +13,8 @@ import java.time.Duration;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 03/10/2023
+ * @version 1.04
+ * @date 15/10/2023
  */
 public class BasePage {
     protected WebDriver webDriver;
@@ -68,6 +68,10 @@ public class BasePage {
     protected boolean isElementDisplayed(WebElement element){
         return wait.until(elementDisplayInViewport(element));
     }
+    protected boolean isAttributeValueChanged(WebElement element, String attribute,
+                                              String expectedPartOfAttributeValue){
+        return wait.until(attributeValueChanged(element, attribute, expectedPartOfAttributeValue));
+    }
     private ExpectedCondition<Boolean> elementDisplayInViewport(WebElement element) {
         final String jsScript = """
                          var elem = arguments[0], 
@@ -80,6 +84,10 @@ public class BasePage {
                          }
                          return false;
                       """;
-        return webElement -> (Boolean) javascriptExecutor.executeScript(jsScript, element);
+        return driver -> (Boolean) javascriptExecutor.executeScript(jsScript, element);
+    }
+    private ExpectedCondition<Boolean> attributeValueChanged(WebElement element, String attribute,
+                                                               String expectedPartOfAttributeValue){
+        return driver -> element.getAttribute(attribute).contains(expectedPartOfAttributeValue);
     }
 }
