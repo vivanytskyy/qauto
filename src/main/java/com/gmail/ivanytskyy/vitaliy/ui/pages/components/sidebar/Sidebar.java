@@ -1,14 +1,16 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.sidebar;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 29/09/2023
+ * @version 1.01
+ * @date 17/10/2023
  */
 public abstract class Sidebar extends BasePage {
     @FindBy(xpath = ".//a[contains(@href, '/garage')]")
@@ -19,6 +21,7 @@ public abstract class Sidebar extends BasePage {
     private WebElement instructionsLink;
     @FindBy(css = ".btn.btn-link.text-danger.btn-sidebar.sidebar_btn")
     private WebElement logoutLink;
+    private final By markerLocator = By.cssSelector("a[routerlink='garage']");
 
     public Sidebar(WebElement element) {
         PageFactory.initElements(element, this);
@@ -37,6 +40,7 @@ public abstract class Sidebar extends BasePage {
     }
     public MainPage logout(){
         clickLink(logoutLink);
+        wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(markerLocator)));
         return new MainPage();
     }
 }
