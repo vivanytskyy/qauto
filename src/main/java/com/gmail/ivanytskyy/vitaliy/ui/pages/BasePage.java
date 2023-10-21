@@ -13,13 +13,13 @@ import java.time.Duration;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 15/10/2023
+ * @version 1.05
+ * @date 19/10/2023
  */
 public class BasePage {
     protected WebDriver webDriver;
     protected WebDriverWait wait;
-    private final Actions actions;
+    protected final Actions actions;
     private final JavascriptExecutor javascriptExecutor;
     public BasePage(){
         this.webDriver = WebDriverHolder.getWebDriver();
@@ -68,9 +68,16 @@ public class BasePage {
     protected boolean isElementDisplayed(WebElement element){
         return wait.until(elementDisplayInViewport(element));
     }
-    protected boolean isAttributeValueChanged(WebElement element, String attribute,
-                                              String expectedPartOfAttributeValue){
-        return wait.until(attributeValueChanged(element, attribute, expectedPartOfAttributeValue));
+    protected boolean waitForPartOfAttributeValueChanged(WebElement element, String attribute,
+                                                         String expectedPartOfAttributeValue){
+        return wait.until(partOfAttributeValueChanged(element, attribute, expectedPartOfAttributeValue));
+    }
+    protected boolean waitForAttributeValueChanged(WebElement element, String attribute,
+                                                         String expectedAttributeValue){
+        return wait.until(attributeValueChanged(element, attribute, expectedAttributeValue));
+    }
+    protected boolean waitForOldTextChanged(WebElement element, String oldText){
+        return wait.until(oldTextChanged(element, oldText));
     }
     private ExpectedCondition<Boolean> elementDisplayInViewport(WebElement element) {
         final String jsScript = """
@@ -86,8 +93,15 @@ public class BasePage {
                       """;
         return driver -> (Boolean) javascriptExecutor.executeScript(jsScript, element);
     }
-    private ExpectedCondition<Boolean> attributeValueChanged(WebElement element, String attribute,
-                                                               String expectedPartOfAttributeValue){
+    private ExpectedCondition<Boolean> partOfAttributeValueChanged(WebElement element, String attribute,
+                                                                   String expectedPartOfAttributeValue){
         return driver -> element.getAttribute(attribute).contains(expectedPartOfAttributeValue);
+    }
+    private ExpectedCondition<Boolean> attributeValueChanged(WebElement element, String attribute,
+                                                                   String expectedAttributeValue){
+        return driver -> element.getAttribute(attribute).equals(expectedAttributeValue);
+    }
+    private ExpectedCondition<Boolean> oldTextChanged(WebElement element, String oldText){
+        return driver -> !(element.getText().equals(oldText));
     }
 }
