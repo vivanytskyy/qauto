@@ -100,7 +100,7 @@ public class SettingsPage extends UserPage{
                 .filter(button -> button.getText().equals(currency.toString()))
                 .toList()
                 .get(0));
-        isAttributeValueChanged(currencyItems
+        waitForPartOfAttributeValueChanged(currencyItems
                 .stream()
                 .filter(button -> button.getText().equals(currency.toString()))
                 .toList().get(0),
@@ -114,7 +114,7 @@ public class SettingsPage extends UserPage{
                 .filter(button -> button.getText().equals(unit.getValue()))
                 .toList()
                 .get(0));
-        isAttributeValueChanged(distanceUnitItems
+        waitForPartOfAttributeValueChanged(distanceUnitItems
                         .stream()
                         .filter(button -> button.getText().equals(unit.getValue()))
                         .toList().get(0),

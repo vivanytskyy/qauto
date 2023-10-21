@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -40,7 +39,7 @@ public abstract class Sidebar extends BasePage {
     }
     public MainPage logout(){
         clickLink(logoutLink);
-        wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(markerLocator)));
+        wait.until(driver -> driver.findElements(markerLocator).isEmpty());
         return new MainPage();
     }
 }
