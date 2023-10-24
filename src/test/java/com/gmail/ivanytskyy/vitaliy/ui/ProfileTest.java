@@ -4,14 +4,15 @@ import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.ProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 12/10/2023
+ * @version 1.04
+ * @date 24/10/2023
  */
 public class ProfileTest extends BaseTest{
     private static final String EXPECTED_PAGE_TITLE = "Profile";
@@ -73,10 +74,12 @@ public class ProfileTest extends BaseTest{
         String dateFormat = "dd.MM.yyyy";
         String expectedBirthday = new SimpleDateFormat(dateFormat).format(newBirthday);
 
-        Assert.assertEquals(newProfile.getProfileName(), expectedProfileName);
-        Assert.assertEquals(newProfile.getCountryName(), country);
-        Assert.assertEquals(newProfile.getBirthday(), expectedBirthday);
-        Assert.assertFalse(newProfile.getPhoto().contains("default-user.png"));
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(newProfile.getProfileName(), expectedProfileName, "Profile name is incorrect");
+        softAssert.assertEquals(newProfile.getCountryName(), country, "Country is incorrect");
+        softAssert.assertEquals(newProfile.getBirthday(), expectedBirthday, "Birthday is incorrect");
+        softAssert.assertFalse(newProfile.getPhoto().contains("default-user.png"), "File name is incorrect");
+        softAssert.assertAll();
 
         newProfile.moveToUserSidebar().logout();
         webDriver.manage().deleteAllCookies();

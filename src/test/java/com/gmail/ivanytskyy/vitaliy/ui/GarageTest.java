@@ -5,13 +5,15 @@ import com.gmail.ivanytskyy.vitaliy.ui.pages.components.items.CarItem;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.EditCarModalBox;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
 import java.util.Date;
 import java.util.Random;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.05
- * @date 27/09/2023
+ * @version 1.06
+ * @date 24/10/2023
  */
 public class GarageTest extends BaseTest{
     private static final String EXPECTED_PAGE_TITLE = "Garage";
@@ -167,10 +169,12 @@ public class GarageTest extends BaseTest{
         String carItemTitle = carItem.getItemTitle();
         String actualBrandName = carItemTitle.split(" ")[0];
         String actualModelName = carItemTitle.split(" ")[1];
-        Assert.assertEquals(actualBrandName, "Audi");
-        Assert.assertEquals(actualModelName, "TT");
-        Assert.assertEquals(actualMileage, mileage);
         carItem.editCar().removeCar().confirmRemoving();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualBrandName, "Audi", "Brand name is incorrect");
+        softAssert.assertEquals(actualModelName, "TT", "Model name is incorrect");
+        softAssert.assertEquals(actualMileage, mileage, "Mileage is incorrect");
+        softAssert.assertAll();
     }
     @Test(description = "Add a car by brand and model names. Positive case.", priority = 101)
     public void addCarByBrandAndModelNamesTest(){
@@ -189,10 +193,12 @@ public class GarageTest extends BaseTest{
         String carItemTitle = carItem.getItemTitle();
         String actualBrandName = carItemTitle.split(" ")[0];
         String actualModelName = carItemTitle.split(" ")[1];
-        Assert.assertEquals(actualBrandName, brandName);
-        Assert.assertEquals(actualModelName, modelName);
-        Assert.assertEquals(actualMileage, mileage);
         carItem.editCar().removeCar().confirmRemoving();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualBrandName, brandName, "Brand name is incorrect");
+        softAssert.assertEquals(actualModelName, modelName, "Model name is incorrect");
+        softAssert.assertEquals(actualMileage, mileage, "Mileage is incorrect");
+        softAssert.assertAll();
     }
     @Test(description = "Open edit car modal box", priority = 110)
     public void openEditCarTest(){
@@ -281,11 +287,13 @@ public class GarageTest extends BaseTest{
         String carItemTitle = carItem.getItemTitle();
         String actualBrandName = carItemTitle.split(" ")[0];
         String actualModelName = carItemTitle.split(" ")[1];
-        Assert.assertEquals(actualBrandName, "BMW");
-        Assert.assertEquals(actualModelName, "5");
         int actualMileage = carItem.getCurrentMileage();
-        Assert.assertEquals(actualMileage, newMileage);
         carItem.editCar().removeCar().confirmRemoving();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualBrandName, "BMW", "Brand name is incorrect");
+        softAssert.assertEquals(actualModelName, "5", "Model name is incorrect");
+        softAssert.assertEquals(actualMileage, newMileage, "Mileage is incorrect");
+        softAssert.assertAll();
     }
     @Test(description = "Add a car by brand and model names. Positive case.", priority = 121)
     public void editCarByBrandAndModelNamesTest(){
@@ -310,10 +318,12 @@ public class GarageTest extends BaseTest{
         String carItemTitle = carItem.getItemTitle();
         String actualBrandName = carItemTitle.split(" ")[0];
         String actualModelName = carItemTitle.split(" ")[1];
-        Assert.assertEquals(actualBrandName, newBrandName);
-        Assert.assertEquals(actualModelName, newModelName);
         int actualMileage = carItem.getCurrentMileage();
-        Assert.assertEquals(actualMileage, newMileage);
         carItem.editCar().removeCar().confirmRemoving();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualBrandName, newBrandName, "Brand name is incorrect");
+        softAssert.assertEquals(actualModelName, newModelName, "Model name is incorrect");
+        softAssert.assertEquals(actualMileage, newMileage, "Mileage is incorrect");
+        softAssert.assertAll();
     }
 }
