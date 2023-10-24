@@ -4,11 +4,12 @@ import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.ProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 08/10/2023
+ * @version 1.05
+ * @date 24/10/2023
  */
 public class SignInTest extends BaseTest {
     private static final String EXPECTED_MODAL_BOX_TITLE = "Log in";
@@ -59,9 +60,11 @@ public class SignInTest extends BaseTest {
                 .openUserProfileDropdown()
                 .openProfile();
         actualTitle = profilePage.getPageTitle();
-        Assert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE);
         String displayedUserName = profilePage.getProfileName();
-        Assert.assertTrue(displayedUserName.contains(getUserFirstName()));
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE, "Title is incorrect");
+        softAssert.assertTrue(displayedUserName.contains(getUserFirstName()), "User name is incorrect");
+        softAssert.assertAll();
     }
     @Test(description = "Check title of email input field", priority = 30)
     public void nameTitleTest(){

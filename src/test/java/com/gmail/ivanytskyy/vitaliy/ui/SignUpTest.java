@@ -4,11 +4,12 @@ import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.ProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 07/09/2023
+ * @version 1.02
+ * @date 24/10/2023
  */
 public class SignUpTest extends BaseTest{
     private static final String EXPECTED_MODAL_BOX_TITLE = "Registration";
@@ -55,9 +56,13 @@ public class SignUpTest extends BaseTest{
                 .openUserProfileDropdown()
                 .openProfile();
         actualTitle = profilePage.getPageTitle();
-        Assert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE);
         String displayedUserName = profilePage.getProfileName();
-        Assert.assertTrue(displayedUserName.contains(tempUser.getFirstName()));
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE, "Title is incorrect");
+        softAssert.assertTrue(displayedUserName.contains(tempUser.getFirstName()), "User name is incorrect");
+        softAssert.assertAll();
+
         webDriver.manage().deleteAllCookies();
         deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
