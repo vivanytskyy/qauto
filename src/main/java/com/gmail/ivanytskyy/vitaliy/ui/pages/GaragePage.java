@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 12/09/2023
+ * @version 1.03
+ * @date 28/10/2023
  */
 public class GaragePage extends UserPage{
     @FindBy(xpath = "//app-garage/div/div/h1")
@@ -30,7 +30,7 @@ public class GaragePage extends UserPage{
     }
     public AddCarModalBox addCar(){
         clickButton(addCarButton);
-        return new AddCarModalBox(modalContent);
+        return new AddCarModalBox();
     }
     public CarItem getCarItem(int index){
         wait.until(ExpectedConditions.presenceOfElementLocated(carListLocator));

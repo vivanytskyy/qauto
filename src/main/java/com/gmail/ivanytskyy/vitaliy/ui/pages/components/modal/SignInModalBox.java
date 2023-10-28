@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 08/10/2023
+ * @version 1.05
+ * @date 28/10/2023
  */
 public class SignInModalBox extends ModalBox {
     @FindBy(css = "[for='signinEmail']")
@@ -25,25 +25,22 @@ public class SignInModalBox extends ModalBox {
     private WebElement passwordInput;
     @FindBy(css = "#remember")
     private WebElement rememberMeCheckbox;
-    @FindBy(xpath = ".//button[contains(text(), 'Forgot password')]")
+    @FindBy(xpath = "//button[contains(text(), 'Forgot password')]")
     private WebElement forgotPasswordButton;
-    @FindBy(xpath = ".//button[contains(text(), 'Registration')]")
+    @FindBy(xpath = "//button[contains(text(), 'Registration')]")
     private WebElement registrationButton;
-    @FindBy(xpath = ".//button[contains(text(), 'Login')]")
+    @FindBy(xpath = "//button[contains(text(), 'Login')]")
     private WebElement loginButton;
-    @FindBy(xpath = ".//input[@id='signinEmail']/../div")
+    @FindBy(xpath = "//input[@id='signinEmail']/../div")
     private WebElement invalidEmailMessage;
-    @FindBy(xpath = ".//input[@id='signinPassword']/../div")
+    @FindBy(xpath = "//input[@id='signinPassword']/../div")
     private WebElement invalidPasswordMessage;
-    @FindBy(xpath = ".//p[@class='alert alert-danger']")
+    @FindBy(xpath = "//p[@class='alert alert-danger']")
     private WebElement formErrorAlert;
     @FindBy(css = "div.modal-content>app-signin-modal")
     private WebElement modalBox;
     private final By modalContentLocator = By.cssSelector("div.modal-content");
 
-    public SignInModalBox(WebElement container) {
-        super(container);
-    }
     public SignInModalBox setEmail(String email){
         setTextFieldValue(emailInput, email);
         return this;
@@ -82,12 +79,12 @@ public class SignInModalBox extends ModalBox {
     public SignUpModalBox toRegistration(){
         clickButton(registrationButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
-        return new SignUpModalBox(webDriver.findElement(modalContentLocator));
+        return new SignUpModalBox();
     }
     public RestoreAccessModalBox toRestoreAccess(){
         clickButton(forgotPasswordButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
-        return new RestoreAccessModalBox(webDriver.findElement(modalContentLocator));
+        return new RestoreAccessModalBox();
     }
     public MainPage closeModalBox(){
         clickButton(closeButton);

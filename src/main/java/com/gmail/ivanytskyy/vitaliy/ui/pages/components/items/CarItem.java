@@ -9,8 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 12/09/2023
+ * @version 1.01
+ * @date 28/10/2023
  */
 public class CarItem extends BasePage {
     private final WebElement container;
@@ -45,6 +45,6 @@ public class CarItem extends BasePage {
     }
     public EditCarModalBox editCar(){
         clickButton(carEditButton);
-        return new EditCarModalBox(webDriver.findElement(modalContentLocator));
+        return new EditCarModalBox();
     }
 }

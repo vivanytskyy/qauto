@@ -10,8 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 28/09/2023
+ * @version 1.03
+ * @date 28/10/2023
  */
 public class MainPage extends BasePage{
     @FindBy(css = "button.btn.btn-outline-white.header_signin")
@@ -50,7 +50,7 @@ public class MainPage extends BasePage{
     }
     public SignUpModalBox openSingUpBox(){
         clickButton(signUpButton);
-        return new SignUpModalBox(modalContent);
+        return new SignUpModalBox();
     }
     public String getPageTitle(){
         return getText(title);

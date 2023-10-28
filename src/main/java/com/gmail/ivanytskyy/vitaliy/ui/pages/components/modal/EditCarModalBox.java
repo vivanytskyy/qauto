@@ -10,8 +10,8 @@ import java.util.Date;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 18/09/2023
+ * @version 1.02
+ * @date 28/10/2023
  */
 public class EditCarModalBox extends CarModalBox{
     @FindBy(css = "[for='carCreationDate']")
@@ -26,9 +26,6 @@ public class EditCarModalBox extends CarModalBox{
     private WebElement modalBox;
     private final By modalContentLocator = By.cssSelector("div.modal-content");
 
-    public EditCarModalBox(WebElement container){
-        super(container);
-    }
     public EditCarModalBox setCarCreationDate(Date carCreationDate){
         String dateAsString = new SimpleDateFormat(dateFormat).format(carCreationDate);
         System.out.println("date: " + dateAsString);
@@ -77,7 +74,7 @@ public class EditCarModalBox extends CarModalBox{
     public RemoveCarConfirmationModalBox removeCar(){
         clickButton(removeCarButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
-        return new RemoveCarConfirmationModalBox(webDriver.findElement(modalContentLocator));
+        return new RemoveCarConfirmationModalBox();
     }
     public String getCarCreationDateTitle(){
         return getText(carCreationDateTitle);

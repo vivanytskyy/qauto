@@ -10,8 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 29/09/2023
+ * @version 1.01
+ * @date 28/10/2023
  */
 public class GuestHeader extends Header {
     @FindBy(css = "div.header_left a[routerLink='/panel/garage']")
@@ -34,7 +34,7 @@ public class GuestHeader extends Header {
     }
     public UserProfileDropdown openUserProfileDropdown(){
         clickButton(guestProfileDropdownButton);
-        return new UserProfileDropdown(dropdownContainer);
+        return new UserProfileDropdown();
     }
     public InstructionsPage openInstructions(){
         clickLink(instructionsLink);

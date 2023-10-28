@@ -6,17 +6,14 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 18/09/2023
+ * @version 1.05
+ * @date 28/10/2023
  */
 public class AddCarModalBox extends CarModalBox{
     @FindBy(css = ".modal-footer .btn.btn-primary")
     private WebElement addButton;
 
-    public AddCarModalBox(WebElement container){
-        super(container);
-    }
-    public AddCarModalBox selectBrandById(int brandId){
+   public AddCarModalBox selectBrandById(int brandId){
         selectByIndex(brandSelect, brandId);
         return this;
     }

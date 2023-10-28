@@ -3,22 +3,18 @@ package com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 29/09/2023
+ * @version 1.03
+ * @date 28/10/2023
  */
 public class UserProfileDropdown extends ProfileDropdown {
-    @FindBy(xpath = ".//div/a[contains(@href, '/profile')]")
+    @FindBy(xpath = "//app-user-nav//div/a[contains(@href, '/profile')]")
     private WebElement profileLink;
-    @FindBy(xpath = ".//div/a[contains(@href, '/settings')]")
+    @FindBy(xpath = "//app-user-nav//div/a[contains(@href, '/settings')]")
     private WebElement profileSettingsLink;
-    public UserProfileDropdown(WebElement element) {
-        super(element);
-        PageFactory.initElements(element, this);
-    }
+
     public ProfilePage openProfile(){
         moveToElement(profileLink);
         profileLink.click();

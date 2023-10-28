@@ -9,8 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 03/10/2023
+ * @version 1.02
+ * @date 28/10/2023
  */
 public class VisitorHeader extends Header {
     @FindBy(css = "div.header_left>nav>a[routerLink='/']")
@@ -49,6 +49,6 @@ public class VisitorHeader extends Header {
     }
     public SignInModalBox openSingInBox(){
         clickButton(signInButton);
-        return new SignInModalBox(modalContent);
+        return new SignInModalBox();
     }
 }

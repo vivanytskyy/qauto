@@ -8,8 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 29/09/2023
+ * @version 1.02
+ * @date 28/10/2023
  */
 public class GuestPage extends BasePage{
     @FindBy(xpath = "//app-garage/div/div/h1")
@@ -26,7 +26,7 @@ public class GuestPage extends BasePage{
     }
     public AddCarModalBox openAddCarModalBox(){
         clickButton(addCarButton);
-        return new AddCarModalBox(modalContent);
+        return new AddCarModalBox();
     }
     public Footer moveToFooter(){
         return new Footer();

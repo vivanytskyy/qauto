@@ -10,8 +10,8 @@ import java.util.Date;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 12/10/2023
+ * @version 1.01
+ * @date 28/10/2023
  */
 public class EditProfileModalBox extends ModalBox{
     @FindBy(css = "[for='editProfileName']")
@@ -39,9 +39,6 @@ public class EditProfileModalBox extends ModalBox{
     @FindBy(css = ".modal-footer .btn.btn-primary")
     protected WebElement saveButton;
 
-    public EditProfileModalBox(WebElement container) {
-        super(container);
-    }
     public EditProfileModalBox setName(String name){
         setTextFieldValue(nameInput, name);
         return this;
@@ -56,7 +53,6 @@ public class EditProfileModalBox extends ModalBox{
     }
     public EditProfileModalBox setBirthday(Date birthday){
         String dateAsString = new SimpleDateFormat(dateFormat).format(birthday);
-        System.out.println("date: " + dateAsString);
         setTextFieldValue(birthdayInput, dateAsString);
         return this;
     }

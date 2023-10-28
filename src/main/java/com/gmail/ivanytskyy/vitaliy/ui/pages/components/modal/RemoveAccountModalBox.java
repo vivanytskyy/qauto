@@ -7,18 +7,15 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 04/09/2023
+ * @version 1.02
+ * @date 28/10/2023
  */
 public class RemoveAccountModalBox extends ModalBox {
-    @FindBy(xpath = ".//button[@class='btn btn-secondary']")
+    @FindBy(xpath = "//button[@class='btn btn-secondary']")
     private WebElement cancelButton;
-    @FindBy(xpath = ".//button[@class='btn btn-danger']")
+    @FindBy(xpath = "//button[@class='btn btn-danger']")
     private WebElement removeButton;
 
-    public RemoveAccountModalBox(WebElement container) {
-        super(container);
-    }
     public SettingsPage clickCancel(){
         clickButton(cancelButton);
         return new SettingsPage();
