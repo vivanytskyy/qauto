@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 17/10/2023
+ * @version 1.03
+ * @date 28/10/2023
  */
 public class SettingsPage extends UserPage{
     @FindBy(xpath = "//app-settings/div/div/h1")
@@ -62,7 +62,7 @@ public class SettingsPage extends UserPage{
     }
     public RemoveAccountModalBox removeAccount(){
         clickButton(removeAccountButton);
-        return new RemoveAccountModalBox(removeDialogModalWindow);
+        return new RemoveAccountModalBox();
     }
     public String getCurrencyTitle(){
         return getText(currencyTitle);

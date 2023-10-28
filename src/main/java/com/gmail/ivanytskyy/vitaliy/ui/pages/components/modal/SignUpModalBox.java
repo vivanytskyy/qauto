@@ -7,8 +7,8 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 16/09/2023
+ * @version 1.04
+ * @date 28/10/2023
  */
 public class SignUpModalBox extends ModalBox {
     @FindBy(css = "[for='signupName']")
@@ -33,22 +33,19 @@ public class SignUpModalBox extends ModalBox {
     private WebElement repeatPasswordInput;
     @FindBy(css = "div.modal-footer button")
     private WebElement registerButton;
-    @FindBy(xpath = ".//input[@id='signupName']/../div")
+    @FindBy(xpath = "//input[@id='signupName']/../div")
     private WebElement invalidNameMessage;
-    @FindBy(xpath = ".//input[@id='signupLastName']/../div")
+    @FindBy(xpath = "//input[@id='signupLastName']/../div")
     private WebElement invalidLastNameMessage;
-    @FindBy(xpath = ".//input[@id='signupEmail']/../div")
+    @FindBy(xpath = "//input[@id='signupEmail']/../div")
     private WebElement invalidEmailMessage;
-    @FindBy(xpath = ".//input[@id='signupPassword']/../div")
+    @FindBy(xpath = "//input[@id='signupPassword']/../div")
     private WebElement invalidPasswordMessage;
-    @FindBy(xpath = ".//input[@id='signupRepeatPassword']/../div")
+    @FindBy(xpath = "//input[@id='signupRepeatPassword']/../div")
     private WebElement invalidRepeatPasswordMessage;
     @FindBy(css = "form>p")
     private WebElement formErrorAlert;
 
-    public SignUpModalBox(WebElement container) {
-        super(container);
-    }
     public String getNameInputFieldTitle(){
         return getText(nameTitle);
     }

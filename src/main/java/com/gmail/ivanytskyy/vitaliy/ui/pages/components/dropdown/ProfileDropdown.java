@@ -8,21 +8,21 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 29/09/2023
+ * @version 1.01
+ * @date 28/10/2023
  */
 public abstract class ProfileDropdown extends BasePage {
-    @FindBy(xpath = ".//a[contains(@href, '/garage')]")
+    @FindBy(xpath = "//app-user-nav//a[contains(@href, '/garage')]")
     private WebElement garageLink;
-    @FindBy(xpath = ".//a[contains(@href, '/expenses')]")
+    @FindBy(xpath = "//app-user-nav//a[contains(@href, '/expenses')]")
     private WebElement fuelExpensesLink;
-    @FindBy(xpath = ".//a[contains(@href, '/instructions')]")
+    @FindBy(xpath = "//app-user-nav//a[contains(@href, '/instructions')]")
     private WebElement instructionsLink;
-    @FindBy(xpath = ".//nav/button")
+    @FindBy(xpath = "//app-user-nav//nav/button")
     private WebElement logoutButton;
 
-    public ProfileDropdown(WebElement element) {
-        PageFactory.initElements(element, this);
+    public ProfileDropdown() {
+        PageFactory.initElements(webDriver, this);
     }
     public GaragePage openGarage(){
         try {

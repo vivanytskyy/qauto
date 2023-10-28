@@ -6,8 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 12/10/2023
+ * @version 1.03
+ * @date 28/10/2023
  */
 public class ProfilePage extends UserPage{
     @FindBy(xpath = "//app-profile/div/div/h1")
@@ -27,7 +27,7 @@ public class ProfilePage extends UserPage{
 
     public EditProfileModalBox editProfile(){
         clickButton(editProfileButton);
-        return new EditProfileModalBox(modalContent);
+        return new EditProfileModalBox();
     }
     @Override
     public String getPageTitle(){
