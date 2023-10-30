@@ -80,16 +80,16 @@ public class SettingsPage extends UserPage{
         return Currencies.valueOf(currencyItems
                 .stream()
                 .filter(button -> button.getAttribute("class").contains("active"))
-                .toList()
-                .get(0)
+                .findFirst()
+                .orElseThrow()
                 .getText());
     }
     public DistanceUnits getCurrentDistanceUnit(){
         return DistanceUnits.valueOf(distanceUnitItems
                 .stream()
                 .filter(button -> button.getAttribute("class").contains("active"))
-                .toList()
-                .get(0)
+                .findFirst()
+                .orElseThrow()
                 .getText()
                 .toUpperCase()
         );
@@ -98,12 +98,13 @@ public class SettingsPage extends UserPage{
         clickButton(currencyItems
                 .stream()
                 .filter(button -> button.getText().equals(currency.toString()))
-                .toList()
-                .get(0));
+                .findFirst()
+                .orElseThrow());
         waitForPartOfAttributeValueChanged(currencyItems
                 .stream()
                 .filter(button -> button.getText().equals(currency.toString()))
-                .toList().get(0),
+                        .findFirst()
+                        .orElseThrow(),
                 "class",
                 "active");
         return new SettingsPage();
@@ -112,12 +113,13 @@ public class SettingsPage extends UserPage{
         clickButton(distanceUnitItems
                 .stream()
                 .filter(button -> button.getText().equals(unit.getValue()))
-                .toList()
-                .get(0));
+                .findFirst()
+                .orElseThrow());
         waitForPartOfAttributeValueChanged(distanceUnitItems
                         .stream()
                         .filter(button -> button.getText().equals(unit.getValue()))
-                        .toList().get(0),
+                        .findFirst()
+                        .orElseThrow(),
                 "class",
                 "active");
         return new SettingsPage();

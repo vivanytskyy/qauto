@@ -4,6 +4,7 @@ import com.gmail.ivanytskyy.vitaliy.ui.pages.components.items.InstructionItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -79,9 +80,10 @@ public class InstructionsPage extends UserPage{
                     .moveToElement(brandItems
                             .stream()
                             .filter(brand -> brand.getText().equals(brandName))
-                            .toList()
-                            .get(0))
+                            .findFirst()
+                            .orElseThrow())
                     .click()
+                    .pause(Duration.ofMillis(500))
                     .perform();
             waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);
         }
@@ -95,8 +97,8 @@ public class InstructionsPage extends UserPage{
                     .moveToElement(modelItems
                             .stream()
                             .filter(brand -> brand.getText().equals(modelName))
-                            .toList()
-                            .get(0))
+                            .findFirst()
+                            .orElseThrow())
                     .click()
                     .perform();
             waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);

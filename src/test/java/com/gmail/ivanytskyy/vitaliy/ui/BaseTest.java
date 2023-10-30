@@ -177,8 +177,8 @@ public class BaseTest {
 
         private TempUser(){
             Faker faker = new Faker();
-            firstName = faker.name().firstName();
-            lastName = faker.name().lastName();
+            firstName = faker.name().firstName().replace("'", "");
+            lastName = faker.name().lastName().replace("'", "");
             email = faker.internet().emailAddress();
             password = new PasswordGenerateService.Builder()
                     .useDigits(true)
