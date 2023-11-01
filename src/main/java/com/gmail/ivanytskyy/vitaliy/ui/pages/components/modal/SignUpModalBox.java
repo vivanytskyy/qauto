@@ -1,14 +1,14 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 28/10/2023
+ * @version 1.05
+ * @date 01/11/2023
  */
 public class SignUpModalBox extends ModalBox {
     @FindBy(css = "[for='signupName']")
@@ -87,15 +87,15 @@ public class SignUpModalBox extends ModalBox {
         setTextFieldValue(repeatPasswordInput, reEnterPassword);
         return this;
     }
-    public GaragePage clickRegisterButtonPositiveCase(){
+    public UserGaragePage clickRegisterButtonPositiveCase(){
         clickButton(registerButton);
-        return new GaragePage();
+        return new UserGaragePage();
     }
     public SignUpModalBox clickRegisterButtonNegativeCase(){
         registerButton.click();
         return this;
     }
-    public GaragePage registerPositiveCase(String firstName, String lastName, String email, String password){
+    public UserGaragePage registerPositiveCase(String firstName, String lastName, String email, String password){
         return setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)

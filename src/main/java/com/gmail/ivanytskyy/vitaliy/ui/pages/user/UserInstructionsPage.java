@@ -1,17 +1,18 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.user;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.items.InstructionItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import java.time.Duration;
 import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 19/10/2023
+ * @version 1.00
+ * @date 01/11/2023
  */
-public class InstructionsPage extends UserPage{
+public class UserInstructionsPage extends UserPage {
     @FindBy(xpath = "//app-instructions/div/div/h1")
     private WebElement pageTitle;
     @FindBy(css = "li.instruction-list_item")
@@ -71,7 +72,7 @@ public class InstructionsPage extends UserPage{
         }
         return numberOfInstructions;
     }
-    public InstructionsPage setBrand(String brandName){
+    public UserInstructionsPage setBrand(String brandName){
         waitForOldTextChanged(brandSelectButton, brandSelectButtonDefaultValue);
         if(!brandSelectButton.getText().equals(brandName)){
             clickButton(brandSelectButton);
@@ -79,15 +80,16 @@ public class InstructionsPage extends UserPage{
                     .moveToElement(brandItems
                             .stream()
                             .filter(brand -> brand.getText().equals(brandName))
-                            .toList()
-                            .get(0))
+                            .findFirst()
+                            .orElseThrow())
                     .click()
+                    .pause(Duration.ofMillis(500))
                     .perform();
             waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);
         }
         return this;
     }
-    public InstructionsPage setModel(String modelName){
+    public UserInstructionsPage setModel(String modelName){
         waitForOldTextChanged(modelSelectButton, modelSelectButtonDefaultValue);
         if (!modelSelectButton.getText().equals(modelName)){
             clickButton(modelSelectButton);
@@ -95,20 +97,20 @@ public class InstructionsPage extends UserPage{
                     .moveToElement(modelItems
                             .stream()
                             .filter(brand -> brand.getText().equals(modelName))
-                            .toList()
-                            .get(0))
+                            .findFirst()
+                            .orElseThrow())
                     .click()
                     .perform();
             waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);
         }
         return this;
     }
-    public InstructionsPage clickSearchButton(){
+    public UserInstructionsPage clickSearchButton(){
         clickButton(searchButton);
         waitForInstructionContentChanged();
-        return new InstructionsPage();
+        return new UserInstructionsPage();
     }
-    public InstructionsPage searchInstructions(String brandName, String modelName){
+    public UserInstructionsPage searchInstructions(String brandName, String modelName){
         return setBrand(brandName)
                 .setModel(modelName)
                 .clickSearchButton();

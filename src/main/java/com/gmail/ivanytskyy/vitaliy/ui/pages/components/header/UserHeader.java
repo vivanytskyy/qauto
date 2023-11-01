@@ -1,15 +1,16 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.header;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown.UserProfileDropdown;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserExpensesPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserInstructionsPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 28/10/2023
+ * @version 1.03
+ * @date 01/11/2023
  */
 public class UserHeader extends Header {
     @FindBy(css = "div.header_left a[routerLink='/panel/garage']")
@@ -18,28 +19,23 @@ public class UserHeader extends Header {
     private WebElement fuelExpensesLink;
     @FindBy(css = "div.header_left a[routerLink='/panel/instructions']")
     private WebElement instructionsLink;
-    @FindBy(css = "app-user-nav")
-    private WebElement dropdownContainer;
     @FindBy(css = "button[id='userNavDropdown']")
     private WebElement userProfileDropdownButton;
 
-    public UserHeader() {
-        PageFactory.initElements(webDriver, this);
-    }
-    public GaragePage openGarage(){
+    public UserGaragePage openGarage(){
         clickLink(garageLink);
-        return new GaragePage();
+        return new UserGaragePage();
     }
     public UserProfileDropdown openUserProfileDropdown(){
         clickButton(userProfileDropdownButton);
         return new UserProfileDropdown();
     }
-    public InstructionsPage openInstructions(){
+    public UserInstructionsPage openInstructions(){
         clickLink(instructionsLink);
-        return new InstructionsPage();
+        return new UserInstructionsPage();
     }
-    public ExpensesPage openExpenses(){
+    public UserExpensesPage openExpenses(){
         clickLink(fuelExpensesLink);
-        return new ExpensesPage();
+        return new UserExpensesPage();
     }
 }

@@ -1,17 +1,16 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.header;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.ExpensesPage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.InstructionsPage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown.UserProfileDropdown;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown.GuestProfileDropdown;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.guest.GuestExpensesPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.guest.GuestGaragePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.guest.GuestInstructionsPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 28/10/2023
+ * @version 1.02
+ * @date 01/11/2023
  */
 public class GuestHeader extends Header {
     @FindBy(css = "div.header_left a[routerLink='/panel/garage']")
@@ -20,28 +19,23 @@ public class GuestHeader extends Header {
     private WebElement fuelExpensesLink;
     @FindBy(css = "div.header_left a[routerLink='/panel/instructions']")
     private WebElement instructionsLink;
-    @FindBy(css = "app-user-nav")
-    private WebElement dropdownContainer;
     @FindBy(css = "button[id='userNavDropdown']")
     private WebElement guestProfileDropdownButton;
 
-    public GuestHeader() {
-        PageFactory.initElements(webDriver, this);
-    }
-    public GaragePage openGarage(){
+    public GuestGaragePage openGarage(){
         clickLink(garageLink);
-        return new GaragePage();
+        return new GuestGaragePage();
     }
-    public UserProfileDropdown openUserProfileDropdown(){
+    public GuestProfileDropdown openUserProfileDropdown(){
         clickButton(guestProfileDropdownButton);
-        return new UserProfileDropdown();
+        return new GuestProfileDropdown();
     }
-    public InstructionsPage openInstructions(){
+    public GuestInstructionsPage openInstructions(){
         clickLink(instructionsLink);
-        return new InstructionsPage();
+        return new GuestInstructionsPage();
     }
-    public ExpensesPage openExpenses(){
+    public GuestExpensesPage openExpenses(){
         clickLink(fuelExpensesLink);
-        return new ExpensesPage();
+        return new GuestExpensesPage();
     }
 }

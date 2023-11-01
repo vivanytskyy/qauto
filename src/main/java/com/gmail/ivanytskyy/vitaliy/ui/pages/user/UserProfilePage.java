@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.user;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.EditProfileModalBox;
 import org.openqa.selenium.WebElement;
@@ -6,10 +6,10 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 28/10/2023
+ * @version 1.00
+ * @date 01/11/2023
  */
-public class ProfilePage extends UserPage{
+public class UserProfilePage extends UserPage {
     @FindBy(xpath = "//app-profile/div/div/h1")
     private WebElement profileTitle;
     @FindBy(css = ".profile_name.display-4")

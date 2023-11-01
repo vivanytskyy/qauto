@@ -1,7 +1,8 @@
-package com.gmail.ivanytskyy.vitaliy.ui;
+package com.gmail.ivanytskyy.vitaliy.ui.user;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.SettingsPage;
+import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserSettingsPage;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.units.Currencies;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.units.DistanceUnits;
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
@@ -10,10 +11,10 @@ import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 17/10/2023
+ * @version 1.00
+ * @date 01/11/2023
  */
-public class SettingsTest extends BaseTest{
+public class UserSettingsTest extends BaseTest {
     private static final String EXPECTED_ALERT_MESSAGE = "Wrong email or password";
     private static final String EXPECTED_PAGE_TITLE = "Settings";
     private static final String EXPECTED_CURRENCY_SETTINGS_TITLE = "Currency";
@@ -28,7 +29,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
@@ -40,7 +41,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserHeader()
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openSettings()
                 .getPageTitle();
@@ -79,7 +80,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .getCurrencyTitle();
         Assert.assertEquals(currencyTitle, EXPECTED_CURRENCY_SETTINGS_TITLE);
@@ -91,7 +92,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .getDistanceUnitTitle();
         Assert.assertEquals(distanceUnitTitle, EXPECTED_DISTANCE_UNIT_SETTINGS_TITLE);
@@ -103,7 +104,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .getChangeEmailTitle();
         Assert.assertEquals(changeEmailTitle, EXPECTED_CHANGE_EMAIL_SETTINGS_TITLE);
@@ -115,7 +116,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .getChangePasswordTitle();
         Assert.assertEquals(changePasswordTitle, EXPECTED_CHANGE_PASSWORD_SETTINGS_TITLE);
@@ -127,7 +128,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .getCurrentCurrency();
         Assert.assertEquals(currentCurrency, Currencies.USD);
@@ -139,7 +140,7 @@ public class SettingsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .getCurrentDistanceUnit();
         Assert.assertEquals(currentDistanceUnit, DistanceUnits.KM);
@@ -148,28 +149,28 @@ public class SettingsTest extends BaseTest{
     public void setCurrencyTest(){
         boolean needRemember = false;
         Currencies expectedCurrency = Currencies.EUR;
-        SettingsPage settingsPage = openApp()
+        UserSettingsPage userSettingsPage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .setCurrency(expectedCurrency);
-        Currencies currentCurrency = settingsPage.getCurrentCurrency();
+        Currencies currentCurrency = userSettingsPage.getCurrentCurrency();
         Assert.assertEquals(currentCurrency, expectedCurrency);
     }
     @Test(description = "Set distance unit. Positive case", priority = 71)
     public void setDistanceUnitTest(){
         boolean needRemember = false;
         DistanceUnits expectedUnit = DistanceUnits.ML;
-        SettingsPage settingsPage = openApp()
+        UserSettingsPage userSettingsPage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .setDistanceUnit(expectedUnit);
-        DistanceUnits currentUnit = settingsPage.getCurrentDistanceUnit();
+        DistanceUnits currentUnit = userSettingsPage.getCurrentDistanceUnit();
         Assert.assertEquals(currentUnit, expectedUnit);
     }
     @Test(description = "Change email. Positive case.", priority = 80)
@@ -184,22 +185,22 @@ public class SettingsTest extends BaseTest{
                         tempUser.getLastName(),
                         tempUser.getEmail(),
                         tempUser.getPassword())
-                .moveToUserHeader()
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openSettings()
                 .changeEmailPositiveCase(newEmail, tempUser.getPassword())
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .logout();
         webDriver.manage().deleteAllCookies();
 
-        SettingsPage settingsPage = openApp()
+        UserSettingsPage userSettingsPage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(newEmail, tempUser.getPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings();
-        Assert.assertEquals(settingsPage.getPageTitle(), EXPECTED_PAGE_TITLE);
-        settingsPage.moveToUserSidebar().logout();
+        Assert.assertEquals(userSettingsPage.getPageTitle(), EXPECTED_PAGE_TITLE);
+        userSettingsPage.moveToSidebar().logout();
         webDriver.manage().deleteAllCookies();
         deleteUserThroughSidebar(newEmail, tempUser.getPassword());
     }
@@ -219,22 +220,22 @@ public class SettingsTest extends BaseTest{
                         tempUser.getLastName(),
                         tempUser.getEmail(),
                         tempUser.getPassword())
-                .moveToUserHeader()
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openSettings()
                 .changePasswordPositiveCase(tempUser.getPassword(), newPassword)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .logout();
         webDriver.manage().deleteAllCookies();
 
-        SettingsPage settingsPage = openApp()
+        UserSettingsPage userSettingsPage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(tempUser.getEmail(), newPassword, rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings();
-        Assert.assertEquals(settingsPage.getPageTitle(), EXPECTED_PAGE_TITLE);
-        settingsPage.moveToUserSidebar().logout();
+        Assert.assertEquals(userSettingsPage.getPageTitle(), EXPECTED_PAGE_TITLE);
+        userSettingsPage.moveToSidebar().logout();
         webDriver.manage().deleteAllCookies();
         deleteUserThroughSidebar(tempUser.getEmail(), newPassword);
     }

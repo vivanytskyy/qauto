@@ -1,7 +1,8 @@
-package com.gmail.ivanytskyy.vitaliy.ui;
+package com.gmail.ivanytskyy.vitaliy.ui.user;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.ProfilePage;
+import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -11,10 +12,10 @@ import java.util.Date;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 24/10/2023
+ * @version 1.00
+ * @date 01/11/2023
  */
-public class ProfileTest extends BaseTest{
+public class UserProfileTest extends BaseTest {
     private static final String EXPECTED_PAGE_TITLE = "Profile";
     private static final String PATH_TO_PHOTO_IMAGE;
     static {
@@ -30,7 +31,7 @@ public class ProfileTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openProfile()
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
@@ -42,7 +43,7 @@ public class ProfileTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserHeader()
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openProfile()
                 .getPageTitle();
@@ -50,14 +51,14 @@ public class ProfileTest extends BaseTest{
     }
     @Test(description = "Edit profile. Positive case.", priority = 30)
     public void editProfileTest(){
-        ProfilePage profilePage = openApp()
+        UserProfilePage userProfilePage = openApp()
                 .openSingUpBox()
                 .registerPositiveCase(
                         tempUser.getFirstName(),
                         tempUser.getLastName(),
                         tempUser.getEmail(),
                         tempUser.getPassword())
-                .moveToUserHeader()
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openProfile();
         Faker faker = new Faker();
@@ -67,7 +68,7 @@ public class ProfileTest extends BaseTest{
         Date newBirthday = faker.date().birthday();
         File newPhoto = new File(PATH_TO_PHOTO_IMAGE);
 
-        ProfilePage newProfile = profilePage
+        userProfilePage
                 .editProfile()
                 .saveProfilePositiveCase(newName, newLastName, country, newBirthday, newPhoto);
         String expectedProfileName = newName + " " + newLastName;
@@ -75,13 +76,17 @@ public class ProfileTest extends BaseTest{
         String expectedBirthday = new SimpleDateFormat(dateFormat).format(newBirthday);
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(newProfile.getProfileName(), expectedProfileName, "Profile name is incorrect");
-        softAssert.assertEquals(newProfile.getCountryName(), country, "Country is incorrect");
-        softAssert.assertEquals(newProfile.getBirthday(), expectedBirthday, "Birthday is incorrect");
-        softAssert.assertFalse(newProfile.getPhoto().contains("default-user.png"), "File name is incorrect");
+        softAssert.assertEquals(userProfilePage.getProfileName(), expectedProfileName,
+                "Profile name is incorrect");
+        softAssert.assertEquals(userProfilePage.getCountryName(), country,
+                "Country is incorrect");
+        softAssert.assertEquals(userProfilePage.getBirthday(), expectedBirthday,
+                "Birthday is incorrect");
+        softAssert.assertFalse(userProfilePage.getPhoto().contains("default-user.png"),
+                "File name is incorrect");
         softAssert.assertAll();
 
-        newProfile.moveToUserSidebar().logout();
+        userProfilePage.moveToSidebar().logout();
         webDriver.manage().deleteAllCookies();
         deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }

@@ -1,13 +1,12 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 28/10/2023
+ * @version 1.03
+ * @date 01/11/2023
  */
 public class RestoreAccessModalBox extends ModalBox {
     @FindBy(css = "[for='signinEmail']")
@@ -21,13 +20,11 @@ public class RestoreAccessModalBox extends ModalBox {
         setTextFieldValue(emailInput, email);
         return this;
     }
-    public MainPage clickSendButtonPositiveCase(){
+    public void clickSendButtonPositiveCase(){
         clickButton(sendButton);
-        return new MainPage();
     }
-    public MainPage restoreAccessPositiveCase(String email){
-        return setEmail(email)
-                .clickSendButtonPositiveCase();
+    public void restoreAccessPositiveCase(String email){
+        setEmail(email).clickSendButtonPositiveCase();
     }
     public String getEmailInputFieldTitle(){
         return getText(emailTitle);

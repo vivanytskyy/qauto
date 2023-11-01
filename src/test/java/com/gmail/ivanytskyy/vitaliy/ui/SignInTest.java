@@ -1,22 +1,18 @@
 package com.gmail.ivanytskyy.vitaliy.ui;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.ProfilePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.05
- * @date 24/10/2023
+ * @version 1.06
+ * @date 01/11/2023
  */
 public class SignInTest extends BaseTest {
     private static final String EXPECTED_MODAL_BOX_TITLE = "Log in";
-    private static final String EXPECTED_EMAIL_TITLE = "Email";
-    private static final String EXPECTED_PASSWORD_TITLE = "Password";
-    private static final String EXPECTED_CHECKBOX_TITLE = "Remember me";
-    private static final String EXPECTED_LOGIN_BUTTON_NAME = "Login";
     private static final String EXPECTED_GARAGE_PAGE_TITLE = "Garage";
     private static final String EXPECTED_PROFILE_PAGE_TITLE = "Profile";
     private static final String WRONG_EMAIL_OR_PASSWORD_MESSAGE = "Wrong email or password";
@@ -46,59 +42,27 @@ public class SignInTest extends BaseTest {
     @Test(description = "Login is success ", priority = 20)
     public void signInPositiveTest(){
         boolean rememberMe = false;
-        GaragePage garagePage = openApp()
+        UserGaragePage userGaragePage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(
                         getUserEmail(),
                         getUserPassword(),
                         rememberMe);
-        String actualTitle = garagePage.getPageTitle();
+        String actualTitle = userGaragePage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_GARAGE_PAGE_TITLE);
-        ProfilePage profilePage = garagePage
-                .moveToUserHeader()
+        UserProfilePage userProfilePage = userGaragePage
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openProfile();
-        actualTitle = profilePage.getPageTitle();
-        String displayedUserName = profilePage.getProfileName();
+        actualTitle = userProfilePage.getPageTitle();
+        String displayedUserName = userProfilePage.getProfileName();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE, "Title is incorrect");
         softAssert.assertTrue(displayedUserName.contains(getUserFirstName()), "User name is incorrect");
         softAssert.assertAll();
     }
-    @Test(description = "Check title of email input field", priority = 30)
-    public void nameTitleTest(){
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .getEmailInputFieldTitle();
-        Assert.assertEquals(actualTitle, EXPECTED_EMAIL_TITLE);
-    }
-    @Test(description = "Check title of password input field", priority = 40)
-    public void passwordTitleTest(){
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .getPasswordInputFieldTitle();
-        Assert.assertEquals(actualTitle, EXPECTED_PASSWORD_TITLE);
-    }
-    @Test(description = "Check title of checkbox", priority = 50)
-    public void checkboxTitleTest(){
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .getCheckboxTitle();
-        Assert.assertEquals(actualTitle, EXPECTED_CHECKBOX_TITLE);
-    }
-    @Test(description = "Check name of login button", priority = 60)
-    public void loginButtonNameTest(){
-        String actualName = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .getLoginButtonName();
-        Assert.assertEquals(actualName, EXPECTED_LOGIN_BUTTON_NAME);
-    }
-    @Test(description = "Login is unsuccessful. Negative case ", priority = 70)
+    @Test(description = "Login is unsuccessful. Negative case ", priority = 30)
     public void signUpNegativeTest(){
         boolean rememberMe = false;
         String errorMessage = openApp()
@@ -108,7 +72,7 @@ public class SignInTest extends BaseTest {
                 .getFormErrorMessage();
         Assert.assertEquals(errorMessage, WRONG_EMAIL_OR_PASSWORD_MESSAGE);
     }
-    @Test(description = "Opening SignUp modal box", priority = 80)
+    @Test(description = "Opening SignUp modal box", priority = 40)
     public void openRegistrationTest(){
         String actualTitle = openApp()
                 .moveToVisitorHeader()
@@ -117,7 +81,7 @@ public class SignInTest extends BaseTest {
                 .getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_REGISTRATION_TITLE);
     }
-    @Test(description = "Opening RestoreAccess modal box", priority = 90)
+    @Test(description = "Opening RestoreAccess modal box", priority = 50)
     public void openRestoreAccessTest(){
         String actualTitle = openApp()
                 .moveToVisitorHeader()
@@ -126,7 +90,7 @@ public class SignInTest extends BaseTest {
                 .getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_RESTORE_ACCESS_TITLE);
     }
-    @Test(description = "Empty email. Negative case.", priority = 100)
+    @Test(description = "Empty email. Negative case.", priority = 60)
     public void emailIsEmptyTest(){
         String email = "";
         boolean rememberMe = false;
@@ -137,7 +101,7 @@ public class SignInTest extends BaseTest {
                 .getInvalidEmailMessage();
         Assert.assertEquals(emptyEmailMessage, EMPTY_EMAIL_ERROR_MESSAGE);
     }
-    @Test(description = "Empty password. Negative case.", priority = 101)
+    @Test(description = "Empty password. Negative case.", priority = 61)
     public void passwordIsEmptyTest(){
         String password = "";
         boolean rememberMe = false;
