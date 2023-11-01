@@ -1,6 +1,5 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.ProfilePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,8 +9,8 @@ import java.util.Date;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 28/10/2023
+ * @version 1.02
+ * @date 01/11/2023
  */
 public class EditProfileModalBox extends ModalBox{
     @FindBy(css = "[for='editProfileName']")
@@ -60,18 +59,17 @@ public class EditProfileModalBox extends ModalBox{
         setTextFieldValue(photoInput, photo.getAbsolutePath());
         return this;
     }
-    public ProfilePage clickSaveProfileButtonPositiveCase(){
+    public void clickSaveProfileButtonPositiveCase(){
         clickButton(saveButton);
         wait.until(ExpectedConditions.invisibilityOf(modalTitle));
-        return new ProfilePage();
     }
     public EditProfileModalBox clickSaveProfileButtonNegativeCase(){
         clickButton(saveButton);
         return this;
     }
-    public ProfilePage saveProfilePositiveCase(String name, String lastName, String countryName, Date birthday,
-                                               File photo){
-        return setName(name)
+    public void saveProfilePositiveCase(String name, String lastName, String countryName, Date birthday,
+                                                   File photo){
+        setName(name)
                 .setLastName(lastName)
                 .setCountry(countryName)
                 .setBirthday(birthday)

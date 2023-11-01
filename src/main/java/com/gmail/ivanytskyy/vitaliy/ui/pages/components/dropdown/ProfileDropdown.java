@@ -1,44 +1,27 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.*;
-import org.openqa.selenium.ElementClickInterceptedException;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 28/10/2023
+ * @version 1.02
+ * @date 01/11/2023
  */
 public abstract class ProfileDropdown extends BasePage {
     @FindBy(xpath = "//app-user-nav//a[contains(@href, '/garage')]")
-    private WebElement garageLink;
+    protected WebElement garageLink;
     @FindBy(xpath = "//app-user-nav//a[contains(@href, '/expenses')]")
-    private WebElement fuelExpensesLink;
+    protected WebElement fuelExpensesLink;
     @FindBy(xpath = "//app-user-nav//a[contains(@href, '/instructions')]")
-    private WebElement instructionsLink;
+    protected WebElement instructionsLink;
     @FindBy(xpath = "//app-user-nav//nav/button")
     private WebElement logoutButton;
-
     public ProfileDropdown() {
         PageFactory.initElements(webDriver, this);
-    }
-    public GaragePage openGarage(){
-        try {
-            clickLink(garageLink);
-        }catch (ElementClickInterceptedException e){
-            e.printStackTrace();
-        }
-        return new GaragePage();
-    }
-    public InstructionsPage openInstructions(){
-        clickLink(instructionsLink);
-        return new InstructionsPage();
-    }
-    public ExpensesPage openExpenses(){
-        clickLink(fuelExpensesLink);
-        return new ExpensesPage();
     }
     public MainPage logout(){
         clickLink(logoutButton);

@@ -24,8 +24,8 @@ import java.util.Map;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 12/10/2023
+ * @version 1.04
+ * @date 01/11/2023
  */
 @Listeners({UIExtentReportsListener.class})
 public class BaseTest {
@@ -136,7 +136,7 @@ public class BaseTest {
                 .setPassword(password)
                 .setReEnterPassword(password)
                 .clickRegisterButtonPositiveCase()
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .logout();
     }
     protected void deleteUserThroughSidebar(String email, String password){
@@ -146,7 +146,7 @@ public class BaseTest {
                 .setEmail(email)
                 .setPassword(password)
                 .clickLoginButtonPositiveCase()
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openSettings()
                 .removeAccount()
                 .clickRemove();
@@ -159,7 +159,7 @@ public class BaseTest {
                 .setEmail(email)
                 .setPassword(password)
                 .clickLoginButtonPositiveCase()
-                .moveToUserHeader()
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openSettings()
                 .removeAccount()

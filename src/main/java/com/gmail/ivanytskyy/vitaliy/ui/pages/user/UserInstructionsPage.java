@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.user;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.items.InstructionItem;
 import org.openqa.selenium.By;
@@ -9,10 +9,10 @@ import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 19/10/2023
+ * @version 1.00
+ * @date 01/11/2023
  */
-public class InstructionsPage extends UserPage{
+public class UserInstructionsPage extends UserPage {
     @FindBy(xpath = "//app-instructions/div/div/h1")
     private WebElement pageTitle;
     @FindBy(css = "li.instruction-list_item")
@@ -72,7 +72,7 @@ public class InstructionsPage extends UserPage{
         }
         return numberOfInstructions;
     }
-    public InstructionsPage setBrand(String brandName){
+    public UserInstructionsPage setBrand(String brandName){
         waitForOldTextChanged(brandSelectButton, brandSelectButtonDefaultValue);
         if(!brandSelectButton.getText().equals(brandName)){
             clickButton(brandSelectButton);
@@ -89,7 +89,7 @@ public class InstructionsPage extends UserPage{
         }
         return this;
     }
-    public InstructionsPage setModel(String modelName){
+    public UserInstructionsPage setModel(String modelName){
         waitForOldTextChanged(modelSelectButton, modelSelectButtonDefaultValue);
         if (!modelSelectButton.getText().equals(modelName)){
             clickButton(modelSelectButton);
@@ -105,12 +105,12 @@ public class InstructionsPage extends UserPage{
         }
         return this;
     }
-    public InstructionsPage clickSearchButton(){
+    public UserInstructionsPage clickSearchButton(){
         clickButton(searchButton);
         waitForInstructionContentChanged();
-        return new InstructionsPage();
+        return new UserInstructionsPage();
     }
-    public InstructionsPage searchInstructions(String brandName, String modelName){
+    public UserInstructionsPage searchInstructions(String brandName, String modelName){
         return setBrand(brandName)
                 .setModel(modelName)
                 .clickSearchButton();

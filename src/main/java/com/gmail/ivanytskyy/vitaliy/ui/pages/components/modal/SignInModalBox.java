@@ -1,6 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.05
- * @date 28/10/2023
+ * @version 1.06
+ * @date 01/11/2023
  */
 public class SignInModalBox extends ModalBox {
     @FindBy(css = "[for='signinEmail']")
@@ -53,9 +53,9 @@ public class SignInModalBox extends ModalBox {
         selectCheckbox(rememberMeCheckbox, needRemember);
         return this;
     }
-    public GaragePage clickLoginButtonPositiveCase(){
+    public UserGaragePage clickLoginButtonPositiveCase(){
         clickButton(loginButton);
-        return new GaragePage();
+        return new UserGaragePage();
     }
     public SignInModalBox clickLoginButtonNegativeCase(){
         loginButton.click();
@@ -64,7 +64,7 @@ public class SignInModalBox extends ModalBox {
     public String getFormErrorMessage(){
         return getText(formErrorAlert);
     }
-    public GaragePage loginPositiveCase(String email, String password, boolean needRemember){
+    public UserGaragePage loginPositiveCase(String email, String password, boolean needRemember){
         return setEmail(email)
                 .setPassword(password)
                 .setRememberMe(needRemember)

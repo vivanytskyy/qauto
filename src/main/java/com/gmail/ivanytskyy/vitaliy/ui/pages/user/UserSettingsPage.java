@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui.pages;
+package com.gmail.ivanytskyy.vitaliy.ui.pages.user;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.RemoveAccountModalBox;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.units.Currencies;
@@ -9,10 +9,10 @@ import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 28/10/2023
+ * @version 1.00
+ * @date 01/11/2023
  */
-public class SettingsPage extends UserPage{
+public class UserSettingsPage extends UserPage {
     @FindBy(xpath = "//app-settings/div/div/h1")
     private WebElement pageTitle;
     @FindBy(css = "div.user-settings_item:nth-child(1)>h2")
@@ -94,7 +94,7 @@ public class SettingsPage extends UserPage{
                 .toUpperCase()
         );
     }
-    public SettingsPage setCurrency(Currencies currency){
+    public UserSettingsPage setCurrency(Currencies currency){
         clickButton(currencyItems
                 .stream()
                 .filter(button -> button.getText().equals(currency.toString()))
@@ -107,9 +107,9 @@ public class SettingsPage extends UserPage{
                         .orElseThrow(),
                 "class",
                 "active");
-        return new SettingsPage();
+        return new UserSettingsPage();
     }
-    public SettingsPage setDistanceUnit(DistanceUnits unit){
+    public UserSettingsPage setDistanceUnit(DistanceUnits unit){
         clickButton(distanceUnitItems
                 .stream()
                 .filter(button -> button.getText().equals(unit.getValue()))
@@ -122,43 +122,43 @@ public class SettingsPage extends UserPage{
                         .orElseThrow(),
                 "class",
                 "active");
-        return new SettingsPage();
+        return new UserSettingsPage();
     }
-    public SettingsPage setEmailInChangeEmailForm(String newEmail){
+    public UserSettingsPage setEmailInChangeEmailForm(String newEmail){
         setTextFieldValue(emailInputOfChangeEmailForm, newEmail);
         return this;
     }
-    public SettingsPage setPasswordInChangeEmailForm(String password){
+    public UserSettingsPage setPasswordInChangeEmailForm(String password){
         setTextFieldValue(passwordInputOfChangeEmailForm, password);
         return this;
     }
-    public SettingsPage clickChangeEmailButtonPositiveCase(){
+    public UserSettingsPage clickChangeEmailButtonPositiveCase(){
         clickButton(changeEmailButton);
         return this;
     }
-    public SettingsPage changeEmailPositiveCase(String newEmail, String actualPassword){
+    public UserSettingsPage changeEmailPositiveCase(String newEmail, String actualPassword){
         setEmailInChangeEmailForm(newEmail)
                 .setPasswordInChangeEmailForm(actualPassword)
                 .clickChangeEmailButtonPositiveCase();
         return this;
     }
-    public SettingsPage setOldPasswordInChangePasswordForm(String oldPassword){
+    public UserSettingsPage setOldPasswordInChangePasswordForm(String oldPassword){
         setTextFieldValue(oldPasswordInputOfChangePasswordForm, oldPassword);
         return this;
     }
-    public SettingsPage setNewPasswordInChangePasswordForm(String newPassword){
+    public UserSettingsPage setNewPasswordInChangePasswordForm(String newPassword){
         setTextFieldValue(newPasswordInputOfChangePasswordForm, newPassword);
         return this;
     }
-    public SettingsPage setRepeatNewPasswordInChangePasswordForm(String newPassword){
+    public UserSettingsPage setRepeatNewPasswordInChangePasswordForm(String newPassword){
         setTextFieldValue(repeatNewPasswordInputOfChangePasswordForm, newPassword);
         return this;
     }
-    public SettingsPage clickChangePasswordButtonPositiveCase(){
+    public UserSettingsPage clickChangePasswordButtonPositiveCase(){
         clickButton(changePasswordButton);
         return this;
     }
-    public SettingsPage changePasswordPositiveCase(String oldPassword, String newPassword){
+    public UserSettingsPage changePasswordPositiveCase(String oldPassword, String newPassword){
         setOldPasswordInChangePasswordForm(oldPassword)
                 .setNewPasswordInChangePasswordForm(newPassword)
                 .setRepeatNewPasswordInChangePasswordForm(newPassword)

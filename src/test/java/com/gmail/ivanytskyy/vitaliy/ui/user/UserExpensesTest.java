@@ -1,14 +1,15 @@
-package com.gmail.ivanytskyy.vitaliy.ui;
+package com.gmail.ivanytskyy.vitaliy.ui.user;
 
+import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 27/09/2023
+ * @version 1.00
+ * @date 01/11/2023
  */
-public class ExpensesTest extends BaseTest{
+public class UserExpensesTest extends BaseTest {
     private static final String EXPECTED_PAGE_TITLE = "Fuel expenses";
 
     @Test(description = "Open fuel expenses page through sidebar. Positive case.", priority = 10)
@@ -18,7 +19,7 @@ public class ExpensesTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openExpenses()
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
@@ -30,7 +31,7 @@ public class ExpensesTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserHeader()
+                .moveToHeader()
                 .openExpenses()
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
@@ -42,7 +43,7 @@ public class ExpensesTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserHeader()
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openExpenses()
                 .getPageTitle();

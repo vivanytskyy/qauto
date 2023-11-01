@@ -1,6 +1,5 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.GaragePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,8 +9,8 @@ import java.util.Date;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 28/10/2023
+ * @version 1.03
+ * @date 01/11/2023
  */
 public class EditCarModalBox extends CarModalBox{
     @FindBy(css = "[for='carCreationDate']")
@@ -52,20 +51,19 @@ public class EditCarModalBox extends CarModalBox{
         setTextFieldValue(mileageInput, String.valueOf(mileage));
         return this;
     }
-    public GaragePage clickSaveCarButtonPositiveCase(){
+    public void clickSaveCarButtonPositiveCase(){
         clickButton(saveButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
-        return new GaragePage();
     }
-    public GaragePage saveCarPositiveCase(int brandId, int modelId, int mileage, Date carCreationDate){
-        return selectBrandById(brandId)
+    public void saveCarPositiveCase(int brandId, int modelId, int mileage, Date carCreationDate){
+        selectBrandById(brandId)
                 .selectModelById(modelId)
                 .setMileage(mileage)
                 .setCarCreationDate(carCreationDate)
                 .clickSaveCarButtonPositiveCase();
     }
-    public GaragePage saveCarPositiveCase(String brandName, String modelName, int mileage, Date carCreationDate){
-        return selectBrandByName(brandName)
+    public void saveCarPositiveCase(String brandName, String modelName, int mileage, Date carCreationDate){
+        selectBrandByName(brandName)
                 .selectModelByName(modelName)
                 .setMileage(mileage)
                 .setCarCreationDate(carCreationDate)

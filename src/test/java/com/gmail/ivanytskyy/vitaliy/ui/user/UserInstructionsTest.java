@@ -1,14 +1,15 @@
-package com.gmail.ivanytskyy.vitaliy.ui;
+package com.gmail.ivanytskyy.vitaliy.ui.user;
 
+import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 27/09/2023
+ * @version 1.00
+ * @date 01/11/2023
  */
-public class InstructionsTest extends BaseTest{
+public class UserInstructionsTest extends BaseTest {
     private static final String EXPECTED_PAGE_TITLE = "Instructions";
 
     @Test(description = "Open instructions page through sidebar. Positive case.", priority = 10)
@@ -18,7 +19,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openInstructions()
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
@@ -30,7 +31,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserHeader()
+                .moveToHeader()
                 .openInstructions()
                 .getPageTitle();
         Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
@@ -42,7 +43,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserHeader()
+                .moveToHeader()
                 .openUserProfileDropdown()
                 .openInstructions()
                 .getPageTitle();
@@ -59,7 +60,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)
                 .getInstructionTitle(instructionIndex);
@@ -76,7 +77,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)
                 .getInstructionTitle(instructionNumber);
@@ -93,7 +94,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)
                 .getInstructionTitle(instructionNumber);
@@ -108,7 +109,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)
                 .getNumberOfInstructions();
@@ -124,7 +125,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)
                 .getNumberOfInstructions();
@@ -140,7 +141,7 @@ public class InstructionsTest extends BaseTest{
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
-                .moveToUserSidebar()
+                .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)
                 .getNumberOfInstructions();
