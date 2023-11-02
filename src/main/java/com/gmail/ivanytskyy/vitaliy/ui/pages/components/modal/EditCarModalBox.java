@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -26,8 +27,7 @@ public class EditCarModalBox extends CarModalBox{
     private final By modalContentLocator = By.cssSelector("div.modal-content");
 
     public EditCarModalBox setCarCreationDate(Date carCreationDate){
-        String dateAsString = new SimpleDateFormat(dateFormat).format(carCreationDate);
-        System.out.println("date: " + dateAsString);
+        String dateAsString = new SimpleDateFormat(DATE_FORMAT.getValue()).format(carCreationDate);
         setTextFieldValue(carCreationDateInput, dateAsString);
         return this;
     }

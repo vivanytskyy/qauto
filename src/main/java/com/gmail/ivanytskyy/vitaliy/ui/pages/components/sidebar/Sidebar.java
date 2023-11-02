@@ -27,7 +27,10 @@ public class Sidebar extends BasePage {
     }
     public MainPage logout(){
         clickLink(logoutLink);
-        wait.until(ExpectedConditions.invisibilityOf(garageLink));
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.invisibilityOf(logoutLink),
+                ExpectedConditions.invisibilityOf(garageLink))
+        );
         return new MainPage();
     }
 }
