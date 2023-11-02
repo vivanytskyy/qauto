@@ -2,6 +2,7 @@ package com.gmail.ivanytskyy.vitaliy.ui.user;
 
 import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
+import com.gmail.ivanytskyy.vitaliy.ui.dataproviders.ProfileDataProviders;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -9,6 +10,8 @@ import org.testng.asserts.SoftAssert;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.*;
+import static com.gmail.ivanytskyy.vitaliy.utils.TestDataHandlingService.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -72,8 +75,7 @@ public class UserProfileTest extends BaseTest {
                 .editProfile()
                 .saveProfilePositiveCase(newName, newLastName, country, newBirthday, newPhoto);
         String expectedProfileName = newName + " " + newLastName;
-        String dateFormat = "dd.MM.yyyy";
-        String expectedBirthday = new SimpleDateFormat(dateFormat).format(newBirthday);
+        String expectedBirthday = new SimpleDateFormat(DATE_FORMAT.getValue()).format(newBirthday);
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(userProfilePage.getProfileName(), expectedProfileName,
@@ -81,6 +83,42 @@ public class UserProfileTest extends BaseTest {
         softAssert.assertEquals(userProfilePage.getCountryName(), country,
                 "Country is incorrect");
         softAssert.assertEquals(userProfilePage.getBirthday(), expectedBirthday,
+                "Birthday is incorrect");
+        softAssert.assertFalse(userProfilePage.getPhoto().contains("default-user.png"),
+                "File name is incorrect");
+        softAssert.assertAll();
+
+        userProfilePage.moveToSidebar().logout();
+        webDriver.manage().deleteAllCookies();
+        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
+    }
+    @Test(description = "Edit profile. Positive case.",
+            dataProviderClass = ProfileDataProviders.class, dataProvider = "editProfileProviderPositiveCase",
+            priority = 30)
+    public void editProfileTest(String newName, String newLastName, String country, String birthday){
+        UserProfilePage userProfilePage = openApp()
+                .openSingUpBox()
+                .registerPositiveCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        tempUser.getPassword())
+                .moveToHeader()
+                .openUserProfileDropdown()
+                .openProfile();
+        File newPhoto = new File(PATH_TO_PHOTO_IMAGE);
+
+        userProfilePage
+                .editProfile()
+                .saveProfilePositiveCase(newName, newLastName, country, getDateAsObject(birthday), newPhoto);
+        String expectedProfileName = newName + " " + newLastName;
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(userProfilePage.getProfileName(), expectedProfileName,
+                "Profile name is incorrect");
+        softAssert.assertEquals(userProfilePage.getCountryName(), country,
+                "Country is incorrect");
+        softAssert.assertEquals(userProfilePage.getBirthday(), birthday,
                 "Birthday is incorrect");
         softAssert.assertFalse(userProfilePage.getPhoto().contains("default-user.png"),
                 "File name is incorrect");

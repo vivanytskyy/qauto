@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 01/11/2023
+ * @version 1.01
+ * @date 02/11/2023
  */
 public class UserInstructionsPage extends UserPage {
     @FindBy(xpath = "//app-instructions/div/div/h1")
@@ -44,9 +44,9 @@ public class UserInstructionsPage extends UserPage {
         return getText(pageTitle);
     }
     public String getInstructionTitle(int instructionNumber){
-        if(instructionItems.size() == 0 || instructionNumber <= 0)
-            throw new IllegalArgumentException("Instruction was not found");
         int index = instructionNumber - 1;
+        if(instructionItems.size() == 0 || index < 0)
+            throw new IllegalArgumentException("Instruction was not found");
         int paginationNumber = paginationItems.size();
         if(index >= 8 && paginationNumber != 0){
             for (int i = 2; i < paginationNumber - 1; i++){
@@ -54,11 +54,15 @@ public class UserInstructionsPage extends UserPage {
                 paginationItems.get(i).click();
                 waitForInstructionContentChanged();
                 if (index < 8){
+                    if(index >= webDriver.findElements(instructionItemsLocator).size())
+                        throw new IllegalArgumentException("Instruction was not found");
                     return new InstructionItem(webDriver.findElements(instructionItemsLocator)
                             .get(index)).getInstructionTitle();
                 }
             }
         }
+        if(index >= webDriver.findElements(instructionItemsLocator).size())
+            throw new IllegalArgumentException("Instruction was not found");
         return new InstructionItem(instructionItems.get(index)).getInstructionTitle();
     }
     public int getNumberOfInstructions(){
@@ -83,7 +87,7 @@ public class UserInstructionsPage extends UserPage {
                             .findFirst()
                             .orElseThrow())
                     .click()
-                    .pause(Duration.ofMillis(500))
+                    .pause(Duration.ofMillis(700))
                     .perform();
             waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);
         }

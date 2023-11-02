@@ -1,6 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages;
 
 import com.gmail.ivanytskyy.vitaliy.ui.utils.WebDriverHolder;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,6 +38,12 @@ public class BasePage {
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
     protected void setTextFieldValue(WebElement element, String text){
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.clear();
+        element.sendKeys(text);
+    }
+    protected void setTextFieldValue(By locator, WebElement element, String text){
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         element.clear();
         element.sendKeys(text);
     }

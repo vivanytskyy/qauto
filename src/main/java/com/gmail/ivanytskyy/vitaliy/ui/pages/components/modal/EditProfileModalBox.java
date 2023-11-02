@@ -1,16 +1,18 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 01/11/2023
+ * @version 1.03
+ * @date 02/11/2023
  */
 public class EditProfileModalBox extends ModalBox{
     @FindBy(css = "[for='editProfileName']")
@@ -36,7 +38,12 @@ public class EditProfileModalBox extends ModalBox{
     @FindBy(css = "input#editProfilePhoto")
     private WebElement photoInput;
     @FindBy(css = ".modal-footer .btn.btn-primary")
-    protected WebElement saveButton;
+    private WebElement saveButton;
+    @FindBy(css = "app-photo-input")
+    private WebElement appPhotoInput;
+    private final By photoInputLocator = By.cssSelector("input#editProfilePhoto");
+    private final String appPhotoInputAttributeName = "class";
+    private final String appPhotoInputAttributePartOfValue = "ng-dirty";
 
     public EditProfileModalBox setName(String name){
         setTextFieldValue(nameInput, name);
@@ -51,12 +58,14 @@ public class EditProfileModalBox extends ModalBox{
         return this;
     }
     public EditProfileModalBox setBirthday(Date birthday){
-        String dateAsString = new SimpleDateFormat(dateFormat).format(birthday);
+        String dateAsString = new SimpleDateFormat(DATE_FORMAT.getValue()).format(birthday);
         setTextFieldValue(birthdayInput, dateAsString);
         return this;
     }
     public EditProfileModalBox selectPhoto(File photo){
-        setTextFieldValue(photoInput, photo.getAbsolutePath());
+        setTextFieldValue(photoInputLocator, photoInput, photo.getAbsolutePath());
+        waitForPartOfAttributeValueChanged(appPhotoInput, appPhotoInputAttributeName,
+                appPhotoInputAttributePartOfValue);
         return this;
     }
     public void clickSaveProfileButtonPositiveCase(){
