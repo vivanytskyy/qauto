@@ -1,14 +1,15 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.user;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.EditProfileModalBox;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 02/11/2023
+ * @version 1.02
+ * @date 03/11/2023
  */
 public class UserProfilePage extends UserPage {
     @FindBy(xpath = "//app-profile/div/div/h1")
@@ -25,6 +26,7 @@ public class UserProfilePage extends UserPage {
     private WebElement editProfileButton;
     @FindBy(css = "div.modal-content")
     private WebElement modalContent;
+    private final By bodyLocator = By.xpath("//body");
 
     public EditProfileModalBox editProfile(){
         wait.until(ExpectedConditions.or(
@@ -32,7 +34,8 @@ public class UserProfilePage extends UserPage {
                 ExpectedConditions.visibilityOf(profileName)
         ));
         clickButton(editProfileButton);
-        wait.until(ExpectedConditions.visibilityOf(modalContent));
+        waitForPartOfAttributeValueChanged(webDriver.findElement(bodyLocator),
+                "class", "modal-open");
         return new EditProfileModalBox();
     }
     @Override
