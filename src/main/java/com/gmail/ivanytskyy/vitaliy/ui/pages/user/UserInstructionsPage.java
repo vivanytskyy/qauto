@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 02/11/2023
+ * @version 1.02
+ * @date 07/11/2023
  */
 public class UserInstructionsPage extends UserPage {
     @FindBy(xpath = "//app-instructions/div/div/h1")
@@ -35,7 +35,6 @@ public class UserInstructionsPage extends UserPage {
     private final String contentMarkerAttributeName = "class";
     private final String contentMarkerAttributeValue = "instructions_content";
     private final String selectButtonAttributeName = "aria-expanded";
-    private final String selectButtonAttributeValue = "false";
     private final String brandSelectButtonDefaultValue = "Choose brand";
     private final String modelSelectButtonDefaultValue = "Choose model";
 
@@ -80,6 +79,7 @@ public class UserInstructionsPage extends UserPage {
         waitForOldTextChanged(brandSelectButton, brandSelectButtonDefaultValue);
         if(!brandSelectButton.getText().equals(brandName)){
             clickButton(brandSelectButton);
+            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(brandItems
                             .stream()
@@ -89,7 +89,7 @@ public class UserInstructionsPage extends UserPage {
                     .click()
                     .pause(Duration.ofMillis(700))
                     .perform();
-            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);
+            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, "false");
         }
         return this;
     }
@@ -97,6 +97,7 @@ public class UserInstructionsPage extends UserPage {
         waitForOldTextChanged(modelSelectButton, modelSelectButtonDefaultValue);
         if (!modelSelectButton.getText().equals(modelName)){
             clickButton(modelSelectButton);
+            waitForAttributeValueChanged(modelSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(modelItems
                             .stream()
@@ -105,7 +106,7 @@ public class UserInstructionsPage extends UserPage {
                             .orElseThrow())
                     .click()
                     .perform();
-            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);
+            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, "false");
         }
         return this;
     }

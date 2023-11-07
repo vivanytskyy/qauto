@@ -1,6 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.ui;
 
-import com.gmail.ivanytskyy.vitaliy.ui.dataproviders.SignUpDataProvider;
+import com.gmail.ivanytskyy.vitaliy.ui.dataproviders.SignUpDataProviders;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserProfilePage;
 import org.testng.Assert;
@@ -10,7 +10,7 @@ import org.testng.asserts.SoftAssert;
 /**
  * @author Vitaliy Ivanytskyy
  * @version 1.04
- * @date 03/11/2023
+ * @date 07/11/2023
  */
 public class SignUpTest extends BaseTest{
     private static final String EXPECTED_MODAL_BOX_TITLE = "Registration";
@@ -62,39 +62,18 @@ public class SignUpTest extends BaseTest{
         deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Sign up is success ",
-            dataProviderClass = SignUpDataProvider.class, dataProvider = "registrationDataProviderPositiveCase",
+            dataProviderClass = SignUpDataProviders.class, dataProvider = "registrationDataProviderPositiveCase",
             priority = 21)
     public void signUpPositiveTest(String name, String lastName, String email, String password){
-        UserProfilePage userProfilePage;
-        String actualTitle;
-        String displayedUserName;
-        try{
-            userProfilePage = openApp()
-                    .openSingUpBox()
-                    .registerPositiveCase(name, lastName, email, password)
-                    .moveToHeader()
-                    .openUserProfileDropdown()
-                    .openProfile();
-            actualTitle = userProfilePage.getPageTitle();
-            displayedUserName = userProfilePage.getProfileName();
-        }catch (RuntimeException e){
-            e.printStackTrace();
-            userProfilePage= openApp()
-                    .moveToVisitorHeader()
-                    .openSingInBox()
-                    .loginPositiveCase(email, password, false)
-                    .moveToSidebar()
-                    .openSettings()
-                    .removeAccount()
-                    .clickRemove()
-                    .openSingUpBox()
-                    .registerPositiveCase(name, lastName, email, password)
-                    .moveToHeader()
-                    .openUserProfileDropdown()
-                    .openProfile();
-            actualTitle = userProfilePage.getPageTitle();
-            displayedUserName = userProfilePage.getProfileName();
-        }
+        UserProfilePage userProfilePage = openApp()
+                .openSingUpBox()
+                .registerPositiveCase(name, lastName, email, password)
+                .moveToHeader()
+                .openUserProfileDropdown()
+                .openProfile();
+        String actualTitle = userProfilePage.getPageTitle();
+        String displayedUserName = userProfilePage.getProfileName();
+
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE, "Title is incorrect");
         softAssert.assertTrue(displayedUserName.contains(name), "User first name is incorrect");

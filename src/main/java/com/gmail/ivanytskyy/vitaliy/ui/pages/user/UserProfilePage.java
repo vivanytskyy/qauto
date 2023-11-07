@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 03/11/2023
+ * @version 1.03
+ * @date 07/11/2023
  */
 public class UserProfilePage extends UserPage {
     @FindBy(xpath = "//app-profile/div/div/h1")
@@ -24,15 +24,10 @@ public class UserProfilePage extends UserPage {
     private WebElement photoImg;
     @FindBy(css = ".panel-page .btn.btn-primary")
     private WebElement editProfileButton;
-    @FindBy(css = "div.modal-content")
-    private WebElement modalContent;
     private final By bodyLocator = By.xpath("//body");
 
     public EditProfileModalBox editProfile(){
-        wait.until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(profileTitle),
-                ExpectedConditions.visibilityOf(profileName)
-        ));
+        wait.until(ExpectedConditions.visibilityOf(photoImg));
         clickButton(editProfileButton);
         waitForPartOfAttributeValueChanged(webDriver.findElement(bodyLocator),
                 "class", "modal-open");
