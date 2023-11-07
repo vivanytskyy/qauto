@@ -6,6 +6,7 @@ import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserInstructionsPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -21,13 +22,17 @@ public class UserHeader extends Header {
     private WebElement instructionsLink;
     @FindBy(css = "button[id='userNavDropdown']")
     private WebElement userProfileDropdownButton;
+    @FindBy(css = "app-user-nav>div")
+    private WebElement dropdown;
 
     public UserGaragePage openGarage(){
         clickLink(garageLink);
         return new UserGaragePage();
     }
     public UserProfileDropdown openUserProfileDropdown(){
+        wait.until(ExpectedConditions.visibilityOf(dropdown));
         clickButton(userProfileDropdownButton);
+        waitForPartOfAttributeValueChanged(dropdown, "class", "show");
         return new UserProfileDropdown();
     }
     public UserInstructionsPage openInstructions(){

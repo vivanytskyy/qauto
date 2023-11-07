@@ -2,6 +2,7 @@ package com.gmail.ivanytskyy.vitaliy.ui.user;
 
 import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
+import com.gmail.ivanytskyy.vitaliy.ui.dataproviders.SettingsDataProviders;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserSettingsPage;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.units.Currencies;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.units.DistanceUnits;
@@ -11,8 +12,8 @@ import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 01/11/2023
+ * @version 1.01
+ * @date 07/11/2023
  */
 public class UserSettingsTest extends BaseTest {
     private static final String EXPECTED_ALERT_MESSAGE = "Wrong email or password";
@@ -109,7 +110,7 @@ public class UserSettingsTest extends BaseTest {
                 .getChangeEmailTitle();
         Assert.assertEquals(changeEmailTitle, EXPECTED_CHANGE_EMAIL_SETTINGS_TITLE);
     }
-    @Test(description = "Check change password settings title")
+    @Test(description = "Check change password settings title", priority = 53)
     public void checkChangePasswordSettingsTitleTest(){
         boolean needRemember = false;
         String changePasswordTitle = openApp()
@@ -156,10 +157,25 @@ public class UserSettingsTest extends BaseTest {
                 .moveToSidebar()
                 .openSettings()
                 .setCurrency(expectedCurrency);
-        Currencies currentCurrency = userSettingsPage.getCurrentCurrency();
-        Assert.assertEquals(currentCurrency, expectedCurrency);
+        Currencies actualCurrency = userSettingsPage.getCurrentCurrency();
+        Assert.assertEquals(actualCurrency, expectedCurrency);
     }
-    @Test(description = "Set distance unit. Positive case", priority = 71)
+    @Test(description = "Set currency. Positive case",
+            dataProviderClass = SettingsDataProviders.class, dataProvider = "currencyProviderPositiveCase",
+            priority = 71)
+    public void setCurrencyTest(Currencies currency){
+        boolean needRemember = false;
+        UserSettingsPage userSettingsPage = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
+                .moveToSidebar()
+                .openSettings()
+                .setCurrency(currency);
+        Currencies actualCurrency = userSettingsPage.getCurrentCurrency();
+        Assert.assertEquals(actualCurrency, currency);
+    }
+    @Test(description = "Set distance unit. Positive case", priority = 80)
     public void setDistanceUnitTest(){
         boolean needRemember = false;
         DistanceUnits expectedUnit = DistanceUnits.ML;
@@ -170,10 +186,25 @@ public class UserSettingsTest extends BaseTest {
                 .moveToSidebar()
                 .openSettings()
                 .setDistanceUnit(expectedUnit);
-        DistanceUnits currentUnit = userSettingsPage.getCurrentDistanceUnit();
-        Assert.assertEquals(currentUnit, expectedUnit);
+        DistanceUnits actualUnit = userSettingsPage.getCurrentDistanceUnit();
+        Assert.assertEquals(actualUnit, expectedUnit);
     }
-    @Test(description = "Change email. Positive case.", priority = 80)
+    @Test(description = "Set distance unit. Positive case",
+            dataProviderClass = SettingsDataProviders.class, dataProvider = "distanceUnitProviderPositiveCase",
+            priority = 81)
+    public void setDistanceUnitTest(DistanceUnits distanceUnit){
+        boolean needRemember = false;
+        UserSettingsPage userSettingsPage = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .loginPositiveCase(getUserEmail(), getUserPassword(), needRemember)
+                .moveToSidebar()
+                .openSettings()
+                .setDistanceUnit(distanceUnit);
+        DistanceUnits actualUnit = userSettingsPage.getCurrentDistanceUnit();
+        Assert.assertEquals(actualUnit, distanceUnit);
+    }
+    @Test(description = "Change email. Positive case.", priority = 90)
     public void changeEmailTest(){
         Faker faker = new Faker();
         String newEmail = faker.internet().emailAddress();
@@ -204,7 +235,41 @@ public class UserSettingsTest extends BaseTest {
         webDriver.manage().deleteAllCookies();
         deleteUserThroughSidebar(newEmail, tempUser.getPassword());
     }
-    @Test(description = "Change password. Positive case.", priority = 81)
+    @Test(description = "Change email. Positive case.",
+            dataProviderClass = SettingsDataProviders.class, dataProvider = "emailProviderPositiveCase",
+            priority = 91)
+    public void changeEmailTest(String newEmail, String password){
+        boolean rememberMe = false;
+        UserSettingsPage userSettingsPage;
+        openApp()
+                .openSingUpBox()
+                .registerPositiveCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        password)
+                .moveToHeader()
+                .openUserProfileDropdown()
+                .openSettings()
+                .changeEmailPositiveCase(newEmail, password)
+                .moveToSidebar()
+                .logout();
+        webDriver.manage().deleteAllCookies();
+        userSettingsPage = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .loginPositiveCase(newEmail, password, rememberMe)
+                .moveToSidebar()
+                .openSettings();
+        String actualTitle = userSettingsPage.getPageTitle();
+
+        Assert.assertEquals(actualTitle, EXPECTED_PAGE_TITLE);
+
+        userSettingsPage.moveToSidebar().logout();
+        webDriver.manage().deleteAllCookies();
+        deleteUserThroughSidebar(newEmail, password);
+    }
+    @Test(description = "Change password. Positive case.", priority = 100)
     public void changePasswordTest(){
         String newPassword = new PasswordGenerateService.Builder()
                 .useDigits(true)
@@ -224,6 +289,37 @@ public class UserSettingsTest extends BaseTest {
                 .openUserProfileDropdown()
                 .openSettings()
                 .changePasswordPositiveCase(tempUser.getPassword(), newPassword)
+                .moveToSidebar()
+                .logout();
+        webDriver.manage().deleteAllCookies();
+
+        UserSettingsPage userSettingsPage = openApp()
+                .moveToVisitorHeader()
+                .openSingInBox()
+                .loginPositiveCase(tempUser.getEmail(), newPassword, rememberMe)
+                .moveToSidebar()
+                .openSettings();
+        Assert.assertEquals(userSettingsPage.getPageTitle(), EXPECTED_PAGE_TITLE);
+        userSettingsPage.moveToSidebar().logout();
+        webDriver.manage().deleteAllCookies();
+        deleteUserThroughSidebar(tempUser.getEmail(), newPassword);
+    }
+    @Test(description = "Change password. Positive case.",
+            dataProviderClass = SettingsDataProviders.class, dataProvider = "passwordProviderPositiveCase",
+            priority = 101)
+    public void changePasswordTest(String initialPassword, String newPassword){
+        boolean rememberMe = false;
+        openApp()
+                .openSingUpBox()
+                .registerPositiveCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        initialPassword)
+                .moveToHeader()
+                .openUserProfileDropdown()
+                .openSettings()
+                .changePasswordPositiveCase(initialPassword, newPassword)
                 .moveToSidebar()
                 .logout();
         webDriver.manage().deleteAllCookies();

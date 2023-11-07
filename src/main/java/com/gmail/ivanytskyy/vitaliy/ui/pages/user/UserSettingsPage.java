@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 01/11/2023
+ * @version 1.01
+ * @date 07/11/2023
  */
 public class UserSettingsPage extends UserPage {
     @FindBy(xpath = "//app-settings/div/div/h1")
@@ -55,6 +55,8 @@ public class UserSettingsPage extends UserPage {
     private WebElement removeAccountButton;
     @FindBy(css = "ngb-modal-window[role='dialog']")
     private WebElement removeDialogModalWindow;
+    @FindBy(css = "app-change-email-form>form")
+    private WebElement changeEmailForm;
 
     @Override
     public String getPageTitle() {
@@ -95,33 +97,27 @@ public class UserSettingsPage extends UserPage {
         );
     }
     public UserSettingsPage setCurrency(Currencies currency){
-        clickButton(currencyItems
+        WebElement necessaryButton = currencyItems
                 .stream()
                 .filter(button -> button.getText().equals(currency.toString()))
                 .findFirst()
-                .orElseThrow());
-        waitForPartOfAttributeValueChanged(currencyItems
-                .stream()
-                .filter(button -> button.getText().equals(currency.toString()))
-                        .findFirst()
-                        .orElseThrow(),
-                "class",
-                "active");
+                .orElseThrow();
+        if(!necessaryButton.getAttribute("class").contains("active")){
+            clickButton(necessaryButton);
+            waitForPartOfAttributeValueChanged(necessaryButton, "class", "active");
+        }
         return new UserSettingsPage();
     }
     public UserSettingsPage setDistanceUnit(DistanceUnits unit){
-        clickButton(distanceUnitItems
+        WebElement necessaryButton  = distanceUnitItems
                 .stream()
                 .filter(button -> button.getText().equals(unit.getValue()))
                 .findFirst()
-                .orElseThrow());
-        waitForPartOfAttributeValueChanged(distanceUnitItems
-                        .stream()
-                        .filter(button -> button.getText().equals(unit.getValue()))
-                        .findFirst()
-                        .orElseThrow(),
-                "class",
-                "active");
+                .orElseThrow();
+        if(!necessaryButton.getAttribute("class").contains("active")){
+            clickLink(necessaryButton);
+            waitForPartOfAttributeValueChanged(necessaryButton, "class", "active");
+        }
         return new UserSettingsPage();
     }
     public UserSettingsPage setEmailInChangeEmailForm(String newEmail){
@@ -134,6 +130,7 @@ public class UserSettingsPage extends UserPage {
     }
     public UserSettingsPage clickChangeEmailButtonPositiveCase(){
         clickButton(changeEmailButton);
+        waitForPartOfAttributeValueChanged(changeEmailForm, "class", "ng-invalid");
         return this;
     }
     public UserSettingsPage changeEmailPositiveCase(String newEmail, String actualPassword){

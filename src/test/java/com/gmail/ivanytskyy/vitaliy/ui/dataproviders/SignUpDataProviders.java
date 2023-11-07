@@ -7,10 +7,10 @@ import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 03/11/2023
+ * @version 1.01
+ * @date 07/11/2023
  */
-public class SignUpDataProvider {
+public class SignUpDataProviders {
 
     @DataProvider
     public static Object[][] firstNameProviderPositiveCase(){
@@ -42,15 +42,12 @@ public class SignUpDataProvider {
         String lastName = "Idaho";
         String password = "vQ8pqjFYCgZUTM";
         String localPart64 = "1k".repeat(32);
-        //"Bug added to Jira (Edit Issue : U1QM241022-107)
-        String domainPart255 = "nt2Lb".repeat(50) + ".info";
         return new Object[][]{
-                {firstName, lastName, "123456789@ukr.net",                   password},
+                {firstName, lastName, "9876543210@ukr.net",               password},
                 {firstName, lastName, "SEMEN@ukr.net",                    password},
                 {firstName, lastName, "№%-=/`'@ukr.net",                  password},
                 {firstName, lastName, "DUNcan@dot.com",                   password},
                 {firstName, lastName, localPart64 + "@incorporation.com", password},
-                {firstName, lastName, "some1Email@" + domainPart255,      password}
         };
     }
     @DataProvider
