@@ -65,8 +65,8 @@ public class UserProfileTest extends BaseTest {
                 .openUserProfileDropdown()
                 .openProfile();
         Faker faker = new Faker();
-        String newName = faker.name().firstName();
-        String newLastName = faker.name().lastName();
+        String newName = faker.name().firstName().replace("'", "");
+        String newLastName = faker.name().lastName().replace("'", "");
         String country = "Canada";
         Date newBirthday = faker.date().birthday();
         File newPhoto = new File(PATH_TO_PHOTO_IMAGE);

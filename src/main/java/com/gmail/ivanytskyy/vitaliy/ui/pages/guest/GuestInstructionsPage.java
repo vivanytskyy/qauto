@@ -35,7 +35,6 @@ public class GuestInstructionsPage extends GuestPage {
     private final String contentMarkerAttributeName = "class";
     private final String contentMarkerAttributeValue = "instructions_content";
     private final String selectButtonAttributeName = "aria-expanded";
-    private final String selectButtonAttributeValue = "false";
     private final String brandSelectButtonDefaultValue = "Choose brand";
     private final String modelSelectButtonDefaultValue = "Choose model";
 
@@ -80,6 +79,7 @@ public class GuestInstructionsPage extends GuestPage {
         waitForOldTextChanged(brandSelectButton, brandSelectButtonDefaultValue);
         if(!brandSelectButton.getText().equals(brandName)){
             clickButton(brandSelectButton);
+            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(brandItems
                             .stream()
@@ -89,7 +89,7 @@ public class GuestInstructionsPage extends GuestPage {
                     .click()
                     .pause(Duration.ofMillis(500))
                     .perform();
-            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);
+            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, "false");
         }
         return this;
     }
@@ -97,6 +97,7 @@ public class GuestInstructionsPage extends GuestPage {
         waitForOldTextChanged(modelSelectButton, modelSelectButtonDefaultValue);
         if (!modelSelectButton.getText().equals(modelName)){
             clickButton(modelSelectButton);
+            waitForAttributeValueChanged(modelSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(modelItems
                             .stream()
@@ -105,7 +106,7 @@ public class GuestInstructionsPage extends GuestPage {
                             .orElseThrow())
                     .click()
                     .perform();
-            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, selectButtonAttributeValue);
+            waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, "false");
         }
         return this;
     }

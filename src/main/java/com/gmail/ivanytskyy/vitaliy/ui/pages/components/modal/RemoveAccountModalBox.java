@@ -14,7 +14,17 @@ public class RemoveAccountModalBox extends ModalBox {
     private WebElement cancelButton;
     @FindBy(xpath = "//button[@class='btn btn-danger']")
     private WebElement removeButton;
+    @FindBy(css = ".modal-body>p:nth-child(1)")
+    private WebElement modalBodyText;
+    @FindBy(css = ".modal-body>p:nth-child(2)")
+    private WebElement modalDanderText;
 
+    public String getConfirmationText(){
+        return getText(modalBodyText);
+    }
+    public String getDangerText(){
+        return getText(modalDanderText);
+    }
     public void clickCancel(){
         clickButton(cancelButton);
     }

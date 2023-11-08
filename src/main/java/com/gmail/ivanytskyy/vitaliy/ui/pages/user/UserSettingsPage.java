@@ -81,7 +81,7 @@ public class UserSettingsPage extends UserPage {
     public Currencies getCurrentCurrency(){
         return Currencies.valueOf(currencyItems
                 .stream()
-                .filter(button -> button.getAttribute("class").contains("active"))
+                .filter(button -> button.getAttribute("class").contains("-active"))
                 .findFirst()
                 .orElseThrow()
                 .getText());
@@ -89,7 +89,7 @@ public class UserSettingsPage extends UserPage {
     public DistanceUnits getCurrentDistanceUnit(){
         return DistanceUnits.valueOf(distanceUnitItems
                 .stream()
-                .filter(button -> button.getAttribute("class").contains("active"))
+                .filter(button -> button.getAttribute("class").contains("-active"))
                 .findFirst()
                 .orElseThrow()
                 .getText()
@@ -102,9 +102,9 @@ public class UserSettingsPage extends UserPage {
                 .filter(button -> button.getText().equals(currency.toString()))
                 .findFirst()
                 .orElseThrow();
-        if(!necessaryButton.getAttribute("class").contains("active")){
+        if(!necessaryButton.getAttribute("class").contains("-active")){
             clickButton(necessaryButton);
-            waitForPartOfAttributeValueChanged(necessaryButton, "class", "active");
+            waitForPartOfAttributeValueChanged(necessaryButton, "class", "-active");
         }
         return new UserSettingsPage();
     }
@@ -114,9 +114,9 @@ public class UserSettingsPage extends UserPage {
                 .filter(button -> button.getText().equals(unit.getValue()))
                 .findFirst()
                 .orElseThrow();
-        if(!necessaryButton.getAttribute("class").contains("active")){
+        if(!necessaryButton.getAttribute("class").contains("-active")){
             clickLink(necessaryButton);
-            waitForPartOfAttributeValueChanged(necessaryButton, "class", "active");
+            waitForPartOfAttributeValueChanged(necessaryButton, "class", "-active");
         }
         return new UserSettingsPage();
     }
