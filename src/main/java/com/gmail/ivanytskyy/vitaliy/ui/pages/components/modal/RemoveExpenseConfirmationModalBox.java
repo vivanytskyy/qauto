@@ -5,28 +5,25 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.02
- * @date 01/11/2023
+ * @version 1.00
+ * @date 15/11/2023
  */
-public class RemoveCarConfirmationModalBox extends ModalBox {
+public class RemoveExpenseConfirmationModalBox extends ModalBox{
     @FindBy(css = ".modal-footer .btn.btn-danger")
-    private WebElement removeButton;
+    protected WebElement removeButton;
     @FindBy(css = ".modal-footer .btn.btn-secondary")
     private WebElement cancelButton;
     @FindBy(css = ".modal-body>p:nth-child(1)")
     private WebElement modalBodyText;
-    @FindBy(css = ".modal-body>p:nth-child(2)")
-    private WebElement modalDanderText;
+
     public void clickCancelButton(){
         clickButton(cancelButton);
     }
     public void confirmRemoving(){
         clickButton(removeButton);
+        wait.until(driver -> driver.findElements(alertExistLocator).size() == 0);
     }
     public String getConfirmationText(){
         return getText(modalBodyText);
-    }
-    public String getDangerText(){
-        return getText(modalDanderText);
     }
 }
