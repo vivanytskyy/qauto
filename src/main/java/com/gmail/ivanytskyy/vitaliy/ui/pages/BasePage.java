@@ -14,14 +14,16 @@ import java.time.Duration;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.05
- * @date 19/10/2023
+ * @version 1.06
+ * @date 15/11/2023
  */
 public class BasePage {
     protected WebDriver webDriver;
     protected WebDriverWait wait;
     protected final Actions actions;
     private final JavascriptExecutor javascriptExecutor;
+    protected final By alertExistLocator = By.cssSelector("div.alert-list");
+
     public BasePage(){
         this.webDriver = WebDriverHolder.getWebDriver();
         this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(7));

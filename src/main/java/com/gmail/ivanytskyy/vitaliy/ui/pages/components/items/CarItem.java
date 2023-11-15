@@ -2,6 +2,7 @@ package com.gmail.ivanytskyy.vitaliy.ui.pages.components.items;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.EditCarModalBox;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.AddExpenseModalBox;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,8 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 28/10/2023
+ * @version 1.02
+ * @date 14/11/2023
  */
 public class CarItem extends BasePage {
     private final WebElement container;
@@ -46,5 +47,9 @@ public class CarItem extends BasePage {
     public EditCarModalBox editCar(){
         clickButton(carEditButton);
         return new EditCarModalBox();
+    }
+    public AddExpenseModalBox addExpense(){
+        clickButton(addExpenseButton);
+        return new AddExpenseModalBox();
     }
 }
