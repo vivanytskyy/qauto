@@ -5,8 +5,8 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 01/11/2023
+ * @version 1.04
+ * @date 16/11/2023
  */
 public abstract class CarModalBox extends ModalBox{
     @FindBy(css = "[for='addCarBrand']")
@@ -27,6 +27,8 @@ public abstract class CarModalBox extends ModalBox{
     protected WebElement saveButton;
     @FindBy(css = ".modal-footer .btn.btn-secondary")
     private WebElement cancelButton;
+    protected final String addedCarAlert = "Car added";
+    protected final String editedCarAlert = "Car updated";
 
     public void clickCancelButton(){
         clickButton(cancelButton);

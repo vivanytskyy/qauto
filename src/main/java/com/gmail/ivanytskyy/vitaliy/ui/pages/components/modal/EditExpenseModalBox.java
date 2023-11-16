@@ -14,7 +14,6 @@ import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.DATE_FORMAT;
 public class EditExpenseModalBox extends ExpenseModalBox{
     @FindBy(css = ".modal-footer .btn.btn-primary")
     protected WebElement saveButton;
-    private final String editedExpenseAlert = "Fuel expense edited";
 
     public EditExpenseModalBox selectVehicleById(int numberOfVehicle){
         int vehicleIndex = numberOfVehicle - 1;
@@ -45,7 +44,12 @@ public class EditExpenseModalBox extends ExpenseModalBox{
     }
     public void clickSaveExpenseButtonPositiveCase(){
         clickButton(saveButton);
-        wait.until(driver -> driver.findElement(alertExistLocator).getText().contains(editedExpenseAlert));
+        wait.until(driver -> {
+            if(driver.findElements(alertExistLocator).size() != 0){
+                return !driver.findElement(alertExistLocator).getText().contains(editedExpenseAlert);
+            }
+            return true;
+        });
     }
     public EditExpenseModalBox clickSaveExpenseButtonNegativeCase(){
         clickButton(saveButton);

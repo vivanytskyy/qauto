@@ -12,8 +12,8 @@ import com.gmail.ivanytskyy.vitaliy.ui.utils.units.ExpensesReportHeads;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 14/11/2023
+ * @version 1.01
+ * @date 16/11/2023
  */
 public class ExpenseItem extends BasePage {
     private final WebElement container;
@@ -29,7 +29,9 @@ public class ExpenseItem extends BasePage {
     private WebElement deleteButton;
     @FindBy(xpath = ".//td[5]/button[2]")
     private WebElement editExpenseButton;
-    private final By modalBoxLocator = By.cssSelector("div.modal-content>app-delete-expense-modal");
+    private final By editModalBoxLocator = By.cssSelector("div.modal-content>app-edit-expense-modal");
+    private final By removeModalBoxLocator = By.cssSelector("div.modal-content>app-delete-expense-modal");
+    private final String editedExpenseAlert = "Fuel expense edited";
 
     public ExpenseItem(WebElement container) {
         this.container = container;
@@ -56,10 +58,17 @@ public class ExpenseItem extends BasePage {
         return getText(totalCost);
     }
     public EditExpenseModalBox editExpense(){
+        wait.until(driver -> {
+            if(driver.findElements(alertExistLocator).size() != 0){
+                return !driver.findElement(alertExistLocator).getText().contains(editedExpenseAlert);
+            }
+            return true;
+        });
         actions
                 .moveToElement(editExpenseButton)
                 .click()
                 .perform();
+        wait.until(ExpectedConditions.presenceOfElementLocated(editModalBoxLocator));
         return new EditExpenseModalBox();
     }
     public RemoveExpenseConfirmationModalBox removeExpense(){
@@ -67,7 +76,7 @@ public class ExpenseItem extends BasePage {
                 .moveToElement(deleteButton)
                 .click()
                 .perform();
-        wait.until(ExpectedConditions.presenceOfElementLocated(modalBoxLocator));
+        wait.until(ExpectedConditions.presenceOfElementLocated(removeModalBoxLocator));
         return new RemoveExpenseConfirmationModalBox();
     }
 }
