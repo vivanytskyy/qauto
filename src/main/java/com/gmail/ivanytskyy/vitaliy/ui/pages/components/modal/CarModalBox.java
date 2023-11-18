@@ -5,8 +5,8 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 01/11/2023
+ * @version 1.04
+ * @date 16/11/2023
  */
 public abstract class CarModalBox extends ModalBox{
     @FindBy(css = "[for='addCarBrand']")

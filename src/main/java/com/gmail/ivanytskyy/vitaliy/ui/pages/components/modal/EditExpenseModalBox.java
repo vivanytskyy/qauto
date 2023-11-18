@@ -2,19 +2,20 @@ package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.DATE_FORMAT;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.Alerts.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 15/11/2023
+ * @version 1.01
+ * @date 17/11/2023
  */
 public class EditExpenseModalBox extends ExpenseModalBox{
     @FindBy(css = ".modal-footer .btn.btn-primary")
     protected WebElement saveButton;
-    private final String editedExpenseAlert = "Fuel expense edited";
 
     public EditExpenseModalBox selectVehicleById(int numberOfVehicle){
         int vehicleIndex = numberOfVehicle - 1;
@@ -45,7 +46,13 @@ public class EditExpenseModalBox extends ExpenseModalBox{
     }
     public void clickSaveExpenseButtonPositiveCase(){
         clickButton(saveButton);
-        wait.until(driver -> driver.findElement(alertExistLocator).getText().contains(editedExpenseAlert));
+        wait.until(driver -> {
+            if(driver.findElements(alertExistLocator).size() != 0){
+                return !driver.findElement(alertExistLocator).getText().contains(EDITED_EXPENSE_ALERT.getAlert());
+            }
+            return true;
+        });
+        wait.until(ExpectedConditions.invisibilityOf(modalTitle));
     }
     public EditExpenseModalBox clickSaveExpenseButtonNegativeCase(){
         clickButton(saveButton);

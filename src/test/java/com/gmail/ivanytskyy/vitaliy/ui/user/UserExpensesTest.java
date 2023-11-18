@@ -314,7 +314,7 @@ public class UserExpensesTest extends BaseTest {
         cars.put("Ford", "Focus");
         cars.put(brandName, modelName);
         cars.put("BMW", "Z3");
-        List<Float> expenseLitersUsedList = List.of(12.61f, 16.55f, expenseLitersUsed, 33.05f);
+        List<Float> expenseLitersUsedList = List.of(0.99f, 16.55f, expenseLitersUsed, 33.05f);
         List<Float> expenseTotalCostList = List.of(77.33f, 0.44f, expenseTotalCost, 2000.01f);
         Date reportDate = new Date();
         int counter = 0;

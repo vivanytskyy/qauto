@@ -2,11 +2,12 @@ package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.06
- * @date 01/11/2023
+ * @version 1.07
+ * @date 16/11/2023
  */
 public class AddCarModalBox extends CarModalBox{
     @FindBy(css = ".modal-footer .btn.btn-primary")
@@ -14,6 +15,7 @@ public class AddCarModalBox extends CarModalBox{
 
    public AddCarModalBox selectBrandById(int brandId){
         selectByIndex(brandSelect, brandId);
+        waitForPartOfAttributeValueChanged(modelSelect, "class", "ng-valid");
         return this;
    }
     public AddCarModalBox selectModelById(int modelId){
@@ -22,6 +24,7 @@ public class AddCarModalBox extends CarModalBox{
     }
     public AddCarModalBox selectBrandByName(String brandName){
         selectByText(brandSelect, brandName);
+        waitForPartOfAttributeValueChanged(modelSelect, "class", "ng-valid");
         return this;
     }
     public AddCarModalBox selectModelByName(String modelName){
@@ -34,6 +37,7 @@ public class AddCarModalBox extends CarModalBox{
     }
     public void clickAddCarButtonPositiveCase(){
         clickButton(addButton);
+        wait.until(ExpectedConditions.invisibilityOf(modalTitle));
     }
     public void addCarPositiveCase(int brandId, int modelId, int mileage){
        selectBrandById(brandId)

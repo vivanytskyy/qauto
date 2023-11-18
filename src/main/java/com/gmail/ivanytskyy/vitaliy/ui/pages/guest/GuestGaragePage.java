@@ -6,13 +6,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.util.List;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 01/11/2023
+ * @version 1.01
+ * @date 16/11/2023
  */
 public class GuestGaragePage extends GuestPage {
     @FindBy(xpath = "//app-garage/div/div/h1")
@@ -24,12 +23,19 @@ public class GuestGaragePage extends GuestPage {
     private final By carListLocator = By.cssSelector("ul.car-list");
     @FindBy(css = "li.car-item")
     private List<WebElement> carsList;
+    private final String addedCarAlert = "Car added";
 
     @Override
     public String getPageTitle(){
         return getText(pageTitle);
     }
     public AddCarModalBox addCar(){
+        wait.until(driver -> {
+            if(driver.findElements(alertExistLocator).size() != 0){
+                return !driver.findElement(alertExistLocator).getText().contains(addedCarAlert);
+            }
+            return true;
+        });
         clickButton(addCarButton);
         return new AddCarModalBox();
     }

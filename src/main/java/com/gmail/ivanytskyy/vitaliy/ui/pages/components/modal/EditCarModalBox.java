@@ -1,17 +1,17 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.*;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.Alerts.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 01/11/2023
+ * @version 1.04
+ * @date 17/11/2023
  */
 public class EditCarModalBox extends CarModalBox{
     @FindBy(css = "[for='carCreationDate']")
@@ -24,7 +24,6 @@ public class EditCarModalBox extends CarModalBox{
     private WebElement removeCarButton;
     @FindBy(css = "div.modal-content>app-edit-car-modal")
     private WebElement modalBox;
-    private final By modalContentLocator = By.cssSelector("div.modal-content");
 
     public EditCarModalBox setCarCreationDate(Date carCreationDate){
         String dateAsString = new SimpleDateFormat(DATE_FORMAT.getValue()).format(carCreationDate);
@@ -53,7 +52,13 @@ public class EditCarModalBox extends CarModalBox{
     }
     public void clickSaveCarButtonPositiveCase(){
         clickButton(saveButton);
-        wait.until(ExpectedConditions.invisibilityOf(modalBox));
+        wait.until(driver -> {
+            if(driver.findElements(alertExistLocator).size() != 0){
+                return !driver.findElement(alertExistLocator).getText().contains(EDITED_CAR_ALERT.getAlert());
+            }
+            return true;
+        });
+        wait.until(ExpectedConditions.invisibilityOf(modalTitle));
     }
     public void saveCarPositiveCase(int brandId, int modelId, int mileage, Date carCreationDate){
         selectBrandById(brandId)

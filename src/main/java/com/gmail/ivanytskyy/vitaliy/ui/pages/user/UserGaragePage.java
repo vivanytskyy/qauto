@@ -7,11 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.Alerts.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 01/11/2023
+ * @version 1.01
+ * @date 17/11/2023
  */
 public class UserGaragePage extends UserPage {
     @FindBy(xpath = "//app-garage/div/div/h1")
@@ -29,6 +30,12 @@ public class UserGaragePage extends UserPage {
         return getText(pageTitle);
     }
     public AddCarModalBox addCar(){
+        wait.until(driver -> {
+            if(driver.findElements(alertExistLocator).size() != 0){
+                return !driver.findElement(alertExistLocator).getText().contains(ADDED_CAR_ALERT.getAlert());
+            }
+            return true;
+        });
         clickButton(addCarButton);
         return new AddCarModalBox();
     }
