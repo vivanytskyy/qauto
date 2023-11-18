@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.units.ExpensesReportHeads;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.Alerts.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -31,7 +32,6 @@ public class ExpenseItem extends BasePage {
     private WebElement editExpenseButton;
     private final By editModalBoxLocator = By.cssSelector("div.modal-content>app-edit-expense-modal");
     private final By removeModalBoxLocator = By.cssSelector("div.modal-content>app-delete-expense-modal");
-    private final String editedExpenseAlert = "Fuel expense edited";
 
     public ExpenseItem(WebElement container) {
         this.container = container;
@@ -60,7 +60,7 @@ public class ExpenseItem extends BasePage {
     public EditExpenseModalBox editExpense(){
         wait.until(driver -> {
             if(driver.findElements(alertExistLocator).size() != 0){
-                return !driver.findElement(alertExistLocator).getText().contains(editedExpenseAlert);
+                return !driver.findElement(alertExistLocator).getText().contains(EDITED_EXPENSE_ALERT.getAlert());
             }
             return true;
         });

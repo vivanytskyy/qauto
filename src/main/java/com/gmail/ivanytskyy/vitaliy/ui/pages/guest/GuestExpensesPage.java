@@ -78,7 +78,7 @@ public class GuestExpensesPage extends GuestPage {
         };
     }
     public ExpenseItem getExpense(int expenseIndex){
-        wait.until(ExpectedConditions.presenceOfElementLocated(expensesTableLocator));
+        wait.until(driver -> driver.findElement(expensesTableLocator).isDisplayed());
         return new ExpenseItem(expenses.get(expenseIndex - 1));
     }
     @Override

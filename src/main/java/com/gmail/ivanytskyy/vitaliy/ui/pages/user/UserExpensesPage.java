@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.Alerts.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -35,6 +36,12 @@ public class UserExpensesPage extends UserPage {
     private final String selectButtonAttributeName = "aria-expanded";
 
     public AddExpenseModalBox addExpense(){
+        wait.until(driver -> {
+            if(driver.findElements(alertExistLocator).size() != 0){
+                return !driver.findElement(alertExistLocator).getText().contains(ADDED_EXPENSE_ALERT.getAlert());
+            }
+            return true;
+        });
         clickButton(addExpenseButton);
         return new AddExpenseModalBox();
     }
@@ -78,7 +85,7 @@ public class UserExpensesPage extends UserPage {
         };
     }
     public ExpenseItem getExpense(int expenseIndex){
-        wait.until(ExpectedConditions.presenceOfElementLocated(expensesTableLocator));
+        wait.until(driver -> driver.findElement(expensesTableLocator).isDisplayed());
         return new ExpenseItem(expenses.get(expenseIndex - 1));
     }
     @Override

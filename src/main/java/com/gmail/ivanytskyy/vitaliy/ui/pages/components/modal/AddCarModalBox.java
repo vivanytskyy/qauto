@@ -15,7 +15,7 @@ public class AddCarModalBox extends CarModalBox{
 
    public AddCarModalBox selectBrandById(int brandId){
         selectByIndex(brandSelect, brandId);
-        waitForPartOfAttributeValueChanged(brandSelect, "class", "ng-valid");
+        waitForPartOfAttributeValueChanged(modelSelect, "class", "ng-valid");
         return this;
    }
     public AddCarModalBox selectModelById(int modelId){
@@ -24,7 +24,7 @@ public class AddCarModalBox extends CarModalBox{
     }
     public AddCarModalBox selectBrandByName(String brandName){
         selectByText(brandSelect, brandName);
-        waitForPartOfAttributeValueChanged(brandSelect, "class", "ng-valid");
+        waitForPartOfAttributeValueChanged(modelSelect, "class", "ng-valid");
         return this;
     }
     public AddCarModalBox selectModelByName(String modelName){
@@ -38,12 +38,6 @@ public class AddCarModalBox extends CarModalBox{
     public void clickAddCarButtonPositiveCase(){
         clickButton(addButton);
         wait.until(ExpectedConditions.invisibilityOf(modalTitle));
-        wait.until(driver -> {
-            if(driver.findElements(alertExistLocator).size() != 0){
-                return driver.findElement(alertExistLocator).getText().contains(addedCarAlert);
-            }
-            return true;
-        });
     }
     public void addCarPositiveCase(int brandId, int modelId, int mileage){
        selectBrandById(brandId)

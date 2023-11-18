@@ -41,8 +41,6 @@ public abstract class ExpenseModalBox extends ModalBox {
     protected WebElement addButton;
     @FindBy(css = ".modal-footer .btn.btn-secondary")
     private WebElement cancelButton;
-    protected final String addedExpenseAlert = "Fuel expense added";
-    protected final String editedExpenseAlert = "Fuel expense edited";
 
     public void closeModalBox(){
         clickButton(closeButton);

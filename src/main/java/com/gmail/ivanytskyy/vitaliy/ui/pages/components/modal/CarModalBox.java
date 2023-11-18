@@ -27,8 +27,6 @@ public abstract class CarModalBox extends ModalBox{
     protected WebElement saveButton;
     @FindBy(css = ".modal-footer .btn.btn-secondary")
     private WebElement cancelButton;
-    protected final String addedCarAlert = "Car added";
-    protected final String editedCarAlert = "Car updated";
 
     public void clickCancelButton(){
         clickButton(cancelButton);
