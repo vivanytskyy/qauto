@@ -13,7 +13,7 @@ import org.openqa.selenium.support.PageFactory;
  * @version 1.03
  * @date 28/10/2023
  */
-public class MainPage extends BasePage{
+public class HomePage extends BasePage{
     @FindBy(css = "button.btn.btn-outline-white.header_signin")
     private WebElement signInButton;
     @FindBy(css = "button.hero-descriptor_btn.btn.btn-primary")
@@ -45,7 +45,7 @@ public class MainPage extends BasePage{
     @FindBy(css = "a.contacts_link[href^='mailto']")
     private WebElement emailLink;
 
-    public MainPage(){
+    public HomePage(){
         PageFactory.initElements(webDriver, this);
     }
     public SignUpModalBox openSingUpBox(){

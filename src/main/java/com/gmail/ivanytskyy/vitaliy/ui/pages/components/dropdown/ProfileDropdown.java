@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.dropdown;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -23,8 +23,8 @@ public abstract class ProfileDropdown extends BasePage {
     public ProfileDropdown() {
         PageFactory.initElements(webDriver, this);
     }
-    public MainPage logout(){
+    public HomePage logout(){
         clickLink(logoutButton);
-        return new MainPage();
+        return new HomePage();
     }
 }

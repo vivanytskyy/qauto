@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.header;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.guest.GuestGaragePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.SignInModalBox;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,17 +25,17 @@ public class VisitorHeader extends Header {
     @FindBy(css = "div.header_right>button:nth-of-type(2)")
     private WebElement signInButton;
 
-    public MainPage openHomePage(){
+    public HomePage openHomePage(){
         clickLink(homeLink);
-        return new MainPage();
+        return new HomePage();
     }
-    public MainPage openAbout(){
+    public HomePage openAbout(){
         clickButton(aboutButton);
-        return new MainPage();
+        return new HomePage();
     }
-    public MainPage openContacts(){
+    public HomePage openContacts(){
         clickButton(contactsButton);
-        return new MainPage();
+        return new HomePage();
     }
     public GuestGaragePage openGuestPage(){
         clickButton(guestLoginButton);

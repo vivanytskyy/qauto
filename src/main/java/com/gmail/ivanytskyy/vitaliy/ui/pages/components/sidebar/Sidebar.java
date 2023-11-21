@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.sidebar;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,9 +26,9 @@ public class Sidebar extends BasePage {
     public Sidebar() {
         PageFactory.initElements(webDriver, this);
     }
-    public MainPage logout(){
+    public HomePage logout(){
         clickLink(logoutLink);
         wait.until(driver -> driver.findElements(sidebarLocator).size() == 0);
-        return new MainPage();
+        return new HomePage();
     }
 }

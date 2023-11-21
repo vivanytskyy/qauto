@@ -2,7 +2,7 @@ package com.gmail.ivanytskyy.vitaliy.ui;
 
 import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.listeners.UIExtentReportsListener;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
 import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.WebDriverHolder;
@@ -89,9 +89,9 @@ public class BaseTest {
     public void deleteUser(){
         UserAuthorizationService.deleteUser();
     }
-    protected MainPage openApp(){
+    protected HomePage openApp(){
         webDriver.get(BASE_URL);
-        return new MainPage();
+        return new HomePage();
     }
     protected boolean isFileDownloaded(File file) throws InterruptedException {
         long waitingTime = 12000;

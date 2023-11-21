@@ -14,4 +14,17 @@ List of technologies and libraries were applied:
 - [ExtentReports](https://www.extentreports.com/docs/versions/4/java/);
 - [Java Faker](https://github.com/DiUS/java-faker).
 
+### Website screenshots
+#### Home Page
+![Home Page](src/test/resources/screenshots/homepage.png?raw=true)
+#### Profile Page
+![Profile Page](src/test/resources/screenshots/user_profile.png?raw=true)
+#### Garage Page
+![Garage Page](src/test/resources/screenshots/user_garage.png?raw=true)
+#### Expenses Page
+![Expenses Page](src/test/resources/screenshots/user_expenses.png?raw=true)
+
+### Test Reports
+#### UI Test Report (by ExtentReports)
+![UI Test Report](src/test/resources/screenshots/ui_extent_report.jpg?raw=true)
 
