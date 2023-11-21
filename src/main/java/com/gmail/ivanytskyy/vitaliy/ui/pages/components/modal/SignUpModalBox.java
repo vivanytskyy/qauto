@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -112,9 +112,9 @@ public class SignUpModalBox extends ModalBox {
                 .setReEnterPassword(repeatedPassword)
                 .clickRegisterButtonNegativeCase();
     }
-    public MainPage closeModalBox(){
+    public HomePage closeModalBox(){
         clickButton(closeButton);
-        return new MainPage();
+        return new HomePage();
     }
     public String getInvalidNameMessage(){
         return getText(invalidNameMessage);

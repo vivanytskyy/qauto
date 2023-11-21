@@ -1,7 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.footer;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
-import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -22,9 +22,9 @@ public class Footer extends BasePage {
     public Footer() {
         PageFactory.initElements(webDriver, this);
     }
-    public MainPage openHomePageByFooterLogo(){
+    public HomePage openHomePageByFooterLogo(){
         clickLink(homeLinkByFooterLogo);
-        return new MainPage();
+        return new HomePage();
     }
     public String getCopyrightText(){
         return getText(copyrightText);

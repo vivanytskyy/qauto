@@ -13,7 +13,7 @@
     <test name="ui" enabled="true" parallel="classes" thread-count="2">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <!-- --><class name="com.gmail.ivanytskyy.vitaliy.ui.MainPageTest" />
+            <!-- --><class name="com.gmail.ivanytskyy.vitaliy.ui.HomePageTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.SignInTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.SignUpTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.ui.guest.GuestGarageTest" />

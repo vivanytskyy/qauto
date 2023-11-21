@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
  * @version 1.01
  * @date 06/10/2023
  */
-public class MainPageTest extends BaseTest{
+public class HomePageTest extends BaseTest{
     private static final String COPYRIGHT_TEXT = "© 2021 Hillel IT school";
     private static final String POSTER_TEXT = "Hillel auto developed in Hillel IT school " +
             "for educational purposes of QA courses.";

@@ -1,6 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
-import com.gmail.ivanytskyy.vitaliy.ui.pages.MainPage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -28,8 +28,8 @@ public class RemoveAccountModalBox extends ModalBox {
     public void clickCancel(){
         clickButton(cancelButton);
     }
-    public MainPage clickRemove(){
+    public HomePage clickRemove(){
         clickButton(removeButton);
-        return new MainPage();
+        return new HomePage();
     }
 }
