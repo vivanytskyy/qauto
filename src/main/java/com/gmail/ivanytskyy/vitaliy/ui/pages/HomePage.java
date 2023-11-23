@@ -3,7 +3,7 @@ package com.gmail.ivanytskyy.vitaliy.ui.pages;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.footer.Footer;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.SignUpModalBox;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.header.VisitorHeader;
-import com.gmail.ivanytskyy.vitaliy.ui.utils.Contacts;
+import com.gmail.ivanytskyy.vitaliy.ui.utils.units.Contacts;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;

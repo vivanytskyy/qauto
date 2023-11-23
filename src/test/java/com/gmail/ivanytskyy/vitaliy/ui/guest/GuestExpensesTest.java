@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.DATE_FORMAT;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.StringConstants.DATE_FORMAT;
 import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.ExpensesReportHeads.*;
 import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.ExpensesReportHeads.TOTAL_COST;
 
