@@ -1,6 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.utils;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -39,12 +40,19 @@ public final class TestPropertiesSupplier {
         return instance;
     }
     public String getProperty(String propertyName){
-        return Objects.requireNonNull(properties.getProperty(propertyName),
+        String propertyValue = Objects.requireNonNull(properties.getProperty(propertyName),
                 "Property " + propertyName + " isn't exist");
+        if(propertyName.equals("site_login") || propertyName.equals("site_password")){
+            return convertBinaryToString(propertyValue);
+        }
+        return propertyValue;
     }
     public void setProperties(String propertyName, String propertyValue) throws IOException {
         properties.setProperty(propertyName, propertyValue);
         properties.store(new FileWriter(PATH_TO_PROPERTIES),
                 "Added property " + propertyName);
+    }
+    private String convertBinaryToString(String binary){
+        return new String(new BigInteger(binary, 2).toByteArray());
     }
 }
