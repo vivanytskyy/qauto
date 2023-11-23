@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.*;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.StringConstants.*;
 import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.Alerts.*;
 
 /**

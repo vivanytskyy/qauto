@@ -4,7 +4,7 @@ import org.testng.annotations.DataProvider;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.*;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.StringConstants.*;
 
 /**
  * @author Vitaliy Ivanytskyy

@@ -14,8 +14,8 @@ import java.time.Duration;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.06
- * @date 15/11/2023
+ * @version 1.07
+ * @date 23/11/2023
  */
 public class BasePage {
     protected WebDriver webDriver;
@@ -50,7 +50,9 @@ public class BasePage {
         element.sendKeys(text);
     }
     protected void moveToElement(WebElement element){
-        actions.moveToElement(element).perform();
+        actions
+                .moveToElement(element)
+                .perform();
     }
     protected void selectCheckbox(WebElement checkbox, boolean selectCheckbox){
         boolean initialCondition = wait.until(ExpectedConditions.visibilityOf(checkbox)).isSelected();
@@ -79,14 +81,14 @@ public class BasePage {
     }
     protected boolean waitForPartOfAttributeValueChanged(WebElement element, String attribute,
                                                          String expectedPartOfAttributeValue){
-        return wait.until(partOfAttributeValueChanged(element, attribute, expectedPartOfAttributeValue));
+        return wait.until(driver -> element.getAttribute(attribute).contains(expectedPartOfAttributeValue));
     }
     protected boolean waitForAttributeValueChanged(WebElement element, String attribute,
-                                                         String expectedAttributeValue){
-        return wait.until(attributeValueChanged(element, attribute, expectedAttributeValue));
+                                                   String expectedAttributeValue){
+        return wait.until(driver -> element.getAttribute(attribute).equals(expectedAttributeValue));
     }
     protected boolean waitForOldTextChanged(WebElement element, String oldText){
-        return wait.until(oldTextChanged(element, oldText));
+        return wait.until(driver -> !(element.getText().equals(oldText)));
     }
     private ExpectedCondition<Boolean> elementDisplayInViewport(WebElement element) {
         final String jsScript = """
@@ -101,16 +103,5 @@ public class BasePage {
                          return false;
                       """;
         return driver -> (Boolean) javascriptExecutor.executeScript(jsScript, element);
-    }
-    private ExpectedCondition<Boolean> partOfAttributeValueChanged(WebElement element, String attribute,
-                                                                   String expectedPartOfAttributeValue){
-        return driver -> element.getAttribute(attribute).contains(expectedPartOfAttributeValue);
-    }
-    private ExpectedCondition<Boolean> attributeValueChanged(WebElement element, String attribute,
-                                                                   String expectedAttributeValue){
-        return driver -> element.getAttribute(attribute).equals(expectedAttributeValue);
-    }
-    private ExpectedCondition<Boolean> oldTextChanged(WebElement element, String oldText){
-        return driver -> !(element.getText().equals(oldText));
     }
 }

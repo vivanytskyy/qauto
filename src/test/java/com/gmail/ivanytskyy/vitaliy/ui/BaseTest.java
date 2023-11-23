@@ -24,8 +24,8 @@ import java.util.Map;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 01/11/2023
+ * @version 1.05
+ * @date 23/11/2023
  */
 @Listeners({UIExtentReportsListener.class})
 public class BaseTest {
@@ -92,16 +92,6 @@ public class BaseTest {
     protected HomePage openApp(){
         webDriver.get(BASE_URL);
         return new HomePage();
-    }
-    protected boolean isFileDownloaded(File file) throws InterruptedException {
-        long waitingTime = 12000;
-        long timeStep = 3000;
-        do {
-            waitingTime -= timeStep;
-            if(waitingTime <= 0) return false;
-            Thread.sleep(timeStep);
-        } while(!file.exists());
-        return true;
     }
     private ChromeOptions getChromeOptions(){
         Map<String, Object> prefs = new HashMap<>();

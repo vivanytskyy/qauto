@@ -10,7 +10,7 @@ import org.testng.asserts.SoftAssert;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import static com.gmail.ivanytskyy.vitaliy.ui.utils.StringConstants.*;
+import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.StringConstants.*;
 import static com.gmail.ivanytskyy.vitaliy.utils.TestDataHandlingService.*;
 
 /**

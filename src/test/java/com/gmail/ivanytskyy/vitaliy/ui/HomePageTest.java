@@ -1,6 +1,6 @@
 package com.gmail.ivanytskyy.vitaliy.ui;
 
-import com.gmail.ivanytskyy.vitaliy.ui.utils.Contacts;
+import com.gmail.ivanytskyy.vitaliy.ui.utils.units.Contacts;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.ContactsPropertiesSupplier;
 import org.testng.Assert;
 import org.testng.annotations.Test;

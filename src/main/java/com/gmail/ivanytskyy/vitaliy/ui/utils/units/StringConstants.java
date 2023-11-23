@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui.utils;
+package com.gmail.ivanytskyy.vitaliy.ui.utils.units;
 
 /**
  * @author Vitaliy Ivanytskyy
