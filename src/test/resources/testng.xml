@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Suite1" verbose="1">
-    <test name="api" enabled="false">
+    <test name="api" enabled="true">
         <classes >
             <class name="com.gmail.ivanytskyy.vitaliy.api.AuthTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.api.UsersTest" />
@@ -10,7 +10,7 @@
             <class name="com.gmail.ivanytskyy.vitaliy.api.InstructionsTest" />
         </classes>
     </test>
-    <test name="ui" enabled="true" parallel="classes" thread-count="2">
+    <test name="ui" enabled="false" parallel="classes" thread-count="2">
         <parameter name="browser" value="chrome"/>
         <classes>
             <!-- --><class name="com.gmail.ivanytskyy.vitaliy.ui.HomePageTest" />
