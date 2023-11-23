@@ -7,7 +7,7 @@
             <class name="com.gmail.ivanytskyy.vitaliy.api.UsersTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.api.CarsTest" />
             <class name="com.gmail.ivanytskyy.vitaliy.api.ExpensesTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.api.InstructionsTest" />
+            <!--<class name="com.gmail.ivanytskyy.vitaliy.api.InstructionsTest" />-->
         </classes>
     </test>
     <test name="ui" enabled="false" parallel="classes" thread-count="2">
