@@ -71,6 +71,7 @@ public class UserExpensesPage extends UserPage {
                     .moveToElement(carItems.get(index))
                     .click()
                     .perform();
+            waitForAttributeValueChanged(carSelectButton, selectButtonAttributeName, "false");
             waitForAttributeValueChanged(carDropdown, "class", "car-select-dropdown dropdown");
         }
         return this;
