@@ -435,7 +435,7 @@ public class PasswordGenerateServiceTest {
             expectedExceptions = IllegalArgumentException.class,
             expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options",
             priority = 81)
-    public void generatePasswordFixedLengthDidNotChooseAnyOptionsInBuilderExplicitSetUpNegativeTest(){
+    public void generatePasswordFixedLengthAnyOptionWasNotSelectedInBuilderExplicitSetUpNegativeTest(){
         passwordBuilder
                 .useLowerCaseLetters(false)
                 .useUpperCaseLetters(false)
@@ -448,7 +448,7 @@ public class PasswordGenerateServiceTest {
             expectedExceptions = IllegalArgumentException.class,
             expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options",
             priority = 82)
-    public void generatePasswordFixedLengthDidNotChooseAnyOptionsInBuilderImplicitSetUpNegativeTest(){
+    public void generatePasswordFixedLengthAnyOptionWasNotSelectedInBuilderImplicitSetUpNegativeTest(){
         passwordBuilder
                 .build()
                 .generatePassword(8);
@@ -471,7 +471,7 @@ public class PasswordGenerateServiceTest {
             expectedExceptions = IllegalArgumentException.class,
             expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options",
             priority = 101)
-    public void generatePasswordVariableLengthDidNotChooseAnyOptionsInBuilderExplicitSetUpNegativeTest(){
+    public void generatePasswordVariableLengthAnyOptionWasNotSelectedInBuilderExplicitSetUpNegativeTest(){
         int minLength = 15;
         int maxLength = 19;
         passwordBuilder
@@ -486,7 +486,7 @@ public class PasswordGenerateServiceTest {
             expectedExceptions = IllegalArgumentException.class,
             expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options",
             priority = 102)
-    public void generatePasswordVariableLengthDidNotChooseAnyOptionsInBuilderImplicitSetUpNegativeTest(){
+    public void generatePasswordVariableLengthAnyOptionWasNotSelectedInBuilderImplicitSetUpNegativeTest(){
         int minLength = 15;
         int maxLength = 19;
         passwordBuilder
@@ -494,7 +494,7 @@ public class PasswordGenerateServiceTest {
                 .generatePassword(minLength, maxLength);
     }
     @DataProvider
-    public static Object[][] validPasswordFixedLength() {
+    private Object[][] validPasswordFixedLength() {
         return new Object[][]{
                 {4},
                 {52},
@@ -502,14 +502,14 @@ public class PasswordGenerateServiceTest {
         };
     }
     @DataProvider
-    public static Object[][] invalidPasswordFixedLength() {
+    private Object[][] invalidPasswordFixedLength() {
         return new Object[][]{
                 {3},
                 {101}
         };
     }
     @DataProvider
-    public static Object[][] validPasswordVariableLength() {
+    private Object[][] validPasswordVariableLength() {
         return new Object[][]{
                 {4,     100},
                 {4,     4},
@@ -522,7 +522,7 @@ public class PasswordGenerateServiceTest {
         };
     }
     @DataProvider
-    public static Object[][] invalidPasswordVariableLength() {
+    private Object[][] invalidPasswordVariableLength() {
         return new Object[][]{
                 {3,     100},
                 {4,     101},
