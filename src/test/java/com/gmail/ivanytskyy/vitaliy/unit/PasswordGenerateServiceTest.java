@@ -1,180 +1,442 @@
 package com.gmail.ivanytskyy.vitaliy.unit;
 
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import static com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService.AvailableSymbols.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 17/08/2023
+ * @version 1.01
+ * @date 11/12/2023
  */
 public class PasswordGenerateServiceTest {
-    private static final String LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
-    private static final String UPPERCASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String DIGITS = "0123456789";
-    private static final String SPECIAL_SYMBOLS = "!@#$%&*()_+-=[]|,./?><";
-    private PasswordGenerateService.Builder serviceBuilder;
+    private PasswordGenerateService.Builder passwordBuilder;
+    private SoftAssert softAssert;
+
     @BeforeMethod
     public void setUp(){
-        this.serviceBuilder = new PasswordGenerateService.Builder();
+        this.passwordBuilder = new PasswordGenerateService.Builder();
+        softAssert = new SoftAssert();
     }
-    @Test(description = "Generate a fixed-length password. Positive case")
-    public void generatePasswordFixedLengthTest(){
-        String password = serviceBuilder
+    @AfterMethod(alwaysRun = true)
+    public void tearDown(){
+        passwordBuilder = null;
+        softAssert = null;
+    }
+    @Test(description = "Generate a fixed-length password. Positive case",
+            dataProvider = "validPasswordFixedLength",
+            priority = 10)
+    public void generatePasswordFixedLengthTest(int passwordLength){
+        String password = passwordBuilder
                 .useLowerCaseLetters(true)
                 .useUpperCaseLetters(true)
                 .useDigits(true)
                 .useSpecialSymbols(true)
                 .build()
-                .generatePassword(20);
-        Assert.assertEquals(password.length(), 20, "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isLowerCaseExist
-                && isUpperCaseExist
-                && isDigitExist
-                && isPunctuationSymbolExist);
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertTrue(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter wasn't found");
+        softAssert.assertTrue(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter wasn't found");
+        softAssert.assertTrue(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character wasn't found");
+        softAssert.assertTrue(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol wasn't found");
+        softAssert.assertAll();
     }
-    @Test(description = "Generate a fixed-length password (only lowercase letters). Positive case.")
-    public void generatePasswordFixedLengthOnlyLowercaseLettersTest(){
-        String password = serviceBuilder
+    @Test(description = "Generate a fixed-length password (only lowercase letters, explicit set up). Positive case.",
+            dataProvider = "validPasswordFixedLength",
+            priority = 21)
+    public void generatePasswordFixedLengthOnlyLowercaseLettersExplicitSetUpTest(int passwordLength){
+        String password = passwordBuilder
                 .useLowerCaseLetters(true)
                 .useUpperCaseLetters(false)
                 .useDigits(false)
                 .useSpecialSymbols(false)
                 .build()
-                .generatePassword(5);
-        Assert.assertEquals(password.length(), 5, "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isLowerCaseExist &&
-                !(isUpperCaseExist || isDigitExist || isPunctuationSymbolExist));
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertTrue(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
     }
-    @Test(description = "Generate a fixed-length password (only uppercase letters). Positive case.")
-    public void generatePasswordFixedLengthOnlyUppercaseLettersTest(){
-        String password = serviceBuilder
+    @Test(description = "Generate a fixed-length password (only uppercase letters, explicit set up). Positive case.",
+            dataProvider = "validPasswordFixedLength",
+            priority = 22)
+    public void generatePasswordFixedLengthOnlyUppercaseLettersExplicitSetUpTest(int passwordLength){
+        String password = passwordBuilder
                 .useLowerCaseLetters(false)
                 .useUpperCaseLetters(true)
                 .useDigits(false)
                 .useSpecialSymbols(false)
                 .build()
-                .generatePassword(7);
-        Assert.assertEquals(password.length(), 7, "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isUpperCaseExist &&
-                !(isLowerCaseExist || isDigitExist || isPunctuationSymbolExist));
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertTrue(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
     }
-    @Test(description = "Generate a fixed-length password (only digits). Positive case.")
-    public void generatePasswordFixedLengthOnlyDigitsTest(){
-        String password = serviceBuilder
+    @Test(description = "Generate a fixed-length password (only digits, explicit set up). Positive case.",
+            dataProvider = "validPasswordFixedLength",
+            priority = 23)
+    public void generatePasswordFixedLengthOnlyDigitsExplicitSetUpTest(int passwordLength){
+        String password = passwordBuilder
                 .useLowerCaseLetters(false)
                 .useUpperCaseLetters(false)
                 .useDigits(true)
                 .useSpecialSymbols(false)
                 .build()
-                .generatePassword(10);
-        Assert.assertEquals(password.length(), 10, "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isDigitExist &&
-                !(isUpperCaseExist || isLowerCaseExist || isPunctuationSymbolExist));
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertTrue(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
     }
-    @Test(description = "Generate a fixed-length password (only special symbols). Positive case.")
-    public void generatePasswordFixedLengthOnlyPunctuationSymbolsTest(){
-        String password = serviceBuilder
+    @Test(description = "Generate a fixed-length password (only special symbols, explicit set up). Positive case.",
+            dataProvider = "validPasswordFixedLength",
+            priority = 24)
+    public void generatePasswordFixedLengthOnlyPunctuationSymbolsExplicitSetUpTest(int passwordLength){
+        String password = passwordBuilder
                 .useLowerCaseLetters(false)
                 .useUpperCaseLetters(false)
                 .useDigits(false)
                 .useSpecialSymbols(true)
                 .build()
-                .generatePassword(15);
-        Assert.assertEquals(password.length(), 15, "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isPunctuationSymbolExist &&
-                !(isLowerCaseExist || isUpperCaseExist || isDigitExist));
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertTrue(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol wasn't found");
+        softAssert.assertAll();
     }
-    @Test(description = "Generate a fixed-length password (min length = 4). Positive case")
-    public void generatePasswordFixedMinLengthValueTest(){
-        String password = serviceBuilder
+    @Test(description = "Generate a fixed-length password (only lowercase letters, implicit set up). Positive case.",
+            dataProvider = "validPasswordFixedLength",
+            priority = 31)
+    public void generatePasswordFixedLengthOnlyLowercaseLettersImplicitSetUpTest(int passwordLength){
+        String password = passwordBuilder
+                .useLowerCaseLetters(true)
+                .build()
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertTrue(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a fixed-length password (only uppercase letters, implicit set up). Positive case.",
+            dataProvider = "validPasswordFixedLength",
+            priority = 32)
+    public void generatePasswordFixedLengthOnlyUppercaseLettersImplicitSetUpTest(int passwordLength){
+        String password = passwordBuilder
+                .useUpperCaseLetters(true)
+                .build()
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertTrue(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a fixed-length password (only digits, implicit set up). Positive case.",
+            dataProvider = "validPasswordFixedLength",
+            priority = 33)
+    public void generatePasswordFixedLengthOnlyDigitsImplicitSetUpTest(int passwordLength){
+        String password = passwordBuilder
+                .useDigits(true)
+                .build()
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertTrue(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a fixed-length password (only special symbols, implicit set up). Positive case.",
+            dataProvider = "validPasswordFixedLength",
+            priority = 34)
+    public void generatePasswordFixedLengthOnlyPunctuationSymbolsImplicitSetUpTest(int passwordLength){
+        String password = passwordBuilder
+                .useSpecialSymbols(true)
+                .build()
+                .generatePassword(passwordLength);
+        softAssert.assertEquals(password.length(), passwordLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertTrue(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol wasn't found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a variable-length password. Positive case",
+            dataProvider = "validPasswordVariableLength",
+            priority = 40)
+    public void generatePasswordVariableLengthTest(int minLength, int maxLength){
+        String password = passwordBuilder
                 .useLowerCaseLetters(true)
                 .useUpperCaseLetters(true)
                 .useDigits(true)
                 .useSpecialSymbols(true)
                 .build()
-                .generatePassword(4);
-        Assert.assertEquals(password.length(), 4, "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isLowerCaseExist
-                && isUpperCaseExist
-                && isDigitExist
-                && isPunctuationSymbolExist);
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertTrue(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter wasn't found");
+        softAssert.assertTrue(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter wasn't found");
+        softAssert.assertTrue(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character wasn't found");
+        softAssert.assertTrue(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol wasn't found");
+        softAssert.assertAll();
     }
-    @Test(description = "Generate a fixed-length password (max length = 100). Positive case")
-    public void generatePasswordFixedMaxLengthValueTest(){
-        String password = serviceBuilder
+    @Test(description = "Generate a variable-length password (only lowercase letters, explicit set up). Positive case.",
+            dataProvider = "validPasswordVariableLength",
+            priority = 51)
+    public void generatePasswordVariableLengthOnlyLowercaseLettersExplicitSetUpTest(int minLength, int maxLength){
+        String password = passwordBuilder
                 .useLowerCaseLetters(true)
+                .useUpperCaseLetters(false)
+                .useDigits(false)
+                .useSpecialSymbols(false)
+                .build()
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertTrue(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a variable-length password (only uppercase letters, explicit set up). Positive case.",
+            dataProvider = "validPasswordVariableLength",
+            priority = 52)
+    public void generatePasswordVariableLengthOnlyUppercaseLettersExplicitSetUpTest(int minLength, int maxLength){
+        String password = passwordBuilder
+                .useLowerCaseLetters(false)
                 .useUpperCaseLetters(true)
+                .useDigits(false)
+                .useSpecialSymbols(false)
+                .build()
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertTrue(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a variable-length password (only digits, explicit set up). Positive case.",
+            dataProvider = "validPasswordVariableLength",
+            priority = 53)
+    public void generatePasswordVariableLengthOnlyDigitsExplicitSetUpTest(int minLength, int maxLength){
+        String password = passwordBuilder
+                .useLowerCaseLetters(false)
+                .useUpperCaseLetters(false)
                 .useDigits(true)
+                .useSpecialSymbols(false)
+                .build()
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertTrue(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a variable-length password (only special symbols, explicit set up). Positive case.",
+            dataProvider = "validPasswordVariableLength",
+            priority = 54)
+    public void generatePasswordVariableLengthOnlyPunctuationSymbolsExplicitSetUpTest(int minLength, int maxLength){
+        String password = passwordBuilder
+                .useLowerCaseLetters(false)
+                .useUpperCaseLetters(false)
+                .useDigits(false)
                 .useSpecialSymbols(true)
                 .build()
-                .generatePassword(100);
-        Assert.assertEquals(password.length(), 100, "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isLowerCaseExist
-                && isUpperCaseExist
-                && isDigitExist
-                && isPunctuationSymbolExist);
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertTrue(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol wasn't found");
+        softAssert.assertAll();
     }
-    @Test(description = "Generate a fixed-length password (length less then min value). Negative case",
+    @Test(description = "Generate a variable-length password (only lowercase letters, implicit set up). Positive case.",
+            dataProvider = "validPasswordVariableLength",
+            priority = 61)
+    public void generatePasswordVariableLengthOnlyLowercaseLettersImplicitSetUpTest(int minLength, int maxLength){
+        String password = passwordBuilder
+                .useLowerCaseLetters(true)
+                .build()
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertTrue(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a variable-length password (only uppercase letters, implicit set up). Positive case.",
+            dataProvider = "validPasswordVariableLength",
+            priority = 62)
+    public void generatePasswordVariableLengthOnlyUppercaseLettersImplicitSetUpTest(int minLength, int maxLength){
+        String password = passwordBuilder
+                .useUpperCaseLetters(true)
+                .build()
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertTrue(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a variable-length password (only digits, implicit set up). Positive case.",
+            dataProvider = "validPasswordVariableLength",
+            priority = 63)
+    public void generatePasswordVariableLengthOnlyDigitsImplicitSetUpTest(int minLength, int maxLength){
+        String password = passwordBuilder
+                .useDigits(true)
+                .build()
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertTrue(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character wasn't found");
+        softAssert.assertFalse(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol was found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a variable-length password (only special symbols, implicit set up). Positive case.",
+            dataProvider = "validPasswordVariableLength",
+            priority = 64)
+    public void generatePasswordVariableLengthOnlyPunctuationSymbolsImplicitSetUpTest(int minLength, int maxLength){
+        String password = passwordBuilder
+                .useSpecialSymbols(true)
+                .build()
+                .generatePassword(minLength, maxLength);
+        softAssert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
+                "Password length incorrect");
+        softAssert.assertFalse(isSymbolExist(password, LOWERCASE_LETTERS.getAsString()),
+                "Lowercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, UPPERCASE_LETTERS.getAsString()),
+                "Uppercase letter was found");
+        softAssert.assertFalse(isSymbolExist(password, DIGITS.getAsString()),
+                "Digit character was found");
+        softAssert.assertTrue(isSymbolExist(password, SPECIAL_SYMBOLS.getAsString()),
+                "Special symbol wasn't found");
+        softAssert.assertAll();
+    }
+    @Test(description = "Generate a fixed-length password (invalid length value). Negative case",
+            dataProvider = "invalidPasswordFixedLength",
             expectedExceptions = IllegalArgumentException.class,
-            expectedExceptionsMessageRegExp = "Incorrect length value: 3")
-    public void generatePasswordFixedLengthLessThenMinValueNegativeTest(){
-        serviceBuilder
+            expectedExceptionsMessageRegExp = "Incorrect length value:.*",
+            priority = 70)
+    public void generatePasswordInvalidFixedLengthTest(int passwordLength){
+        passwordBuilder
                 .useLowerCaseLetters(true)
                 .useUpperCaseLetters(true)
                 .useDigits(true)
                 .useSpecialSymbols(true)
                 .build()
-                .generatePassword(3);
+                .generatePassword(passwordLength);
     }
-    @Test(description = "Generate a fixed-length password (length more then max value). Negative case",
+    @Test(description = "Generate a fixed-length password (options for builder are false). Negative case",
             expectedExceptions = IllegalArgumentException.class,
-            expectedExceptionsMessageRegExp = "Incorrect length value: 101")
-    public void generatePasswordFixedLengthMoreThenMaxValueNegativeTest(){
-        serviceBuilder
-                .useLowerCaseLetters(true)
-                .useUpperCaseLetters(true)
-                .useDigits(true)
-                .useSpecialSymbols(true)
-                .build()
-                .generatePassword(101);
-    }
-    @Test(description = "Generate a fixed-length password (options for builder wasn't chosen). Negative case",
-            expectedExceptions = IllegalArgumentException.class,
-            expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options")
-    public void generatePasswordFixedLengthDidNotChooseAnyOptionsInBuilderNegativeTest(){
-        serviceBuilder
+            expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options",
+            priority = 81)
+    public void generatePasswordFixedLengthDidNotChooseAnyOptionsInBuilderExplicitSetUpNegativeTest(){
+        passwordBuilder
                 .useLowerCaseLetters(false)
                 .useUpperCaseLetters(false)
                 .useDigits(false)
@@ -182,159 +444,22 @@ public class PasswordGenerateServiceTest {
                 .build()
                 .generatePassword(8);
     }
-    @Test(description = "Generate a variable-length password. Positive case")
-    public void generatePasswordVariableLengthTest(){
-        int minLength = 20;
-        int maxLength = 45;
-        String password = serviceBuilder
-                .useLowerCaseLetters(true)
-                .useUpperCaseLetters(true)
-                .useDigits(true)
-                .useSpecialSymbols(true)
-                .build()
-                .generatePassword(minLength, maxLength);
-        Assert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
-                "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isLowerCaseExist
-                && isUpperCaseExist
-                && isDigitExist
-                && isPunctuationSymbolExist);
-    }
-    @Test(description = "Generate a variable-length password (only lowercase letters). Positive case.")
-    public void generatePasswordVariableLengthOnlyLowercaseLettersTest(){
-        int minLength = 15;
-        int maxLength = 77;
-        String password = serviceBuilder
-                .useLowerCaseLetters(true)
-                .useUpperCaseLetters(false)
-                .useDigits(false)
-                .useSpecialSymbols(false)
-                .build()
-                .generatePassword(minLength, maxLength);
-        Assert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
-                "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isLowerCaseExist &&
-                !(isUpperCaseExist || isDigitExist || isPunctuationSymbolExist));
-    }
-    @Test(description = "Generate a variable-length password (only uppercase letters). Positive case.")
-    public void generatePasswordVariableLengthOnlyUppercaseLettersTest(){
-        int minLength = 33;
-        int maxLength = 34;
-        String password = serviceBuilder
-                .useLowerCaseLetters(false)
-                .useUpperCaseLetters(true)
-                .useDigits(false)
-                .useSpecialSymbols(false)
-                .build()
-                .generatePassword(minLength, maxLength);
-        Assert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
-                "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isUpperCaseExist &&
-                !(isLowerCaseExist || isDigitExist || isPunctuationSymbolExist));
-    }
-    @Test(description = "Generate a variable-length password (only digits). Positive case.")
-    public void generatePasswordVariableLengthOnlyDigitsTest(){
-        int minLength = 48;
-        int maxLength = 95;
-        String password = serviceBuilder
-                .useLowerCaseLetters(false)
-                .useUpperCaseLetters(false)
-                .useDigits(true)
-                .useSpecialSymbols(false)
-                .build()
-                .generatePassword(minLength, maxLength);
-        Assert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
-                "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isDigitExist &&
-                !(isUpperCaseExist || isLowerCaseExist || isPunctuationSymbolExist));
-    }
-    @Test(description = "Generate a variable-length password (only special symbols). Positive case.")
-    public void generatePasswordVariableLengthOnlyPunctuationSymbolsTest(){
-        int minLength = 12;
-        int maxLength = 18;
-        String password = serviceBuilder
-                .useLowerCaseLetters(false)
-                .useUpperCaseLetters(false)
-                .useDigits(false)
-                .useSpecialSymbols(true)
-                .build()
-                .generatePassword(minLength, maxLength);
-        Assert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
-                "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isPunctuationSymbolExist &&
-                !(isLowerCaseExist || isUpperCaseExist || isDigitExist));
-    }
-    @Test(description = "Generate a variable-length password (min length = 4). Positive case")
-    public void generatePasswordVariableMinLengthValueTest(){
-        int minLength = 4;
-        int maxLength = 5;
-        String password = serviceBuilder
-                .useLowerCaseLetters(true)
-                .useUpperCaseLetters(true)
-                .useDigits(true)
-                .useSpecialSymbols(true)
-                .build()
-                .generatePassword(minLength, maxLength);
-        Assert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
-                "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isLowerCaseExist
-                && isUpperCaseExist
-                && isDigitExist
-                && isPunctuationSymbolExist);
-    }
-    @Test(description = "Generate a variable-length password (max length = 100). Positive case")
-    public void generatePasswordVariableMaxLengthValueTest(){
-        int minLength = 99;
-        int maxLength = 100;
-        String password = serviceBuilder
-                .useLowerCaseLetters(true)
-                .useUpperCaseLetters(true)
-                .useDigits(true)
-                .useSpecialSymbols(true)
-                .build()
-                .generatePassword(minLength, maxLength);
-        Assert.assertTrue(password.length() >= minLength && password.length() <= maxLength,
-                "Password length incorrect");
-        boolean isLowerCaseExist = isSymbolExist(password, LOWERCASE_LETTERS);
-        boolean isUpperCaseExist = isSymbolExist(password, UPPERCASE_LETTERS);
-        boolean isDigitExist = isSymbolExist(password, DIGITS);
-        boolean isPunctuationSymbolExist = isSymbolExist(password, SPECIAL_SYMBOLS);
-        Assert.assertTrue(isLowerCaseExist
-                && isUpperCaseExist
-                && isDigitExist
-                && isPunctuationSymbolExist);
-    }
-    @Test(description = "Generate a variable-length password (min length less then min value). Negative case",
+    @Test(description = "Generate a fixed-length password (options for builder weren't chosen). Negative case",
             expectedExceptions = IllegalArgumentException.class,
-            expectedExceptionsMessageRegExp = "Incorrect length values: min = 3, max = 7")
-    public void generatePasswordVariableMinLengthLessThenMinValueNegativeTest(){
-        int minLength = 3;
-        int maxLength = 7;
-        serviceBuilder
+            expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options",
+            priority = 82)
+    public void generatePasswordFixedLengthDidNotChooseAnyOptionsInBuilderImplicitSetUpNegativeTest(){
+        passwordBuilder
+                .build()
+                .generatePassword(8);
+    }
+    @Test(description = "Generate a variable-length password (min and/or max lengths are invalid). Negative case",
+            dataProvider = "invalidPasswordVariableLength",
+            expectedExceptions = IllegalArgumentException.class,
+            expectedExceptionsMessageRegExp = "Incorrect length values:.*",
+            priority = 90)
+    public void generatePasswordInvalidVariableLengthTest(int minLength, int maxLength){
+        passwordBuilder
                 .useLowerCaseLetters(true)
                 .useUpperCaseLetters(true)
                 .useDigits(true)
@@ -342,41 +467,14 @@ public class PasswordGenerateServiceTest {
                 .build()
                 .generatePassword(minLength, maxLength);
     }
-    @Test(description = "Generate a variable-length password (max length more then max value). Negative case",
+    @Test(description = "Generate a variable-length password (options for builder are false). Negative case",
             expectedExceptions = IllegalArgumentException.class,
-            expectedExceptionsMessageRegExp = "Incorrect length values: min = 95, max = 101")
-    public void generatePasswordVariableMaxLengthMoreThenMaxValueNegativeTest(){
-        int minLength = 95;
-        int maxLength = 101;
-        serviceBuilder
-                .useLowerCaseLetters(true)
-                .useUpperCaseLetters(true)
-                .useDigits(true)
-                .useSpecialSymbols(true)
-                .build()
-                .generatePassword(minLength, maxLength);
-    }
-    @Test(description = "Generate a variable-length password (min length more then max length). Negative case",
-            expectedExceptions = IllegalArgumentException.class,
-            expectedExceptionsMessageRegExp = "Incorrect length values: min = 7, max = 5")
-    public void generatePasswordVariableMinLengthMoreThenMaxLengthNegativeTest(){
-        int minLength = 7;
-        int maxLength = 5;
-        serviceBuilder
-                .useLowerCaseLetters(true)
-                .useUpperCaseLetters(true)
-                .useDigits(true)
-                .useSpecialSymbols(true)
-                .build()
-                .generatePassword(minLength, maxLength);
-    }
-    @Test(description = "Generate a variable-length password (options for builder wasn't chosen). Negative case",
-            expectedExceptions = IllegalArgumentException.class,
-            expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options")
-    public void generatePasswordVariableLengthDidNotChooseAnyOptionsInBuilderNegativeTest(){
+            expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options",
+            priority = 101)
+    public void generatePasswordVariableLengthDidNotChooseAnyOptionsInBuilderExplicitSetUpNegativeTest(){
         int minLength = 15;
         int maxLength = 19;
-        serviceBuilder
+        passwordBuilder
                 .useLowerCaseLetters(false)
                 .useUpperCaseLetters(false)
                 .useDigits(false)
@@ -384,15 +482,74 @@ public class PasswordGenerateServiceTest {
                 .build()
                 .generatePassword(minLength, maxLength);
     }
-    @AfterMethod
-    public void tearDown(){
-        serviceBuilder = null;
+    @Test(description = "Generate a variable-length password (options for builder weren't chosen). Negative case",
+            expectedExceptions = IllegalArgumentException.class,
+            expectedExceptionsMessageRegExp = "Object wasn't built correctly. Add the necessary options",
+            priority = 102)
+    public void generatePasswordVariableLengthDidNotChooseAnyOptionsInBuilderImplicitSetUpNegativeTest(){
+        int minLength = 15;
+        int maxLength = 19;
+        passwordBuilder
+                .build()
+                .generatePassword(minLength, maxLength);
+    }
+    @DataProvider
+    public static Object[][] validPasswordFixedLength() {
+        return new Object[][]{
+                {4},
+                {52},
+                {100}
+        };
+    }
+    @DataProvider
+    public static Object[][] invalidPasswordFixedLength() {
+        return new Object[][]{
+                {3},
+                {101}
+        };
+    }
+    @DataProvider
+    public static Object[][] validPasswordVariableLength() {
+        return new Object[][]{
+                {4,     100},
+                {4,     4},
+                {100,   100},
+                {4,     5},
+                {99,    100},
+                {5,     52},
+                {52,    99},
+                {52,    52}
+        };
+    }
+    @DataProvider
+    public static Object[][] invalidPasswordVariableLength() {
+        return new Object[][]{
+                {3,     100},
+                {4,     101},
+                {3,     4},
+                {100,   101},
+                {3,     3},
+                {101,   101},
+                {3,     101},
+                {3,     52},
+                {52,    101},
+                {-25,   52},
+                {-52,   -20},
+                {0,     0},
+                {5,     4},
+                {100,   99},
+                {52,    5},
+                {99,    52},
+                {4,     3},
+                {101,   100},
+                {101,   3}
+        };
     }
     private boolean isSymbolExist(String password, String symbols){
-        char[] passwordAsChars = password.toCharArray();
-        for (char symbol : passwordAsChars) {
-            if(symbols.indexOf(symbol) != -1) return true;
-        }
-        return false;
+        return  password
+                .chars()
+                .mapToObj(i -> (char)i)
+                .map(String::valueOf)
+                .anyMatch(symbols::contains);
     }
 }
