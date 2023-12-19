@@ -2,6 +2,7 @@ package com.gmail.ivanytskyy.vitaliy.utils;
 
 import java.util.Random;
 import static com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService.AvailableSymbols.*;
+import static com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService.LengthBoundaries.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -58,7 +59,7 @@ public class PasswordGenerateService {
         }
     }
     public String generatePassword(int length){
-        if(length < 4 || length > 100)
+        if(length < LOWER_BOUNDARY.getValue() || length > UPPER_BOUNDARY.getValue())
             throw new IllegalArgumentException("Incorrect length value: " + length);
         StringBuilder sbPassword = new StringBuilder();
         sbPassword.append(generateBasePassword());
@@ -77,7 +78,7 @@ public class PasswordGenerateService {
         return sbPassword.toString();
     }
     public String generatePassword(int minLength, int maxLength){
-        if(minLength > maxLength || minLength < 4 || maxLength > 100)
+        if(minLength > maxLength || minLength < LOWER_BOUNDARY.getValue() || maxLength > UPPER_BOUNDARY.getValue())
             throw new IllegalArgumentException(
                     String.format("Incorrect length values: min = %s, max = %s", minLength, maxLength));
         Random random = new Random();
@@ -110,6 +111,18 @@ public class PasswordGenerateService {
         }
         public String getAsString(){
             return this.symbolsAsString;
+        }
+    }
+    public enum LengthBoundaries {
+        LOWER_BOUNDARY(4),
+        UPPER_BOUNDARY(100);
+        private final int value;
+
+        LengthBoundaries(int value) {
+            this.value = value;
+        }
+        public int getValue(){
+            return this.value;
         }
     }
 }
