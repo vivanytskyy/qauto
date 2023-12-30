@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui;
+package com.gmail.ivanytskyy.vitaliy.ui.tests;
 
 import com.gmail.ivanytskyy.vitaliy.ui.utils.units.Contacts;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.ContactsPropertiesSupplier;

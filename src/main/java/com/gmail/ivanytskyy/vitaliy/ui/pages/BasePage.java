@@ -14,8 +14,8 @@ import java.time.Duration;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.07
- * @date 23/11/2023
+ * @version 1.08
+ * @date 30/12/2023
  */
 public class BasePage {
     protected WebDriver webDriver;
@@ -89,6 +89,9 @@ public class BasePage {
     }
     protected boolean waitForOldTextChanged(WebElement element, String oldText){
         return wait.until(driver -> !(element.getText().equals(oldText)));
+    }
+    protected boolean isCookieSaved(){
+        return wait.until(driver -> driver.manage().getCookieNamed("sid") != null);
     }
     private ExpectedCondition<Boolean> elementDisplayInViewport(WebElement element) {
         final String jsScript = """

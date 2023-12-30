@@ -2,6 +2,7 @@ package com.gmail.ivanytskyy.vitaliy.ui.pages.components.sidebar;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.BasePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
+import com.gmail.ivanytskyy.vitaliy.ui.utils.UICookieHolder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,8 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.03
- * @date 07/11/2023
+ * @version 1.04
+ * @date 30/12/2023
  */
 public class Sidebar extends BasePage {
     @FindBy(xpath = "//nav[contains(@class, 'sidebar')]//a[contains(@href, '/garage')]")
@@ -28,6 +29,7 @@ public class Sidebar extends BasePage {
     }
     public HomePage logout(){
         clickLink(logoutLink);
+        UICookieHolder.setCookie(null);
         wait.until(driver -> driver.findElements(sidebarLocator).size() == 0);
         return new HomePage();
     }

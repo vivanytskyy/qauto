@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api;
+package com.gmail.ivanytskyy.vitaliy.api.tests;
 
 import com.gmail.ivanytskyy.vitaliy.api.antities.constants.Currency;
 import com.gmail.ivanytskyy.vitaliy.api.antities.constants.DistanceUnits;

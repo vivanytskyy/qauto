@@ -1,6 +1,6 @@
-package com.gmail.ivanytskyy.vitaliy.ui.user;
+package com.gmail.ivanytskyy.vitaliy.ui.tests.user;
 
-import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
+import com.gmail.ivanytskyy.vitaliy.ui.tests.BaseTest;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.items.ExpenseItem;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.AddExpenseModalBox;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserExpensesPage;
@@ -15,8 +15,8 @@ import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.ExpensesReportHeads.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.01
- * @date 12/11/2023
+ * @version 1.02
+ * @date 30/12/2023
  */
 public class UserExpensesTest extends BaseTest {
     private static final String EXPECTED_PAGE_TITLE = "Fuel expenses";
@@ -25,11 +25,7 @@ public class UserExpensesTest extends BaseTest {
 
     @Test(description = "Open fuel expenses page through sidebar. Positive case.", priority = 10)
     public void openPageThroughSidebarTest(){
-        boolean rememberMe = false;
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String title = signUpAsTempUser(tempUser)
                 .moveToSidebar()
                 .openExpenses()
                 .getPageTitle();
@@ -37,11 +33,7 @@ public class UserExpensesTest extends BaseTest {
     }
     @Test(description = "Open fuel expenses page through navigation bar. Positive case.", priority = 20)
     public void openPageThroughNavigationBarTest(){
-        boolean rememberMe = false;
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String title = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openExpenses()
                 .getPageTitle();
@@ -49,11 +41,7 @@ public class UserExpensesTest extends BaseTest {
     }
     @Test(description = "Open fuel expenses page through dropdown. Positive case.", priority = 30)
     public void openPageThroughDropdownTest(){
-        boolean rememberMe = false;
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String title = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openUserProfileDropdown()
                 .openExpenses()
@@ -65,9 +53,7 @@ public class UserExpensesTest extends BaseTest {
         String brandName = "BMW";
         String modelName = "5";
         int mileage = new Random().nextInt(1, 100);
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, mileage);
@@ -79,20 +65,14 @@ public class UserExpensesTest extends BaseTest {
         String actualTitle = addExpenseModalBox
                 .getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_ADD_EXPENSE_MODAL_BOX_TITLE);
-
         addExpenseModalBox.closeModalBox();
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Close add expense modal box", priority = 41)
     public void closeAddExpenseTest(){
         String brandName = "Ford";
         String modelName = "Fusion";
         int mileage = new Random().nextInt(1, 100);
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, mileage);
@@ -104,19 +84,13 @@ public class UserExpensesTest extends BaseTest {
                 .closeModalBox();
         String actualTitle = userExpensesPage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_PAGE_TITLE);
-
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Cancel add expense modal box", priority = 42)
     public void cancelAddExpenseTest(){
         String brandName = "Porsche";
         String modelName = "911";
         int mileage = new Random().nextInt(1, 100);
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, mileage);
@@ -128,10 +102,6 @@ public class UserExpensesTest extends BaseTest {
                 .clickCancelButton();
         String actualTitle = userExpensesPage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_PAGE_TITLE);
-
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Add an expense at the Expense page test. Positive case", priority = 50)
     public void addExpenseAtExpensePagePositiveTest(){
@@ -144,9 +114,7 @@ public class UserExpensesTest extends BaseTest {
         float expenseTotalCost = 123.24f;
         Date reportDate = new Date();
         String expectedReportDate = new SimpleDateFormat(DATE_FORMAT.getValue()).format(reportDate);
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, initialMileage);
@@ -181,10 +149,6 @@ public class UserExpensesTest extends BaseTest {
                 "Liters used value is incorrect");
         softAssert.assertEquals(actualTotalCost, String.valueOf(expenseTotalCost), "Total cost value is incorrect");
         softAssert.assertAll();
-
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Add an expense by number of car. Positive case", priority = 51)
     public void addExpenseByNumberOfCarPositiveTest(){
@@ -198,9 +162,7 @@ public class UserExpensesTest extends BaseTest {
         float expenseTotalCost = 15.40f;
         Date reportDate = new Date();
         String expectedReportDate = new SimpleDateFormat(DATE_FORMAT.getValue()).format(reportDate);
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, initialMileage);
@@ -236,10 +198,6 @@ public class UserExpensesTest extends BaseTest {
         softAssert.assertEquals(actualTotalCost, String.format(Locale.US, "%.2f", expenseTotalCost),
                 "Total cost value is incorrect");
         softAssert.assertAll();
-
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Add an expense at the Garage page test. Positive case", priority = 52)
     public void addExpenseAtGaragePagePositiveTest(){
@@ -252,9 +210,7 @@ public class UserExpensesTest extends BaseTest {
         float expenseTotalCost = 10.00f;
         Date reportDate = new Date();
         String expectedReportDate = new SimpleDateFormat(DATE_FORMAT.getValue()).format(reportDate);
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, initialMileage);
@@ -291,10 +247,6 @@ public class UserExpensesTest extends BaseTest {
         softAssert.assertEquals(actualTotalCost, String.format(Locale.US, "%.2f", expenseTotalCost),
                 "Total cost value is incorrect");
         softAssert.assertAll();
-
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Add an expense at the Garage page test (several cars in garage). Positive case",
             priority = 53)
@@ -306,9 +258,7 @@ public class UserExpensesTest extends BaseTest {
         float expenseLitersUsed = 12.61f;
         float expenseTotalCost = 44.01f;
 
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         Map<String, String> cars = new LinkedHashMap<>();
         cars.put("Audi", "TT");
         cars.put("Ford", "Focus");
@@ -363,10 +313,6 @@ public class UserExpensesTest extends BaseTest {
         softAssert.assertEquals(actualTotalCost, String.format(Locale.US, "%.2f", expenseTotalCost),
                 "Total cost value is incorrect");
         softAssert.assertAll();
-
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Get heads of expenses report test. Positive case", priority = 60)
     public void getHeadOfExpensesReportPositiveTest(){
@@ -382,9 +328,7 @@ public class UserExpensesTest extends BaseTest {
         float expenseLitersUsed = 6.3f;
         float expenseTotalCost = 22.05f;
         Date reportDate = new Date();
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, initialMileage);
@@ -409,10 +353,6 @@ public class UserExpensesTest extends BaseTest {
         softAssert.assertEquals(actualTotalCostHeadName, expectedTotalCostHeadName,
                 "Total cost head name is incorrect");
         softAssert.assertAll();
-
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Remove an expense test. Positive case", priority = 70)
     public void removeExpensePositiveTest(){
@@ -424,9 +364,7 @@ public class UserExpensesTest extends BaseTest {
         float expenseLitersUsed = 11.5f;
         float expenseTotalCost = 123.24f;
         Date reportDate = new Date();
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, initialMileage);
@@ -444,12 +382,6 @@ public class UserExpensesTest extends BaseTest {
                 .confirmRemoving();
         String emptyPageMessage = userExpensesPage.getEmptyPageMessage();
         Assert.assertEquals(emptyPageMessage, EMPTY_PAGE_MESSAGE_IF_CAR_EXIST);
-
-        userExpensesPage
-                .moveToSidebar()
-                .logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Edit an expense test. Positive case", priority = 80)
     public void editExpensePositiveTest(){
@@ -465,9 +397,7 @@ public class UserExpensesTest extends BaseTest {
         float changedExpenseTotalCost = 135.01f;
         Date reportDate = new Date();
         String expectedReportDate = new SimpleDateFormat(DATE_FORMAT.getValue()).format(reportDate);
-        UserGaragePage userGaragePage = openApp()
-                .openSingUpBox().registerPositiveCase(
-                        tempUser.getFirstName(), tempUser.getLastName(), tempUser.getEmail(), tempUser.getPassword());
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, startCarMileage);
@@ -500,9 +430,5 @@ public class UserExpensesTest extends BaseTest {
         softAssert.assertEquals(actualTotalCost, String.format(Locale.US, "%.2f", changedExpenseTotalCost),
                 "Total cost value is incorrect");
         softAssert.assertAll();
-
-        userExpensesPage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
 }

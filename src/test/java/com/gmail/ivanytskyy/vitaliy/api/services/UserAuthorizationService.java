@@ -1,9 +1,10 @@
-package com.gmail.ivanytskyy.vitaliy.utils;
+package com.gmail.ivanytskyy.vitaliy.api.services;
 
 import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.auth.AuthorizationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.auth.RegistrationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.AuthController;
 import com.gmail.ivanytskyy.vitaliy.api.controllers.UsersController;
+import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -35,10 +36,10 @@ public class UserAuthorizationService {
             authController.signUp(registrationPermit);
             cookie = authController.getCookie(authorizationPermit );
         }
-        CookieHolder.getInstance().setCookie(cookie);
+        APICookieHolder.getInstance().setCookie(cookie);
     }
     public static void deleteUser(){
-        String cookie = CookieHolder.getInstance().getCookie();
+        String cookie = APICookieHolder.getInstance().getCookie();
         UsersController usersController = new UsersController(cookie);
         usersController.deleteUser();
     }

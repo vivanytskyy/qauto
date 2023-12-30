@@ -3,27 +3,27 @@
 <suite name="Suite1" verbose="1">
     <test name="api" enabled="false">
         <classes >
-            <class name="com.gmail.ivanytskyy.vitaliy.api.AuthTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.api.UsersTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.api.CarsTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.api.ExpensesTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.api.InstructionsTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.api.tests.AuthTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.api.tests.UsersTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.api.tests.CarsTest" />
+             <class name="com.gmail.ivanytskyy.vitaliy.api.tests.ExpensesTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.api.tests.InstructionsTest" />
         </classes>
     </test>
     <test name="ui" enabled="true" parallel="classes" thread-count="2">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <!-- --><class name="com.gmail.ivanytskyy.vitaliy.ui.HomePageTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.SignInTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.SignUpTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.guest.GuestGarageTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.guest.GuestExpensesTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.guest.GuestInstructionsTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.user.UserGarageTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.user.UserExpensesTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.user.UserInstructionsTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.user.UserProfileTest" />
-            <class name="com.gmail.ivanytskyy.vitaliy.ui.user.UserSettingsTest" /><!-- -->
+            <!-- --><class name="com.gmail.ivanytskyy.vitaliy.ui.tests.HomePageTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.SignInTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.SignUpTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.guest.GuestGarageTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.guest.GuestExpensesTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.guest.GuestInstructionsTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.user.UserGarageTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.user.UserExpensesTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.user.UserInstructionsTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.user.UserProfileTest" />
+            <class name="com.gmail.ivanytskyy.vitaliy.ui.tests.user.UserSettingsTest" /><!-- -->
         </classes>
     </test>
     <test name="unit" enabled="false">
