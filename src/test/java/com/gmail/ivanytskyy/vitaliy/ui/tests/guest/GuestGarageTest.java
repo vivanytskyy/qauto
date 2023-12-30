@@ -1,6 +1,6 @@
-package com.gmail.ivanytskyy.vitaliy.ui.guest;
+package com.gmail.ivanytskyy.vitaliy.ui.tests.guest;
 
-import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
+import com.gmail.ivanytskyy.vitaliy.ui.tests.BaseTest;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.items.CarItem;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.EditCarModalBox;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.guest.GuestGaragePage;

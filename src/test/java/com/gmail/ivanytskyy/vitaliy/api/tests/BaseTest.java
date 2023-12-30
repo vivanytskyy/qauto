@@ -1,12 +1,12 @@
-package com.gmail.ivanytskyy.vitaliy.api;
+package com.gmail.ivanytskyy.vitaliy.api.tests;
 
 import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.auth.AuthorizationUserCredentials;
 import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.auth.RegistrationUserCredentials;
-import com.gmail.ivanytskyy.vitaliy.utils.CookieHolder;
+import com.gmail.ivanytskyy.vitaliy.api.services.APICookieHolder;
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
 import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
-import com.gmail.ivanytskyy.vitaliy.utils.UserAuthorizationService;
+import com.gmail.ivanytskyy.vitaliy.api.services.UserAuthorizationService;
 import org.testng.annotations.*;
 
 /**
@@ -27,7 +27,7 @@ public class BaseTest {
     @BeforeMethod
     public void authorizeUser(){
         UserAuthorizationService.authorizeUser();
-        this.cookie = CookieHolder.getInstance().getCookie();
+        this.cookie = APICookieHolder.getInstance().getCookie();
         this.credentials = new FakeUserCredentials();
     }
     @AfterMethod(alwaysRun = true)

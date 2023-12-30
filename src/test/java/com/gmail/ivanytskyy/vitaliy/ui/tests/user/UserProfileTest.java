@@ -1,7 +1,7 @@
-package com.gmail.ivanytskyy.vitaliy.ui.user;
+package com.gmail.ivanytskyy.vitaliy.ui.tests.user;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
+import com.gmail.ivanytskyy.vitaliy.ui.tests.BaseTest;
 import com.gmail.ivanytskyy.vitaliy.ui.dataproviders.ProfileDataProviders;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserProfilePage;
 import org.testng.Assert;
@@ -11,12 +11,12 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.StringConstants.*;
-import static com.gmail.ivanytskyy.vitaliy.utils.TestDataHandlingService.*;
+import static com.gmail.ivanytskyy.vitaliy.ui.services.TestDataHandlingService.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 01/11/2023
+ * @version 1.01
+ * @date 30/12/2023
  */
 public class UserProfileTest extends BaseTest {
     private static final String EXPECTED_PAGE_TITLE = "Profile";
@@ -29,11 +29,7 @@ public class UserProfileTest extends BaseTest {
 
     @Test(description = "Open profile page through sidebar. Positive case.", priority = 10)
     public void openPageThroughSidebarTest(){
-        boolean rememberMe = false;
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String title = signUpAsTempUser(tempUser)
                 .moveToSidebar()
                 .openProfile()
                 .getPageTitle();
@@ -41,11 +37,7 @@ public class UserProfileTest extends BaseTest {
     }
     @Test(description = "Open profile page through dropdown. Positive case.", priority = 20)
     public void openPageThroughDropdownTest(){
-        boolean rememberMe = false;
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String title = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openUserProfileDropdown()
                 .openProfile()
@@ -54,13 +46,7 @@ public class UserProfileTest extends BaseTest {
     }
     @Test(description = "Edit profile. Positive case.", priority = 30)
     public void editProfileTest(){
-        UserProfilePage userProfilePage = openApp()
-                .openSingUpBox()
-                .registerPositiveCase(
-                        tempUser.getFirstName(),
-                        tempUser.getLastName(),
-                        tempUser.getEmail(),
-                        tempUser.getPassword())
+        UserProfilePage userProfilePage = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openUserProfileDropdown()
                 .openProfile();
@@ -87,22 +73,12 @@ public class UserProfileTest extends BaseTest {
         softAssert.assertFalse(userProfilePage.getPhoto().contains("default-user.png"),
                 "File name is incorrect");
         softAssert.assertAll();
-
-        userProfilePage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Edit profile. Positive case.",
             dataProviderClass = ProfileDataProviders.class, dataProvider = "editProfileProviderPositiveCase",
             priority = 30)
     public void editProfileTest(String newName, String newLastName, String country, String birthday){
-        UserProfilePage userProfilePage = openApp()
-                .openSingUpBox()
-                .registerPositiveCase(
-                        tempUser.getFirstName(),
-                        tempUser.getLastName(),
-                        tempUser.getEmail(),
-                        tempUser.getPassword())
+        UserProfilePage userProfilePage = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openUserProfileDropdown()
                 .openProfile();
@@ -123,9 +99,5 @@ public class UserProfileTest extends BaseTest {
         softAssert.assertFalse(userProfilePage.getPhoto().contains("default-user.png"),
                 "File name is incorrect");
         softAssert.assertAll();
-
-        userProfilePage.moveToSidebar().logout();
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
 }

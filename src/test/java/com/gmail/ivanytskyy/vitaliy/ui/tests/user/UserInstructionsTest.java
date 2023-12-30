@@ -1,23 +1,21 @@
-package com.gmail.ivanytskyy.vitaliy.ui.guest;
+package com.gmail.ivanytskyy.vitaliy.ui.tests.user;
 
-import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
 import com.gmail.ivanytskyy.vitaliy.ui.dataproviders.InstructionsDataProviders;
+import com.gmail.ivanytskyy.vitaliy.ui.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 01/11/2023
+ * @version 1.01
+ * @date 30/12/2023
  */
-public class GuestInstructionsTest extends BaseTest {
+public class UserInstructionsTest extends BaseTest {
     private static final String EXPECTED_PAGE_TITLE = "Instructions";
 
     @Test(description = "Open instructions page through sidebar. Positive case.", priority = 10)
     public void openPageThroughSidebarTest(){
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openGuestPage()
+        String title = signUpAsTempUser(tempUser)
                 .moveToSidebar()
                 .openInstructions()
                 .getPageTitle();
@@ -25,9 +23,7 @@ public class GuestInstructionsTest extends BaseTest {
     }
     @Test(description = "Open instructions page through navigation bar. Positive case.", priority = 20)
     public void openPageThroughNavigationBarTest(){
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openGuestPage()
+        String title = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openInstructions()
                 .getPageTitle();
@@ -35,9 +31,7 @@ public class GuestInstructionsTest extends BaseTest {
     }
     @Test(description = "Open instructions page through dropdown. Positive case.", priority = 30)
     public void openPageThroughDropdownTest(){
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openGuestPage()
+        String title = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openUserProfileDropdown()
                 .openInstructions()
@@ -48,35 +42,30 @@ public class GuestInstructionsTest extends BaseTest {
             dataProviderClass = InstructionsDataProviders.class, dataProvider = "nameOfInstructionsProviderPositiveCase",
             priority = 40)
     public void searchInstructionTest(String brandName, String modelName, int instructionIndex, String expectedTitle){
-        String actualInstructionTitle = openApp()
-                .moveToVisitorHeader()
-                .openGuestPage()
+        String actualInstructionTitle = signUpAsTempUser(tempUser)
                 .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)
                 .getInstructionTitle(instructionIndex);
-        Assert.assertEquals(actualInstructionTitle, expectedTitle);
+        Assert.assertEquals(actualInstructionTitle, expectedTitle, "Instruction title is incorrect");
     }
     @Test(description = "Get number of instructions. Positive case",
             dataProviderClass = InstructionsDataProviders.class, dataProvider = "numberOfInstructionsProviderPositiveCase",
             priority = 50)
     public void getNumberOfInstructionsTest(String brandName, String modelName, int expectedNumberOfInstructions){
-        int actualNumberOfInstructions = openApp()
-                .moveToVisitorHeader()
-                .openGuestPage()
+        int actualNumberOfInstructions = signUpAsTempUser(tempUser)
                 .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)
                 .getNumberOfInstructions();
-        Assert.assertEquals(actualNumberOfInstructions, expectedNumberOfInstructions);
+        Assert.assertEquals(actualNumberOfInstructions, expectedNumberOfInstructions,
+                "Number of instructions is incorrect");
     }
     @Test(description = "Searching an instruction when it doesn't exist. Negative case",
             dataProviderClass = InstructionsDataProviders.class, dataProvider = "invalidInstructionNumbersProviderNegativeCase",
             expectedExceptions = IllegalArgumentException.class, priority = 60)
     public void searchInstructionWhenItDoesNotExistTest(String brandName, String modelName, int instructionNumber){
-        openApp()
-                .moveToVisitorHeader()
-                .openGuestPage()
+        signUpAsTempUser(tempUser)
                 .moveToSidebar()
                 .openInstructions()
                 .searchInstructions(brandName, modelName)

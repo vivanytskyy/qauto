@@ -1,6 +1,7 @@
 package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
+import com.gmail.ivanytskyy.vitaliy.ui.utils.UICookieHolder;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -30,6 +31,7 @@ public class RemoveAccountModalBox extends ModalBox {
     }
     public HomePage clickRemove(){
         clickButton(removeButton);
+        UICookieHolder.setCookie(null);
         return new HomePage();
     }
 }

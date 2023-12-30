@@ -1,17 +1,17 @@
-package com.gmail.ivanytskyy.vitaliy.utils;
+package com.gmail.ivanytskyy.vitaliy.api.services;
 
 /**
  * @author Vitaliy Ivanytskyy
  * @version 1.00
  * @date 08/08/2023
  */
-public class CookieHolder {
-    private static CookieHolder instance;
+public class APICookieHolder {
+    private static APICookieHolder instance;
     private String cookie;
-    private CookieHolder(){}
-    public static CookieHolder getInstance(){
+    private APICookieHolder(){}
+    public static APICookieHolder getInstance(){
         if(instance == null){
-            instance = new CookieHolder();
+            instance = new APICookieHolder();
         }
         return instance;
     }

@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui;
+package com.gmail.ivanytskyy.vitaliy.ui.tests;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserProfilePage;
@@ -8,8 +8,8 @@ import org.testng.asserts.SoftAssert;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.06
- * @date 01/11/2023
+ * @version 1.07
+ * @date 30/12/2023
  */
 public class SignInTest extends BaseTest {
     private static final String EXPECTED_MODAL_BOX_TITLE = "Log in";
@@ -42,12 +42,13 @@ public class SignInTest extends BaseTest {
     @Test(description = "Login is success ", priority = 20)
     public void signInPositiveTest(){
         boolean rememberMe = false;
+        userPreRegistrationByUI(tempUser);
         UserGaragePage userGaragePage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .loginPositiveCase(
-                        getUserEmail(),
-                        getUserPassword(),
+                        tempUser.getEmail(),
+                        tempUser.getPassword(),
                         rememberMe);
         String actualTitle = userGaragePage.getPageTitle();
         Assert.assertEquals(actualTitle, EXPECTED_GARAGE_PAGE_TITLE);
@@ -59,7 +60,7 @@ public class SignInTest extends BaseTest {
         String displayedUserName = userProfilePage.getProfileName();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE, "Title is incorrect");
-        softAssert.assertTrue(displayedUserName.contains(getUserFirstName()), "User name is incorrect");
+        softAssert.assertTrue(displayedUserName.contains(tempUser.getFirstName()), "User name is incorrect");
         softAssert.assertAll();
     }
     @Test(description = "Login is unsuccessful. Negative case ", priority = 30)
@@ -68,7 +69,10 @@ public class SignInTest extends BaseTest {
         String errorMessage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
-                .loginNegativeCase(tempUser.getEmail(), tempUser.getPassword(), rememberMe)
+                .loginNegativeCase(
+                        tempUser.getEmail(),
+                        tempUser.getPassword(),
+                        rememberMe)
                 .getFormErrorMessage();
         Assert.assertEquals(errorMessage, WRONG_EMAIL_OR_PASSWORD_MESSAGE);
     }
@@ -97,7 +101,10 @@ public class SignInTest extends BaseTest {
         String emptyEmailMessage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
-                .loginNegativeCase(email, tempUser.getPassword(), rememberMe)
+                .loginNegativeCase(
+                        email,
+                        tempUser.getPassword(),
+                        rememberMe)
                 .getInvalidEmailMessage();
         Assert.assertEquals(emptyEmailMessage, EMPTY_EMAIL_ERROR_MESSAGE);
     }
@@ -108,7 +115,10 @@ public class SignInTest extends BaseTest {
         String emptyPasswordMessage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
-                .loginNegativeCase(tempUser.getEmail(), password, rememberMe)
+                .loginNegativeCase(
+                        tempUser.getEmail(),
+                        password,
+                        rememberMe)
                 .getInvalidPasswordMessage();
         Assert.assertEquals(emptyPasswordMessage, EMPTY_PASSWORD_ERROR_MESSAGE);
     }

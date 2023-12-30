@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.utils;
+package com.gmail.ivanytskyy.vitaliy.ui.services;
 
 import java.util.Calendar;
 import java.util.Date;

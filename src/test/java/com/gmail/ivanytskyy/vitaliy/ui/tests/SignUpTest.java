@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.ui;
+package com.gmail.ivanytskyy.vitaliy.ui.tests;
 
 import com.gmail.ivanytskyy.vitaliy.ui.dataproviders.SignUpDataProviders;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
@@ -9,8 +9,8 @@ import org.testng.asserts.SoftAssert;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.04
- * @date 07/11/2023
+ * @version 1.05
+ * @date 30/12/2023
  */
 public class SignUpTest extends BaseTest{
     private static final String EXPECTED_MODAL_BOX_TITLE = "Registration";
@@ -57,9 +57,6 @@ public class SignUpTest extends BaseTest{
         softAssert.assertEquals(actualTitle, EXPECTED_PROFILE_PAGE_TITLE, "Title is incorrect");
         softAssert.assertTrue(displayedUserName.contains(tempUser.getFirstName()), "User name is incorrect");
         softAssert.assertAll();
-
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Sign up is success ",
             dataProviderClass = SignUpDataProviders.class, dataProvider = "registrationDataProviderPositiveCase",
@@ -79,17 +76,20 @@ public class SignUpTest extends BaseTest{
         softAssert.assertTrue(displayedUserName.contains(name), "User first name is incorrect");
         softAssert.assertTrue(displayedUserName.contains(lastName), "User last name is incorrect");
         softAssert.assertAll();
-
-        webDriver.manage().deleteAllCookies();
-        deleteUserThroughSidebar(email, password);
     }
-    @Test(description = "Sign up is unsuccessful. Negative case ", priority = 30)
+    @Test(description = "Sign up is unsuccessful (user already exists). Negative case ", priority = 30)
     public void signUpNegativeTest(){
+        userPreRegistrationByUI(tempUser);
         String errorMessage = openApp()
                 .openSingUpBox()
-                .registerNegativeCase(getUserFirstName(), getUserLastName(), getUserEmail(), getUserPassword(), getUserPassword())
+                .registerNegativeCase(tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        tempUser.getPassword(),
+                        tempUser.getPassword())
                 .getFormErrorMessage();
         Assert.assertEquals(errorMessage, USER_ALREADY_EXISTS_ERROR_MESSAGE);
+        deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
     @Test(description = "Empty name. Negative case.", priority = 40)
     public void nameIsEmptyTest(){

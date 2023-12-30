@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.listeners;
+package com.gmail.ivanytskyy.vitaliy.ui.listeners;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.service.ExtentTestManager;

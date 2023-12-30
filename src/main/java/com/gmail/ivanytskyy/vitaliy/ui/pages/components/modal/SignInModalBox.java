@@ -2,6 +2,7 @@ package com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal;
 
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
+import com.gmail.ivanytskyy.vitaliy.ui.utils.UICookieHolder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,8 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.06
- * @date 01/11/2023
+ * @version 1.07
+ * @date 30/12/2023
  */
 public class SignInModalBox extends ModalBox {
     @FindBy(css = "[for='signinEmail']")
@@ -55,6 +56,8 @@ public class SignInModalBox extends ModalBox {
     }
     public UserGaragePage clickLoginButtonPositiveCase(){
         clickButton(loginButton);
+        isCookieSaved();
+        UICookieHolder.setCookie(webDriver.manage().getCookieNamed("sid"));
         return new UserGaragePage();
     }
     public SignInModalBox clickLoginButtonNegativeCase(){

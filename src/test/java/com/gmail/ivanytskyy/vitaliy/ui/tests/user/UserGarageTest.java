@@ -1,6 +1,6 @@
-package com.gmail.ivanytskyy.vitaliy.ui.user;
+package com.gmail.ivanytskyy.vitaliy.ui.tests.user;
 
-import com.gmail.ivanytskyy.vitaliy.ui.BaseTest;
+import com.gmail.ivanytskyy.vitaliy.ui.tests.BaseTest;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.items.CarItem;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.components.modal.EditCarModalBox;
@@ -12,8 +12,8 @@ import java.util.Random;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 01/11/2023
+ * @version 1.01
+ * @date 30/12/2023
  */
 public class UserGarageTest extends BaseTest {
     private static final String EXPECTED_PAGE_TITLE = "Garage";
@@ -27,11 +27,7 @@ public class UserGarageTest extends BaseTest {
 
     @Test(description = "Open garage page through sidebar. Positive case.", priority = 10)
     public void openPageThroughSidebarTest(){
-        boolean rememberMe = false;
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String title = signUpAsTempUser(tempUser)
                 .moveToSidebar()
                 .openGarage()
                 .getPageTitle();
@@ -39,11 +35,7 @@ public class UserGarageTest extends BaseTest {
     }
     @Test(description = "Open garage page through navigation bar. Positive case.", priority = 20)
     public void openPageThroughNavigationBarTest(){
-        boolean rememberMe = false;
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String title = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openGarage()
                 .getPageTitle();
@@ -51,11 +43,7 @@ public class UserGarageTest extends BaseTest {
     }
     @Test(description = "Open garage page through dropdown. Positive case.", priority = 30)
     public void openPageThroughDropdownTest(){
-        boolean rememberMe = false;
-        String title = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String title = signUpAsTempUser(tempUser)
                 .moveToHeader()
                 .openUserProfileDropdown()
                 .openGarage()
@@ -64,22 +52,14 @@ public class UserGarageTest extends BaseTest {
     }
     @Test(description = "Check title of add car modal box", priority = 40)
     public void openAddCarTest(){
-        boolean rememberMe = false;
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String actualTitle = signUpAsTempUser(tempUser)
                 .addCar()
                 .getTitle();
         Assert.assertEquals(actualTitle, EXPECTED_ADD_CAR_MODAL_BOX_TITLE);
     }
     @Test(description = "Close add car modal box", priority = 41)
     public void closeAddCarTest(){
-        boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .closeModalBox();
@@ -88,11 +68,7 @@ public class UserGarageTest extends BaseTest {
     }
     @Test(description = "Cancel add car modal box", priority = 42)
     public void cancelAddCarTest(){
-        boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .clickCancelButton();
@@ -101,55 +77,35 @@ public class UserGarageTest extends BaseTest {
     }
     @Test(description = "Check title of brand select", priority = 50)
     public void brandTitleTest(){
-        boolean rememberMe = false;
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String actualTitle = signUpAsTempUser(tempUser)
                 .addCar()
                 .getBrandSelectTitle();
         Assert.assertEquals(actualTitle, EXPECTED_BRAND_TITLE);
     }
     @Test(description = "Check title of model select", priority = 60)
     public void modelTitleTest(){
-        boolean rememberMe = false;
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String actualTitle = signUpAsTempUser(tempUser)
                 .addCar()
                 .getModelSelectTitle();
         Assert.assertEquals(actualTitle, EXPECTED_MODEL_TITLE);
     }
     @Test(description = "Check title of mileage input field", priority = 70)
     public void mileageTitleTest(){
-        boolean rememberMe = false;
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String actualTitle = signUpAsTempUser(tempUser)
                 .addCar()
                 .getMileageInputFieldTitle();
         Assert.assertEquals(actualTitle, EXPECTED_MILEAGE_TITLE);
     }
     @Test(description = "Check name of cancel button", priority = 80)
     public void cancelButtonNameTest(){
-        boolean rememberMe = false;
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String actualTitle = signUpAsTempUser(tempUser)
                 .addCar()
                 .getCancelButtonName();
         Assert.assertEquals(actualTitle, EXPECTED_CANCEL_BUTTON_NAME);
     }
     @Test(description = "Check name of add car button", priority = 90)
     public void addCarButtonNameTest(){
-        boolean rememberMe = false;
-        String actualTitle = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe)
+        String actualTitle = signUpAsTempUser(tempUser)
                 .addCar()
                 .getSaveCarButtonName();
         Assert.assertEquals(actualTitle, EXPECTED_ADD_CAR_BUTTON_NAME);
@@ -159,11 +115,7 @@ public class UserGarageTest extends BaseTest {
         int brandId = 0;
         int modelId = 0;
         int mileage = new Random().nextInt(1, 100);
-        boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandId, modelId, mileage);
@@ -184,11 +136,7 @@ public class UserGarageTest extends BaseTest {
         String brandName = "Ford";
         String modelName = "Focus";
         int mileage = new Random().nextInt(1, 100);
-        boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandName, modelName, mileage);
@@ -209,11 +157,7 @@ public class UserGarageTest extends BaseTest {
         int brandId = 0;
         int modelId = 0;
         int mileage = new Random().nextInt(1, 100);
-        boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandId, modelId, mileage);
@@ -229,11 +173,7 @@ public class UserGarageTest extends BaseTest {
         int brandId = 0;
         int modelId = 0;
         int mileage = new Random().nextInt(1, 100);
-        boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandId, modelId, mileage);
@@ -255,10 +195,7 @@ public class UserGarageTest extends BaseTest {
         int modelId = 0;
         int mileage = new Random().nextInt(1, 100);
         boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(brandId, modelId, mileage);
@@ -283,11 +220,7 @@ public class UserGarageTest extends BaseTest {
         int newModelId = 1;
         int newMileage = new Random().nextInt(initialMileage, 100 + initialMileage);
         Date newCreationDate = new Date();
-        boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(initialBrandId, initialModelId, initialMileage);
@@ -316,11 +249,7 @@ public class UserGarageTest extends BaseTest {
         String newModelName = "5";
         int newMileage = new Random().nextInt(initialMileage, 100 + initialMileage);
         Date newCreationDate = new Date();
-        boolean rememberMe = false;
-        UserGaragePage userGaragePage = openApp()
-                .moveToVisitorHeader()
-                .openSingInBox()
-                .loginPositiveCase(getUserEmail(), getUserPassword(), rememberMe);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
         userGaragePage
                 .addCar()
                 .addCarPositiveCase(initialBrandName, initialModelName, initialMileage);

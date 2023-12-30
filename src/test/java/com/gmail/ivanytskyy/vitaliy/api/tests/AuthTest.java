@@ -1,4 +1,4 @@
-package com.gmail.ivanytskyy.vitaliy.api;
+package com.gmail.ivanytskyy.vitaliy.api.tests;
 
 import com.github.javafaker.Faker;
 import com.gmail.ivanytskyy.vitaliy.api.antities.pojos.request.users.ResetPasswordRequest;

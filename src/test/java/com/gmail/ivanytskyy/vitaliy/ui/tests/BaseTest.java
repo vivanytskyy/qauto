@@ -1,14 +1,20 @@
-package com.gmail.ivanytskyy.vitaliy.ui;
+package com.gmail.ivanytskyy.vitaliy.ui.tests;
 
 import com.github.javafaker.Faker;
-import com.gmail.ivanytskyy.vitaliy.listeners.UIExtentReportsListener;
+import com.gmail.ivanytskyy.vitaliy.api.exceptions.UnexpectedHttpStatusCodeException;
+import com.gmail.ivanytskyy.vitaliy.api.utils.ApiPropertiesSupplier;
+import com.gmail.ivanytskyy.vitaliy.ui.listeners.UIExtentReportsListener;
 import com.gmail.ivanytskyy.vitaliy.ui.pages.HomePage;
+import com.gmail.ivanytskyy.vitaliy.ui.pages.user.UserGaragePage;
+import com.gmail.ivanytskyy.vitaliy.ui.utils.UICookieHolder;
 import com.gmail.ivanytskyy.vitaliy.utils.PasswordGenerateService;
 import com.gmail.ivanytskyy.vitaliy.utils.TestPropertiesSupplier;
 import com.gmail.ivanytskyy.vitaliy.ui.utils.WebDriverHolder;
-import com.gmail.ivanytskyy.vitaliy.utils.UserAuthorizationService;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.Data;
+import okhttp3.*;
+import org.json.JSONObject;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -18,14 +24,16 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.html5.WebStorage;
 import org.testng.annotations.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.05
- * @date 23/11/2023
+ * @version 1.06
+ * @date 30/12/2023
  */
 @Listeners({UIExtentReportsListener.class})
 public class BaseTest {
@@ -35,23 +43,13 @@ public class BaseTest {
     private static final String PASSWORD;
     protected static final String BASE_URL;
     private static final String PATH_TO_DOWNLOADS_FOLDER;
-    private static final String USER_FIRST_NAME;
-    private static final String USER_LAST_NAME;
-    private static final String USER_EMAIL;
-    private static final String USER_PASSWORD;
+    private static final String API_BASE_URL;
     static {
         LOGIN = TestPropertiesSupplier.getInstance().getProperty("site_login");
         PASSWORD = TestPropertiesSupplier.getInstance().getProperty("site_password");
         BASE_URL = "https://" + LOGIN + ":" + PASSWORD + "@qauto.forstudy.space";
         PATH_TO_DOWNLOADS_FOLDER = new File("target" + File.separator + "downloads") .getAbsolutePath();
-        USER_FIRST_NAME = TestPropertiesSupplier.getInstance().getProperty("user_first_name");
-        USER_LAST_NAME = TestPropertiesSupplier.getInstance().getProperty("user_last_name");
-        USER_EMAIL = TestPropertiesSupplier.getInstance().getProperty("user_email");
-        USER_PASSWORD = TestPropertiesSupplier.getInstance().getProperty("user_password");
-    }
-    @BeforeTest
-    public void authorizeUser(){
-        UserAuthorizationService.authorizeUser();
+        API_BASE_URL = ApiPropertiesSupplier.getInstance().getProperty("api_base_url");
     }
     @BeforeClass
     @Parameters({"browser"})
@@ -77,6 +75,15 @@ public class BaseTest {
         WebStorage webStorage = (WebStorage) webDriver;
         webStorage.getSessionStorage().clear();
         webDriver.manage().deleteAllCookies();
+        Cookie cookie = UICookieHolder.getCookie();
+        if(cookie != null){
+            try {
+                deleteUserByApi(cookie);
+                UICookieHolder.setCookie(null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         this.tempUser = null;
     }
     @AfterClass(alwaysRun = true)
@@ -84,14 +91,6 @@ public class BaseTest {
         if(webDriver != null){
             webDriver.quit();
         }
-    }
-    @AfterTest(alwaysRun = true)
-    public void deleteUser(){
-        UserAuthorizationService.deleteUser();
-    }
-    protected HomePage openApp(){
-        webDriver.get(BASE_URL);
-        return new HomePage();
     }
     private ChromeOptions getChromeOptions(){
         Map<String, Object> prefs = new HashMap<>();
@@ -105,29 +104,9 @@ public class BaseTest {
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/csv,application/zip");
         return new FirefoxOptions().setProfile(profile);
     }
-    protected String getUserFirstName(){
-        return USER_FIRST_NAME;
-    }
-    protected String getUserLastName(){
-        return USER_LAST_NAME;
-    }
-    protected String getUserEmail(){
-        return USER_EMAIL;
-    }
-    protected String getUserPassword(){
-        return USER_PASSWORD;
-    }
-    protected void createUser(String firstName, String lastName, String email, String password){
-        openApp()
-                .openSingUpBox()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setEmail(email)
-                .setPassword(password)
-                .setReEnterPassword(password)
-                .clickRegisterButtonPositiveCase()
-                .moveToSidebar()
-                .logout();
+    protected HomePage openApp(){
+        webDriver.get(BASE_URL);
+        return new HomePage();
     }
     protected void deleteUserThroughSidebar(String email, String password){
         openApp()
@@ -156,8 +135,45 @@ public class BaseTest {
                 .clickRemove();
         webDriver.manage().deleteAllCookies();
     }
+    protected String deleteUserByApi(Cookie cookie) throws IOException {
+        String url = API_BASE_URL + USERS.getPath();
+        OkHttpClient httpClient = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Cookie", "sid=" + cookie.getValue())
+                .delete()
+                .build();
+        try (Response response = httpClient.newCall(request).execute()) {
+            if(response.code() != 200){
+                throw new UnexpectedHttpStatusCodeException(response.code());
+            }
+            assert response.body() != null;
+            JSONObject jsonObject = new JSONObject(response.body().string());
+            return jsonObject.getString("status");
+        }
+    }
+    protected void userPreRegistrationByUI(TempUser tempUser){
+        openApp()
+                .openSingUpBox()
+                .registerPositiveCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        tempUser.getPassword())
+                .moveToSidebar()
+                .logout();
+    }
+    protected UserGaragePage signUpAsTempUser(TempUser tempUser){
+        return openApp()
+                .openSingUpBox()
+                .registerPositiveCase(
+                        tempUser.getFirstName(),
+                        tempUser.getLastName(),
+                        tempUser.getEmail(),
+                        tempUser.getPassword());
+    }
     @Data
-    protected static class TempUser {
+    public static class TempUser {
         private final String firstName;
         private final String lastName;
         private final String email;
