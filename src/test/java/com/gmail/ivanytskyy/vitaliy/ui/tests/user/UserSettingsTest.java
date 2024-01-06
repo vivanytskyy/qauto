@@ -46,14 +46,14 @@ public class UserSettingsTest extends BaseTest {
         deleteUserThroughDropdown(
                 tempUser.getEmail(),
                 tempUser.getPassword());
-        String actualAlertMessage = openApp()
+        String alertMessage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .setEmail(tempUser.getEmail())
                 .setPassword(tempUser.getPassword())
                 .clickLoginButtonNegativeCase()
                 .getFormErrorMessage();
-        Assert.assertEquals(actualAlertMessage, EXPECTED_ALERT_MESSAGE);
+        Assert.assertEquals(alertMessage, EXPECTED_ALERT_MESSAGE);
     }
     @Test(description = "Delete user account (positive case) trough user sidebar", priority = 40)
     public void deleteAccountThroughUserSidebarTest(){
@@ -61,14 +61,14 @@ public class UserSettingsTest extends BaseTest {
         deleteUserThroughSidebar(
                 tempUser.getEmail(),
                 tempUser.getPassword());
-        String actualAlertMessage = openApp()
+        String alertMessage = openApp()
                 .moveToVisitorHeader()
                 .openSingInBox()
                 .setEmail(tempUser.getEmail())
                 .setPassword(tempUser.getPassword())
                 .clickLoginButtonNegativeCase()
                 .getFormErrorMessage();
-        Assert.assertEquals(actualAlertMessage, EXPECTED_ALERT_MESSAGE);
+        Assert.assertEquals(alertMessage, EXPECTED_ALERT_MESSAGE);
     }
     @Test(description = "Check currency settings title", priority = 50)
     public void checkCurrencySettingsTitleTest(){
@@ -183,7 +183,8 @@ public class UserSettingsTest extends BaseTest {
                         rememberMe)
                 .moveToSidebar()
                 .openSettings();
-        Assert.assertEquals(userSettingsPage.getPageTitle(), EXPECTED_PAGE_TITLE);
+        String title = userSettingsPage.getPageTitle();
+        Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
     }
     @Test(description = "Change email. Positive case.",
             dataProviderClass = SettingsDataProviders.class, dataProvider = "emailProviderPositiveCase",
@@ -212,9 +213,8 @@ public class UserSettingsTest extends BaseTest {
                         rememberMe)
                 .moveToSidebar()
                 .openSettings();
-        String actualTitle = userSettingsPage.getPageTitle();
-
-        Assert.assertEquals(actualTitle, EXPECTED_PAGE_TITLE);
+        String title = userSettingsPage.getPageTitle();
+        Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
     }
     @Test(description = "Change password. Positive case.", priority = 100)
     public void changePasswordTest(){
@@ -249,7 +249,8 @@ public class UserSettingsTest extends BaseTest {
                         rememberMe)
                 .moveToSidebar()
                 .openSettings();
-        Assert.assertEquals(userSettingsPage.getPageTitle(), EXPECTED_PAGE_TITLE);
+        String title = userSettingsPage.getPageTitle();
+        Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
     }
     @Test(description = "Change password. Positive case.",
             dataProviderClass = SettingsDataProviders.class, dataProvider = "passwordProviderPositiveCase",
@@ -280,6 +281,7 @@ public class UserSettingsTest extends BaseTest {
                         rememberMe)
                 .moveToSidebar()
                 .openSettings();
-        Assert.assertEquals(userSettingsPage.getPageTitle(), EXPECTED_PAGE_TITLE);
+        String title = userSettingsPage.getPageTitle();
+        Assert.assertEquals(title, EXPECTED_PAGE_TITLE);
     }
 }

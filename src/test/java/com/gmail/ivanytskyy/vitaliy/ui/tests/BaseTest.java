@@ -39,9 +39,10 @@ import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 public class BaseTest {
     protected WebDriver webDriver;
     protected TempUser tempUser;
+    protected final String cookieName = "sid";
+    protected static final String BASE_URL;
     private static final String LOGIN;
     private static final String PASSWORD;
-    protected static final String BASE_URL;
     private static final String PATH_TO_DOWNLOADS_FOLDER;
     private static final String API_BASE_URL;
     static {
@@ -140,7 +141,7 @@ public class BaseTest {
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("Cookie", "sid=" + cookie.getValue())
+                .addHeader("Cookie", String.format("%s=%s", cookieName, cookie.getValue()))
                 .delete()
                 .build();
         try (Response response = httpClient.newCall(request).execute()) {
@@ -153,13 +154,7 @@ public class BaseTest {
         }
     }
     protected void userPreRegistrationByUI(TempUser tempUser){
-        openApp()
-                .openSingUpBox()
-                .registerPositiveCase(
-                        tempUser.getFirstName(),
-                        tempUser.getLastName(),
-                        tempUser.getEmail(),
-                        tempUser.getPassword())
+        signUpAsTempUser(tempUser)
                 .moveToSidebar()
                 .logout();
     }

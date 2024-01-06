@@ -21,8 +21,9 @@ public class BasePage {
     protected WebDriver webDriver;
     protected WebDriverWait wait;
     protected final Actions actions;
-    private final JavascriptExecutor javascriptExecutor;
     protected final By alertExistLocator = By.cssSelector("div.alert-list");
+    protected final String cookieName = "sid";
+    private final JavascriptExecutor javascriptExecutor;
 
     public BasePage(){
         this.webDriver = WebDriverHolder.getWebDriver();
@@ -91,7 +92,7 @@ public class BasePage {
         return wait.until(driver -> !(element.getText().equals(oldText)));
     }
     protected boolean isCookieSaved(){
-        return wait.until(driver -> driver.manage().getCookieNamed("sid") != null);
+        return wait.until(driver -> driver.manage().getCookieNamed(cookieName) != null);
     }
     private ExpectedCondition<Boolean> elementDisplayInViewport(WebElement element) {
         final String jsScript = """

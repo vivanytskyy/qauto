@@ -91,7 +91,7 @@ public class SignUpModalBox extends ModalBox {
     public UserGaragePage clickRegisterButtonPositiveCase(){
         clickButton(registerButton);
         isCookieSaved();
-        UICookieHolder.setCookie(webDriver.manage().getCookieNamed("sid"));
+        UICookieHolder.setCookie(webDriver.manage().getCookieNamed(cookieName));
         return new UserGaragePage();
     }
     public SignUpModalBox clickRegisterButtonNegativeCase(){
