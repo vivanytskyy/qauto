@@ -9,8 +9,8 @@ import org.testng.asserts.SoftAssert;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.05
- * @date 30/12/2023
+ * @version 1.06
+ * @date 06/01/2024
  */
 public class SignUpTest extends BaseTest{
     private static final String EXPECTED_MODAL_BOX_TITLE = "Registration";
@@ -18,11 +18,6 @@ public class SignUpTest extends BaseTest{
     private static final String EXPECTED_PROFILE_PAGE_TITLE = "Profile";
     private static final String USER_ALREADY_EXISTS_ERROR_MESSAGE = "User already exists";
     private static final String EXPECTED_MAIN_PAGE_TITLE = "Do more!";
-    private static final String EMPTY_NAME_ERROR_MESSAGE = "Name required";
-    private static final String EMPTY_LAST_NAME_ERROR_MESSAGE = "Last name required";
-    private static final String EMPTY_EMAIL_ERROR_MESSAGE = "Email required";
-    private static final String EMPTY_PASSWORD_ERROR_MESSAGE = "Password required";
-    private static final String EMPTY_REENTER_PASSWORD_ERROR_MESSAGE = "Re-enter password required";
 
 
     @Test(description = "Opening SignUp modal box", priority = 10)
@@ -91,69 +86,59 @@ public class SignUpTest extends BaseTest{
         Assert.assertEquals(errorMessage, USER_ALREADY_EXISTS_ERROR_MESSAGE);
         deleteUserThroughSidebar(tempUser.getEmail(), tempUser.getPassword());
     }
-    @Test(description = "Empty name. Negative case.", priority = 40)
-    public void nameIsEmptyTest(){
-        String emptyNameMessage = openApp()
+    @Test(description = "Sign up isn't success. First name is incorrect ",
+            dataProviderClass = SignUpDataProviders.class, dataProvider = "firstNameProviderNegativeCase",
+            priority = 41)
+    public void signUpIncorrectFirstNameNegativeTest(String name, String lastName, String email,
+                                                     String password, String expectedErrorMessage){
+        String errorMessage = openApp()
                 .openSingUpBox()
-                .registerNegativeCase(
-                        "",
-                        tempUser.getLastName(),
-                        tempUser.getEmail(),
-                        tempUser.getPassword(),
-                        tempUser.getPassword())
+                .registerNegativeCase(name, lastName, email, password, password)
                 .getInvalidNameMessage();
-        Assert.assertEquals(emptyNameMessage, EMPTY_NAME_ERROR_MESSAGE);
+        Assert.assertEquals(errorMessage, expectedErrorMessage, "Error message is incorrect");
     }
-    @Test(description = "Empty last name. Negative case.", priority = 41)
-    public void lastNameIsEmptyTest(){
-        String emptyLastNameMessage = openApp()
+    @Test(description = "Sign up isn't success. Last name is incorrect ",
+            dataProviderClass = SignUpDataProviders.class, dataProvider = "lastNameProviderNegativeCase",
+            priority = 42)
+    public void signUpIncorrectLastNameNegativeTest(String name, String lastName, String email,
+                                                     String password, String expectedErrorMessage){
+        String errorMessage = openApp()
                 .openSingUpBox()
-                .registerNegativeCase(
-                        tempUser.getFirstName(),
-                        "",
-                        tempUser.getEmail(),
-                        tempUser.getPassword(),
-                        tempUser.getPassword())
+                .registerNegativeCase(name, lastName, email, password, password)
                 .getInvalidLastNameMessage();
-        Assert.assertEquals(emptyLastNameMessage, EMPTY_LAST_NAME_ERROR_MESSAGE);
+        Assert.assertEquals(errorMessage, expectedErrorMessage, "Error message is incorrect");
     }
-    @Test(description = "Empty email. Negative case.", priority = 42)
-    public void emailIsEmptyTest(){
-        String emptyEmailMessage = openApp()
+    @Test(description = "Sign up isn't success. Email is incorrect ",
+            dataProviderClass = SignUpDataProviders.class, dataProvider = "emailProviderNegativeCase",
+            priority = 43)
+    public void signUpIncorrectEmailNegativeTest(String name, String lastName, String email,
+                                                    String password, String expectedErrorMessage){
+        String errorMessage = openApp()
                 .openSingUpBox()
-                .registerNegativeCase(
-                        tempUser.getFirstName(),
-                        tempUser.getLastName(),
-                        "",
-                        tempUser.getPassword(),
-                        tempUser.getPassword())
+                .registerNegativeCase(name, lastName, email, password, password)
                 .getInvalidEmailMessage();
-        Assert.assertEquals(emptyEmailMessage, EMPTY_EMAIL_ERROR_MESSAGE);
+        Assert.assertEquals(errorMessage, expectedErrorMessage, "Error message is incorrect");
     }
-    @Test(description = "Empty password. Negative case.", priority = 43)
-    public void passwordIsEmptyTest(){
-        String emptyPasswordMessage = openApp()
+    @Test(description = "Sign up isn't success. Password is incorrect ",
+            dataProviderClass = SignUpDataProviders.class, dataProvider = "passwordProviderNegativeCase",
+            priority = 44)
+    public void signUpIncorrectPasswordNegativeTest(String name, String lastName, String email,
+                                                 String password, String expectedErrorMessage){
+        String errorMessage = openApp()
                 .openSingUpBox()
-                .registerNegativeCase(
-                        tempUser.getFirstName(),
-                        tempUser.getLastName(),
-                        tempUser.getEmail(),
-                        "",
-                        tempUser.getPassword())
+                .registerNegativeCase(name, lastName, email, password, password)
                 .getInvalidPasswordMessage();
-        Assert.assertEquals(emptyPasswordMessage, EMPTY_PASSWORD_ERROR_MESSAGE);
+        Assert.assertEquals(errorMessage, expectedErrorMessage, "Error message is incorrect");
     }
-    @Test(description = "Empty re-enter password. Negative case.", priority = 44)
-    public void reEnterPasswordIsEmptyTest(){
-        String emptyReEnterPasswordMessage = openApp()
+    @Test(description = "Sign up isn't success. Re-enter password is incorrect ",
+            dataProviderClass = SignUpDataProviders.class, dataProvider = "rePasswordProviderNegativeCase",
+            priority = 45)
+    public void signUpIncorrectRePasswordNegativeTest(String name, String lastName, String email,
+                                                    String password, String rePassword, String expectedErrorMessage){
+        String errorMessage = openApp()
                 .openSingUpBox()
-                .registerNegativeCase(
-                        tempUser.getFirstName(),
-                        tempUser.getLastName(),
-                        tempUser.getEmail(),
-                        tempUser.getPassword(),
-                        "")
+                .registerNegativeCase(name, lastName, email, password, rePassword)
                 .getInvalidRepeatPasswordMessage();
-        Assert.assertEquals(emptyReEnterPasswordMessage, EMPTY_REENTER_PASSWORD_ERROR_MESSAGE);
+        Assert.assertEquals(errorMessage, expectedErrorMessage, "Error message is incorrect");
     }
 }
