@@ -51,7 +51,7 @@ public class EditCarModalBox extends CarModalBox{
         return this;
     }
     public void clickSaveCarButtonPositiveCase(){
-        clickButton(saveButton);
+        clickElement(saveButton);
         wait.until(driver -> {
             if(driver.findElements(alertExistLocator).size() != 0){
                 return !driver.findElement(alertExistLocator).getText().contains(EDITED_CAR_ALERT.getAlert());
@@ -75,7 +75,7 @@ public class EditCarModalBox extends CarModalBox{
                 .clickSaveCarButtonPositiveCase();
     }
     public RemoveCarConfirmationModalBox removeCar(){
-        clickButton(removeCarButton);
+        clickElement(removeCarButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
         return new RemoveCarConfirmationModalBox();
     }

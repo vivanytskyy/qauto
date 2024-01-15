@@ -27,10 +27,10 @@ public class RemoveAccountModalBox extends ModalBox {
         return getText(modalDanderText);
     }
     public void clickCancel(){
-        clickButton(cancelButton);
+        clickElement(cancelButton);
     }
     public HomePage clickRemove(){
-        clickButton(removeButton);
+        clickElement(removeButton);
         UICookieHolder.setCookie(null);
         return new HomePage();
     }

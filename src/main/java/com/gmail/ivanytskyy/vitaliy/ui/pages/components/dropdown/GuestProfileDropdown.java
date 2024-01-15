@@ -13,16 +13,16 @@ public class GuestProfileDropdown extends ProfileDropdown {
 
     public GuestGaragePage openGarage(){
         if(!garageLink.getAttribute("class").contains("disabled")){
-            clickLink(garageLink);
+            clickElement(garageLink);
         }
         return new GuestGaragePage();
     }
     public GuestInstructionsPage openInstructions(){
-        clickLink(instructionsLink);
+        clickElement(instructionsLink);
         return new GuestInstructionsPage();
     }
     public GuestExpensesPage openExpenses(){
-        clickLink(fuelExpensesLink);
+        clickElement(fuelExpensesLink);
         return new GuestExpensesPage();
     }
 }

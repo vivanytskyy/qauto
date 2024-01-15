@@ -17,6 +17,6 @@ public abstract class Header extends BasePage {
         PageFactory.initElements(webDriver, this);
     }
     public void openHomePageByHeaderLogo(){
-        clickLink(homeLinkByHeaderLogo);
+        clickElement(homeLinkByHeaderLogo);
     }
 }

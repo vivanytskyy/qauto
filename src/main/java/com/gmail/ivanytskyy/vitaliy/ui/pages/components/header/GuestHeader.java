@@ -23,19 +23,19 @@ public class GuestHeader extends Header {
     private WebElement guestProfileDropdownButton;
 
     public GuestGaragePage openGarage(){
-        clickLink(garageLink);
+        clickElement(garageLink);
         return new GuestGaragePage();
     }
     public GuestProfileDropdown openUserProfileDropdown(){
-        clickButton(guestProfileDropdownButton);
+        clickElement(guestProfileDropdownButton);
         return new GuestProfileDropdown();
     }
     public GuestInstructionsPage openInstructions(){
-        clickLink(instructionsLink);
+        clickElement(instructionsLink);
         return new GuestInstructionsPage();
     }
     public GuestExpensesPage openExpenses(){
-        clickLink(fuelExpensesLink);
+        clickElement(fuelExpensesLink);
         return new GuestExpensesPage();
     }
 }

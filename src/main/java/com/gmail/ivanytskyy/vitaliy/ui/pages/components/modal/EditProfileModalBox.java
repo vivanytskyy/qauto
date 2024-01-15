@@ -69,11 +69,11 @@ public class EditProfileModalBox extends ModalBox{
         return this;
     }
     public void clickSaveProfileButtonPositiveCase(){
-        clickButton(saveButton);
+        clickElement(saveButton);
         wait.until(ExpectedConditions.invisibilityOf(modalTitle));
     }
     public EditProfileModalBox clickSaveProfileButtonNegativeCase(){
-        clickButton(saveButton);
+        clickElement(saveButton);
         return this;
     }
     public void saveProfilePositiveCase(String name, String lastName, String countryName, Date birthday,

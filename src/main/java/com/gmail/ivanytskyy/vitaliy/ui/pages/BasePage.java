@@ -31,11 +31,8 @@ public class BasePage {
         this.actions = new Actions(webDriver);
         this.javascriptExecutor = (JavascriptExecutor) webDriver;
     }
-    protected void clickButton(WebElement button){
+    protected void clickElement(WebElement button){
         wait.until(ExpectedConditions.elementToBeClickable(button)).click();
-    }
-    protected void clickLink(WebElement link){
-        wait.until(ExpectedConditions.elementToBeClickable(link)).click();
     }
     protected String getText(WebElement element){
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();

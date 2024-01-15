@@ -49,7 +49,7 @@ public class HomePage extends BasePage{
         PageFactory.initElements(webDriver, this);
     }
     public SignUpModalBox openSingUpBox(){
-        clickButton(signUpButton);
+        clickElement(signUpButton);
         return new SignUpModalBox();
     }
     public String getPageTitle(){

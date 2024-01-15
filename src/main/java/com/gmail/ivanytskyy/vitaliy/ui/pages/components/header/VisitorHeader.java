@@ -26,23 +26,23 @@ public class VisitorHeader extends Header {
     private WebElement signInButton;
 
     public HomePage openHomePage(){
-        clickLink(homeLink);
+        clickElement(homeLink);
         return new HomePage();
     }
     public HomePage openAbout(){
-        clickButton(aboutButton);
+        clickElement(aboutButton);
         return new HomePage();
     }
     public HomePage openContacts(){
-        clickButton(contactsButton);
+        clickElement(contactsButton);
         return new HomePage();
     }
     public GuestGaragePage openGuestPage(){
-        clickButton(guestLoginButton);
+        clickElement(guestLoginButton);
         return new GuestGaragePage();
     }
     public SignInModalBox openSingInBox(){
-        clickButton(signInButton);
+        clickElement(signInButton);
         return new SignInModalBox();
     }
 }

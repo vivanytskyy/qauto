@@ -31,7 +31,7 @@ public class GuestInstructionsPage extends GuestPage {
     private WebElement changedInstructionContentMarker;
     @FindBy(css = ".pagination>li")
     private List<WebElement> paginationItems;
-    private By instructionItemsLocator = By.cssSelector("li.instruction-list_item");
+    private final By instructionItemsLocator = By.cssSelector("li.instruction-list_item");
     private final String contentMarkerAttributeName = "class";
     private final String contentMarkerAttributeValue = "instructions_content";
     private final String selectButtonAttributeName = "aria-expanded";
@@ -78,7 +78,7 @@ public class GuestInstructionsPage extends GuestPage {
     public GuestInstructionsPage setBrand(String brandName){
         waitForOldTextChanged(brandSelectButton, brandSelectButtonDefaultValue);
         if(!brandSelectButton.getText().equals(brandName)){
-            clickButton(brandSelectButton);
+            clickElement(brandSelectButton);
             waitForAttributeValueChanged(brandSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(brandItems
@@ -96,7 +96,7 @@ public class GuestInstructionsPage extends GuestPage {
     public GuestInstructionsPage setModel(String modelName){
         waitForOldTextChanged(modelSelectButton, modelSelectButtonDefaultValue);
         if (!modelSelectButton.getText().equals(modelName)){
-            clickButton(modelSelectButton);
+            clickElement(modelSelectButton);
             waitForAttributeValueChanged(modelSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(modelItems
@@ -111,7 +111,7 @@ public class GuestInstructionsPage extends GuestPage {
         return this;
     }
     public GuestInstructionsPage clickSearchButton(){
-        clickButton(searchButton);
+        clickElement(searchButton);
         waitForInstructionContentChanged();
         return new GuestInstructionsPage();
     }

@@ -24,7 +24,7 @@ public abstract class ProfileDropdown extends BasePage {
         PageFactory.initElements(webDriver, this);
     }
     public HomePage logout(){
-        clickLink(logoutButton);
+        clickElement(logoutButton);
         return new HomePage();
     }
 }

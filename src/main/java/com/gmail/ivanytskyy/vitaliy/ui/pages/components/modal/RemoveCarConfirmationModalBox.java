@@ -18,10 +18,10 @@ public class RemoveCarConfirmationModalBox extends ModalBox {
     @FindBy(css = ".modal-body>p:nth-child(2)")
     private WebElement modalDanderText;
     public void clickCancelButton(){
-        clickButton(cancelButton);
+        clickElement(cancelButton);
     }
     public void confirmRemoving(){
-        clickButton(removeButton);
+        clickElement(removeButton);
     }
     public String getConfirmationText(){
         return getText(modalBodyText);

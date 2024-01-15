@@ -17,10 +17,10 @@ public class RemoveExpenseConfirmationModalBox extends ModalBox{
     private WebElement modalBodyText;
 
     public void clickCancelButton(){
-        clickButton(cancelButton);
+        clickElement(cancelButton);
     }
     public void confirmRemoving(){
-        clickButton(removeButton);
+        clickElement(removeButton);
         wait.until(driver -> driver.findElements(alertExistLocator).size() == 0);
     }
     public String getConfirmationText(){

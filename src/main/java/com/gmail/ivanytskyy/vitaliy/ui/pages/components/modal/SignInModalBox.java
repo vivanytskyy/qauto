@@ -55,7 +55,7 @@ public class SignInModalBox extends ModalBox {
         return this;
     }
     public UserGaragePage clickLoginButtonPositiveCase(){
-        clickButton(loginButton);
+        clickElement(loginButton);
         isCookieSaved();
         UICookieHolder.setCookie(webDriver.manage().getCookieNamed(cookieName));
         return new UserGaragePage();
@@ -80,17 +80,17 @@ public class SignInModalBox extends ModalBox {
                 .clickLoginButtonNegativeCase();
     }
     public SignUpModalBox toRegistration(){
-        clickButton(registrationButton);
+        clickElement(registrationButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
         return new SignUpModalBox();
     }
     public RestoreAccessModalBox toRestoreAccess(){
-        clickButton(forgotPasswordButton);
+        clickElement(forgotPasswordButton);
         wait.until(ExpectedConditions.invisibilityOf(modalBox));
         return new RestoreAccessModalBox();
     }
     public HomePage closeModalBox(){
-        clickButton(closeButton);
+        clickElement(closeButton);
         return new HomePage();
     }
     public String getEmailInputFieldTitle(){

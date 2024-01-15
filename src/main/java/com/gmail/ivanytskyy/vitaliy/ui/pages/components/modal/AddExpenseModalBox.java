@@ -44,11 +44,11 @@ public class AddExpenseModalBox extends ExpenseModalBox{
         return this;
     }
     public void clickAddExpenseButtonPositiveCase(){
-        clickButton(addButton);
+        clickElement(addButton);
         wait.until(ExpectedConditions.invisibilityOf(modalTitle));
     }
     public AddExpenseModalBox clickAddExpenseButtonNegativeCase(){
-        clickButton(addButton);
+        clickElement(addButton);
         return this;
     }
     public void addExpensePositiveCase(

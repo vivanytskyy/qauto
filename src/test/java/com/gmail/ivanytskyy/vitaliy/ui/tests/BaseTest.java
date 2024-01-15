@@ -22,6 +22,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.html5.WebStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +34,8 @@ import static com.gmail.ivanytskyy.vitaliy.api.utils.ControllerNames.*;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.06
- * @date 30/12/2023
+ * @version 1.07
+ * @date 11/01/2024
  */
 @Listeners({UIExtentReportsListener.class})
 public class BaseTest {
@@ -45,6 +47,7 @@ public class BaseTest {
     private static final String PASSWORD;
     private static final String PATH_TO_DOWNLOADS_FOLDER;
     private static final String API_BASE_URL;
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
     static {
         LOGIN = TestPropertiesSupplier.getInstance().getProperty("site_login");
         PASSWORD = TestPropertiesSupplier.getInstance().getProperty("site_password");
@@ -52,6 +55,7 @@ public class BaseTest {
         PATH_TO_DOWNLOADS_FOLDER = new File("target" + File.separator + "downloads") .getAbsolutePath();
         API_BASE_URL = ApiPropertiesSupplier.getInstance().getProperty("api_base_url");
     }
+
     @BeforeClass
     @Parameters({"browser"})
     public void setUp(@Optional("chrome") String browser){
@@ -82,7 +86,7 @@ public class BaseTest {
                 deleteUserByApi(cookie);
                 UICookieHolder.setCookie(null);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error("Exception occurred: ", e);
             }
         }
         this.tempUser = null;

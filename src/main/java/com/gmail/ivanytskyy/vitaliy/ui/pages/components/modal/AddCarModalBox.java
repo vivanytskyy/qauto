@@ -6,25 +6,38 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.07
- * @date 16/11/2023
+ * @version 1.08
+ * @date 14/01/2024
  */
 public class AddCarModalBox extends CarModalBox{
     @FindBy(css = ".modal-footer .btn.btn-primary")
     private WebElement addButton;
+    @FindBy(css = "select[name='carBrandId']>option:nth-of-type(1)")
+    private WebElement defaultBrandOption;
+    private final String targetAttribute = "class";
+    private final String expectedPartOfBrandAttributeValue = "ng-dirty";
+    private final String expectedPartOfModelAttributeValue = "ng-valid";
 
-   public AddCarModalBox selectBrandById(int brandId){
+    public AddCarModalBox selectBrandById(int brandId){
         selectByIndex(brandSelect, brandId);
-        waitForPartOfAttributeValueChanged(modelSelect, "class", "ng-valid");
+        waitForPartOfAttributeValueChanged(modelSelect, targetAttribute, expectedPartOfModelAttributeValue);
+        if(brandId != 0){
+            waitForPartOfAttributeValueChanged(brandSelect, targetAttribute, expectedPartOfBrandAttributeValue);
+        }
         return this;
-   }
+    }
     public AddCarModalBox selectModelById(int modelId){
         selectByIndex(modelSelect, modelId);
         return this;
     }
     public AddCarModalBox selectBrandByName(String brandName){
+        clickElement(brandSelect);
+        String defaultBrandName = defaultBrandOption.getText();
         selectByText(brandSelect, brandName);
-        waitForPartOfAttributeValueChanged(modelSelect, "class", "ng-valid");
+        waitForPartOfAttributeValueChanged(modelSelect, targetAttribute, expectedPartOfModelAttributeValue);
+        if(!defaultBrandName.equals(brandName)){
+            waitForPartOfAttributeValueChanged(brandSelect, targetAttribute, expectedPartOfBrandAttributeValue);
+        }
         return this;
     }
     public AddCarModalBox selectModelByName(String modelName){
@@ -36,17 +49,17 @@ public class AddCarModalBox extends CarModalBox{
         return this;
     }
     public void clickAddCarButtonPositiveCase(){
-        clickButton(addButton);
+        clickElement(addButton);
         wait.until(ExpectedConditions.invisibilityOf(modalTitle));
     }
     public void addCarPositiveCase(int brandId, int modelId, int mileage){
-       selectBrandById(brandId)
+        selectBrandById(brandId)
                 .selectModelById(modelId)
                 .setMileage(mileage)
                 .clickAddCarButtonPositiveCase();
     }
     public void addCarPositiveCase(String brandName, String modelName, int mileage){
-       selectBrandByName(brandName)
+        selectBrandByName(brandName)
                 .selectModelByName(modelName)
                 .setMileage(mileage)
                 .clickAddCarButtonPositiveCase();
