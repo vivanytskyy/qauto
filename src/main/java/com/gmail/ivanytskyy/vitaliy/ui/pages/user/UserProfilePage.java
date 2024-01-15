@@ -28,7 +28,7 @@ public class UserProfilePage extends UserPage {
 
     public EditProfileModalBox editProfile(){
         wait.until(ExpectedConditions.visibilityOf(photoImg));
-        clickButton(editProfileButton);
+        clickElement(editProfileButton);
         waitForPartOfAttributeValueChanged(webDriver.findElement(bodyLocator),
                 "class", "modal-open");
         return new EditProfileModalBox();

@@ -89,7 +89,7 @@ public class SignUpModalBox extends ModalBox {
         return this;
     }
     public UserGaragePage clickRegisterButtonPositiveCase(){
-        clickButton(registerButton);
+        clickElement(registerButton);
         isCookieSaved();
         UICookieHolder.setCookie(webDriver.manage().getCookieNamed(cookieName));
         return new UserGaragePage();
@@ -116,7 +116,7 @@ public class SignUpModalBox extends ModalBox {
                 .clickRegisterButtonNegativeCase();
     }
     public HomePage closeModalBox(){
-        clickButton(closeButton);
+        clickElement(closeButton);
         return new HomePage();
     }
     public String getInvalidNameMessage(){

@@ -43,10 +43,10 @@ public abstract class ExpenseModalBox extends ModalBox {
     private WebElement cancelButton;
 
     public void closeModalBox(){
-        clickButton(closeButton);
+        clickElement(closeButton);
     }
     public void clickCancelButton(){
-        clickButton(cancelButton);
+        clickElement(cancelButton);
     }
     public String getVehicleSelectTitle(){
         return getText(vehicleTitle);

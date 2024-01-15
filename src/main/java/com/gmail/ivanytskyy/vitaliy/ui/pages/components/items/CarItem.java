@@ -46,7 +46,7 @@ public class CarItem extends BasePage {
         return Integer.parseInt(getAttribute(mileageInput, "value"));
     }
     public EditCarModalBox editCar(){
-        clickButton(carEditButton);
+        clickElement(carEditButton);
         return new EditCarModalBox();
     }
     public AddExpenseModalBox addExpense(){
@@ -56,7 +56,7 @@ public class CarItem extends BasePage {
             }
             return true;
         });
-        clickButton(addExpenseButton);
+        clickElement(addExpenseButton);
         return new AddExpenseModalBox();
     }
 }

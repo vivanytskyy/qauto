@@ -28,7 +28,7 @@ public class Sidebar extends BasePage {
         PageFactory.initElements(webDriver, this);
     }
     public HomePage logout(){
-        clickLink(logoutLink);
+        clickElement(logoutLink);
         UICookieHolder.setCookie(null);
         wait.until(driver -> driver.findElements(sidebarLocator).size() == 0);
         return new HomePage();

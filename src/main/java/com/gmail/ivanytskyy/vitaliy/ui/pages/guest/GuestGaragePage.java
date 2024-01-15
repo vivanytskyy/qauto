@@ -36,7 +36,7 @@ public class GuestGaragePage extends GuestPage {
             }
             return true;
         });
-        clickButton(addCarButton);
+        clickElement(addCarButton);
         return new AddCarModalBox();
     }
     public CarItem getCarItem(int index){

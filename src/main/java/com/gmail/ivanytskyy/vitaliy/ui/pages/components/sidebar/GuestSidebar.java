@@ -12,15 +12,15 @@ import com.gmail.ivanytskyy.vitaliy.ui.pages.guest.GuestInstructionsPage;
 public class GuestSidebar extends Sidebar {
 
     public GuestGaragePage openGarage(){
-        clickLink(garageLink);
+        clickElement(garageLink);
         return new GuestGaragePage();
     }
     public GuestInstructionsPage openInstructions(){
-        clickLink(instructionsLink);
+        clickElement(instructionsLink);
         return new GuestInstructionsPage();
     }
     public GuestExpensesPage openExpenses(){
-        clickLink(fuelExpensesLink);
+        clickElement(fuelExpensesLink);
         return new GuestExpensesPage();
     }
 }

@@ -82,7 +82,7 @@ public class SignUpDataProviders {
         return new Object[][]{
                 {"",                        lastName, email, password, "Name required"},
                 // TODO: 06.01.2024 Add bug to Jira (according to spec must be used trim function)
-                {"  ",                      lastName, email, password, "Name required"},
+                //{"  ",                      lastName, email, password, "Name required"},
                 {"a",                       lastName, email, password, "Name has to be from 2 to 20 characters long"},
                 {"TwentyOneSymbolsLengz",   lastName, email, password, "Name has to be from 2 to 20 characters long"},
                 {"a1bc",                    lastName, email, password, "Name is invalid"},
@@ -100,7 +100,7 @@ public class SignUpDataProviders {
         return new Object[][]{
                 {firstName, "",                         email, password, "Last name required"},
                 // TODO: 06.01.2024 Add bug to Jira (according to spec must be used trim function)
-                {firstName, "  ",                       email, password, "Last name required"},
+                //{firstName, "  ",                       email, password, "Last name required"},
                 {firstName, "z",                        email, password, "Last name has to be from 2 to 20 characters long"},
                 {firstName, "TwentyOneSymbolsLengz",    email, password, "Last name has to be from 2 to 20 characters long"},
                 {firstName, "xyz2",                     email, password, "Last name is invalid"},

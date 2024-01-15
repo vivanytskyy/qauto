@@ -23,7 +23,7 @@ public class Footer extends BasePage {
         PageFactory.initElements(webDriver, this);
     }
     public HomePage openHomePageByFooterLogo(){
-        clickLink(homeLinkByFooterLogo);
+        clickElement(homeLinkByFooterLogo);
         return new HomePage();
     }
     public String getCopyrightText(){

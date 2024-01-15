@@ -21,7 +21,7 @@ public class RestoreAccessModalBox extends ModalBox {
         return this;
     }
     public void clickSendButtonPositiveCase(){
-        clickButton(sendButton);
+        clickElement(sendButton);
     }
     public void restoreAccessPositiveCase(String email){
         setEmail(email).clickSendButtonPositiveCase();

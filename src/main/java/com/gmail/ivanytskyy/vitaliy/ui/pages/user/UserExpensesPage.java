@@ -42,13 +42,13 @@ public class UserExpensesPage extends UserPage {
             }
             return true;
         });
-        clickButton(addExpenseButton);
+        clickElement(addExpenseButton);
         return new AddExpenseModalBox();
     }
     public UserExpensesPage setFirstCarByName(String brand, String model){
         final String car = brand + " " + model;
         if (!carSelectButton.getText().equals(car)){
-            clickButton(carSelectButton);
+            clickElement(carSelectButton);
             waitForAttributeValueChanged(carSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(carItems
@@ -65,7 +65,7 @@ public class UserExpensesPage extends UserPage {
     public UserExpensesPage setCarByOrder(int carOrder){
         int index = carOrder - 1;
         if (index != 0){
-            clickButton(carSelectButton);
+            clickElement(carSelectButton);
             waitForAttributeValueChanged(carSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(carItems.get(index))

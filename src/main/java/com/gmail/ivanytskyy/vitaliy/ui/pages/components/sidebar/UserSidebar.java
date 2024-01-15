@@ -16,23 +16,23 @@ public class UserSidebar extends Sidebar {
     private WebElement settingsLink;
 
     public UserGaragePage openGarage(){
-        clickLink(garageLink);
+        clickElement(garageLink);
         return new UserGaragePage();
     }
     public UserInstructionsPage openInstructions(){
-        clickLink(instructionsLink);
+        clickElement(instructionsLink);
         return new UserInstructionsPage();
     }
     public UserExpensesPage openExpenses(){
-        clickLink(fuelExpensesLink);
+        clickElement(fuelExpensesLink);
         return new UserExpensesPage();
     }
     public UserProfilePage openProfile(){
-        clickLink(profileLink);
+        clickElement(profileLink);
         return new UserProfilePage();
     }
     public UserSettingsPage openSettings(){
-        clickLink(settingsLink);
+        clickElement(settingsLink);
         return new UserSettingsPage();
     }
 }

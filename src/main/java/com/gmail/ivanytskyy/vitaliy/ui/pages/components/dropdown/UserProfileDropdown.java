@@ -20,16 +20,16 @@ public class UserProfileDropdown extends ProfileDropdown {
 
     public UserGaragePage openGarage(){
         if(!garageLink.getAttribute("class").contains("disabled")){
-            clickLink(garageLink);
+            clickElement(garageLink);
         }
         return new UserGaragePage();
     }
     public UserInstructionsPage openInstructions(){
-        clickLink(instructionsLink);
+        clickElement(instructionsLink);
         return new UserInstructionsPage();
     }
     public UserExpensesPage openExpenses(){
-        clickLink(fuelExpensesLink);
+        clickElement(fuelExpensesLink);
         return new UserExpensesPage();
     }
     public UserProfilePage openProfile(){

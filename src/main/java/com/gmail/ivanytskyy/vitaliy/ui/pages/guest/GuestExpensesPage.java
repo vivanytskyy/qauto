@@ -35,13 +35,13 @@ public class GuestExpensesPage extends GuestPage {
     private final String selectButtonAttributeName = "aria-expanded";
 
     public AddExpenseModalBox addExpense(){
-        clickButton(addExpenseButton);
+        clickElement(addExpenseButton);
         return new AddExpenseModalBox();
     }
     public GuestExpensesPage setFirstCarByName(String brand, String model){
         final String car = brand + " " + model;
         if (!carSelectButton.getText().equals(car)){
-            clickButton(carSelectButton);
+            clickElement(carSelectButton);
             waitForAttributeValueChanged(carSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(carItems
@@ -58,7 +58,7 @@ public class GuestExpensesPage extends GuestPage {
     public GuestExpensesPage setCarByOrder(int carOrder){
         int index = carOrder - 1;
         if (index != 0){
-            clickButton(carSelectButton);
+            clickElement(carSelectButton);
             waitForAttributeValueChanged(carSelectButton, selectButtonAttributeName, "true");
             actions
                     .moveToElement(carItems.get(index))

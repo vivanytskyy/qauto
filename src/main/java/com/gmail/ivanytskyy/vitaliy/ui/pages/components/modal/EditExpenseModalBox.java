@@ -6,7 +6,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.StringConstants.DATE_FORMAT;
-import static com.gmail.ivanytskyy.vitaliy.ui.utils.units.Alerts.*;
 
 /**
  * @author Vitaliy Ivanytskyy
@@ -45,17 +44,11 @@ public class EditExpenseModalBox extends ExpenseModalBox{
         return this;
     }
     public void clickSaveExpenseButtonPositiveCase(){
-        clickButton(saveButton);
-        wait.until(driver -> {
-            if(driver.findElements(alertExistLocator).size() != 0){
-                return !driver.findElement(alertExistLocator).getText().contains(EDITED_EXPENSE_ALERT.getAlert());
-            }
-            return true;
-        });
+        clickElement(saveButton);
         wait.until(ExpectedConditions.invisibilityOf(modalTitle));
     }
     public EditExpenseModalBox clickSaveExpenseButtonNegativeCase(){
-        clickButton(saveButton);
+        clickElement(saveButton);
         return this;
     }
     public void saveExpensePositiveCase(

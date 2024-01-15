@@ -110,8 +110,8 @@ public class UserGarageTest extends BaseTest {
                 .getSaveCarButtonName();
         Assert.assertEquals(actualTitle, EXPECTED_ADD_CAR_BUTTON_NAME);
     }
-    @Test(description = "Add a car. Positive case.", priority = 100)
-    public void addCarByIdTest(){
+    @Test(description = "Add a car (default car). Positive case.", priority = 100)
+    public void addDefaultCarByIdTest(){
         int brandId = 0;
         int modelId = 0;
         int mileage = new Random().nextInt(1, 100);
@@ -131,7 +131,49 @@ public class UserGarageTest extends BaseTest {
         softAssert.assertEquals(actualMileage, mileage, "Mileage is incorrect");
         softAssert.assertAll();
     }
-    @Test(description = "Add a car by brand and model names. Positive case.", priority = 101)
+    @Test(description = "Add a car. Positive case.", priority = 101)
+    public void addCarByIdTest(){
+        int brandId = 4;
+        int modelId = 4;
+        int mileage = new Random().nextInt(1, 100);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
+        userGaragePage
+                .addCar()
+                .addCarPositiveCase(brandId, modelId, mileage);
+        CarItem carItem = userGaragePage.getCarItem(1);
+        int actualMileage = carItem.getCurrentMileage();
+        String carItemTitle = carItem.getItemTitle();
+        String actualBrandName = carItemTitle.split(" ")[0];
+        String actualModelName = carItemTitle.split(" ")[1];
+        carItem.editCar().removeCar().confirmRemoving();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualBrandName, "Fiat", "Brand name is incorrect");
+        softAssert.assertEquals(actualModelName, "Scudo", "Model name is incorrect");
+        softAssert.assertEquals(actualMileage, mileage, "Mileage is incorrect");
+        softAssert.assertAll();
+    }
+    @Test(description = "Add a car by brand and model names (default car). Positive case.", priority = 102)
+    public void addDefaultCarByBrandAndModelNamesTest(){
+        String brandName = "Audi";
+        String modelName = "TT";
+        int mileage = new Random().nextInt(1, 100);
+        UserGaragePage userGaragePage = signUpAsTempUser(tempUser);
+        userGaragePage
+                .addCar()
+                .addCarPositiveCase(brandName, modelName, mileage);
+        CarItem carItem = userGaragePage.getCarItem(1);
+        int actualMileage = carItem.getCurrentMileage();
+        String carItemTitle = carItem.getItemTitle();
+        String actualBrandName = carItemTitle.split(" ")[0];
+        String actualModelName = carItemTitle.split(" ")[1];
+        carItem.editCar().removeCar().confirmRemoving();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualBrandName, brandName, "Brand name is incorrect");
+        softAssert.assertEquals(actualModelName, modelName, "Model name is incorrect");
+        softAssert.assertEquals(actualMileage, mileage, "Mileage is incorrect");
+        softAssert.assertAll();
+    }
+    @Test(description = "Add a car by brand and model names. Positive case.", priority = 103)
     public void addCarByBrandAndModelNamesTest(){
         String brandName = "Ford";
         String modelName = "Focus";
@@ -211,7 +253,7 @@ public class UserGarageTest extends BaseTest {
                 .removeCar()
                 .confirmRemoving();
     }
-    @Test(description = "Add a car. Positive case.", priority = 120)
+    @Test(description = "Edit a car. Positive case.", priority = 120)
     public void editCarByIdTest(){
         int initialBrandId = 0;
         int initialModelId = 0;

@@ -63,7 +63,7 @@ public class UserSettingsPage extends UserPage {
         return getText(pageTitle);
     }
     public RemoveAccountModalBox removeAccount(){
-        clickButton(removeAccountButton);
+        clickElement(removeAccountButton);
         return new RemoveAccountModalBox();
     }
     public String getCurrencyTitle(){
@@ -103,7 +103,7 @@ public class UserSettingsPage extends UserPage {
                 .findFirst()
                 .orElseThrow();
         if(!necessaryButton.getAttribute("class").contains("-active")){
-            clickButton(necessaryButton);
+            clickElement(necessaryButton);
             waitForPartOfAttributeValueChanged(necessaryButton, "class", "-active");
         }
         return new UserSettingsPage();
@@ -115,7 +115,7 @@ public class UserSettingsPage extends UserPage {
                 .findFirst()
                 .orElseThrow();
         if(!necessaryButton.getAttribute("class").contains("-active")){
-            clickLink(necessaryButton);
+            clickElement(necessaryButton);
             waitForPartOfAttributeValueChanged(necessaryButton, "class", "-active");
         }
         return new UserSettingsPage();
@@ -129,7 +129,7 @@ public class UserSettingsPage extends UserPage {
         return this;
     }
     public UserSettingsPage clickChangeEmailButtonPositiveCase(){
-        clickButton(changeEmailButton);
+        clickElement(changeEmailButton);
         waitForPartOfAttributeValueChanged(changeEmailForm, "class", "ng-invalid");
         return this;
     }
@@ -152,7 +152,7 @@ public class UserSettingsPage extends UserPage {
         return this;
     }
     public UserSettingsPage clickChangePasswordButtonPositiveCase(){
-        clickButton(changePasswordButton);
+        clickElement(changePasswordButton);
         return this;
     }
     public UserSettingsPage changePasswordPositiveCase(String oldPassword, String newPassword){

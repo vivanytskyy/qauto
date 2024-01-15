@@ -26,21 +26,21 @@ public class UserHeader extends Header {
     private WebElement dropdown;
 
     public UserGaragePage openGarage(){
-        clickLink(garageLink);
+        clickElement(garageLink);
         return new UserGaragePage();
     }
     public UserProfileDropdown openUserProfileDropdown(){
         wait.until(ExpectedConditions.visibilityOf(dropdown));
-        clickButton(userProfileDropdownButton);
+        clickElement(userProfileDropdownButton);
         waitForPartOfAttributeValueChanged(dropdown, "class", "show");
         return new UserProfileDropdown();
     }
     public UserInstructionsPage openInstructions(){
-        clickLink(instructionsLink);
+        clickElement(instructionsLink);
         return new UserInstructionsPage();
     }
     public UserExpensesPage openExpenses(){
-        clickLink(fuelExpensesLink);
+        clickElement(fuelExpensesLink);
         return new UserExpensesPage();
     }
 }

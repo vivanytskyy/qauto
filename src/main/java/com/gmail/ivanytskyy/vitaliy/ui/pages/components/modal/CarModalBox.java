@@ -29,10 +29,10 @@ public abstract class CarModalBox extends ModalBox{
     private WebElement cancelButton;
 
     public void clickCancelButton(){
-        clickButton(cancelButton);
+        clickElement(cancelButton);
     }
     public void closeModalBox(){
-        clickButton(closeButton);
+        clickElement(closeButton);
     }
     public String getCancelButtonName(){
         return getText(cancelButton);
