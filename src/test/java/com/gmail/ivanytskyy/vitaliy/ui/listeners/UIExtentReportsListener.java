@@ -11,13 +11,16 @@ import org.testng.ITestResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Vitaliy Ivanytskyy
- * @version 1.00
- * @date 04/09/2023
+ * @version 1.01
+ * @date 11/01/2024
  */
 public class UIExtentReportsListener extends ExtentITestListenerClassAdapter {
+    private static final Logger LOG = LoggerFactory.getLogger(UIExtentReportsListener.class);
     static {
         System.setProperty("extent.reporter.html.start", "true");
         System.setProperty("extent.reporter.html.out", "target/extentReport/UIExtentHtml.html");
@@ -26,6 +29,7 @@ public class UIExtentReportsListener extends ExtentITestListenerClassAdapter {
     @Override
     public synchronized void onTestFailure(ITestResult result) {
         super.onTestFailure(result);
+        LOG.error("Exception occurred: ", result.getThrowable());
         ExtentTest test = ExtentTestManager.getTest(result);
         File file = getScreenshot(result);
         try {
@@ -34,6 +38,7 @@ public class UIExtentReportsListener extends ExtentITestListenerClassAdapter {
                     .encodeToString(FileUtils.readFileToByteArray(file)), "Failed test");
             file.delete();
         } catch (IOException e) {
+            LOG.error("Exception occurred: ", e);
             throw new RuntimeException(e);
         }
     }
@@ -48,16 +53,18 @@ public class UIExtentReportsListener extends ExtentITestListenerClassAdapter {
                     .encodeToString(FileUtils.readFileToByteArray(file)), "Skipped test");
             file.delete();
         } catch (IOException e) {
+            LOG.error("Exception occurred: ", e);
             throw new RuntimeException(e);
         }
     }
-    protected File getScreenshot(ITestResult iTestResult){
-        File fileForCopy = new File(iTestResult.getName() + ".jpg");
+    protected File getScreenshot(ITestResult result){
+        File fileForCopy = new File(result.getName() + ".jpg");
         File screenshotFile = ((TakesScreenshot) WebDriverHolder.getWebDriver())
                 .getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screenshotFile, fileForCopy);
         } catch (IOException e) {
+            LOG.error("Exception occurred: ", e);
             throw new RuntimeException(e);
         }
         return fileForCopy;

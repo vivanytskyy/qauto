@@ -13,7 +13,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testng-version>7.8.0</testng-version>
-        <slf4j.version>2.0.9</slf4j.version>
         <selenium-java.version>4.16.1</selenium-java.version>
         <webdrivermanager.version>5.6.2</webdrivermanager.version>
         <maven-surefire-plugin-version>3.2.3</maven-surefire-plugin-version>
@@ -24,6 +23,8 @@
         <javafaker.version>1.0.2</javafaker.version>
         <rest-assured.version>5.4.0</rest-assured.version>
         <extentreports.version>1.0.7</extentreports.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <logback.version>1.4.14</logback.version>
     </properties>
 
     <dependencies>
@@ -33,16 +34,25 @@
             <version>${testng-version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Loggers -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- Faker -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
@@ -95,6 +105,7 @@
             <artifactId>extentreports-testng-adapter</artifactId>
             <version>${extentreports.version}</version>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>
