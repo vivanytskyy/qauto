@@ -60,10 +60,10 @@ public class BaseTest {
     @Parameters({"browser"})
     public void setUp(@Optional("chrome") String browser){
         if(browser.equals("chrome")){
-            WebDriverManager.chromedriver().setup();
+            WebDriverManager.chromedriver().clearDriverCache().setup();
             webDriver = new ChromeDriver(getChromeOptions());
         }else if(browser.equals("firefox")){
-            WebDriverManager.firefoxdriver().setup();
+            WebDriverManager.firefoxdriver().clearDriverCache().setup();
             webDriver = new FirefoxDriver(getFirefoxOptions());
         }else{
             throw new IllegalArgumentException("Incorrect browser name");
